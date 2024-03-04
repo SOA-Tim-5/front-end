@@ -1,0 +1,96 @@
+<!-- <div id="club">
+    <p>My clubs</p>
+    <hr>
+    <div id="club-details">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let club of clubs">
+                    <td>{{club.name}}</td>
+                    <td>{{club.description}}</td>
+                    <td>
+                        <button color="primary" (click)="toggleShowImage(club.image)" mat-icon-button>
+                            <mat-icon>image</mat-icon>
+                        </button>
+                    </td>
+                    <td>
+                        <button color="primary" (click)="onEditClicked(club)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </td>
+                    <td>
+                        <button color="primary" mat-button [routerLink]="['/club-join-request-management', club.id]">
+                            Manage join requests
+                        </button>
+                        <button color="primary" (click)="onDeleteClicked(club.id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                    <td>
+                        <button color="primary" mat-button [routerLink]="['/club-members-management', club.id]">
+                            Manage members
+                        </button>
+                    </td>
+                </tr>
+                <tr><button color="primary" (click)="onAddClicked()" mat-icon-button>
+                    <mat-icon>add</mat-icon>
+                </button></tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="shouldShowImage">
+        <img [src]="imgSrc" width="400px" height="400px"/>
+    </div>
+    <div>
+        <xp-club-form *ngIf="shouldRenderClubForm" [shouldEdit]="shouldEdit" [club]="selectedClub" (clubUpdated)="getClubs()"></xp-club-form>
+    </div>
+    </div>
+</div> -->
+
+<div class="clubs">
+    <div class="clubs-header">
+        <div class="details-wrapper">
+            <div class="clubs-header-title">My Clubs</div>
+            <div class="btn" (click)="onAddClicked()">Add Club</div>
+        </div>
+        <div class="clubs-header-paragraph">
+            This page allows you to manage your clubs efficiently. You can edit,
+            delete, and view only the clubs you've created. Keep things simple
+            and organized as you customize your club portfolio.
+        </div>
+    </div>
+    <div class="separator"></div>
+    <div class="clubs-wrapper">
+        <div class="club-wrapper" *ngFor="let club of clubs">
+            <xp-club-card
+                (editClubClicked)="onEditClicked($event)"
+                (deleteClubClicked)="onDeleteClicked($event.id)"
+                [club]="club"
+            ></xp-club-card>
+        </div>
+    </div>
+    <div class="club-join-header">
+        <div class="clubs-header-title">My Club Join Requests</div>
+        <div class="clubs-header-paragraph">
+            Here, you can conveniently monitor the status of your club join
+            requests. Easily check whether your request has been approved or
+            not, and if needed, cancel pending requests. Stay in control of your
+            club memberships with this straightforward and efficient tool.
+        </div>
+    </div>
+    <div class="separator"></div>
+
+    <div class="requests">
+        <xp-my-club-join-requests />
+    </div>
+</div>

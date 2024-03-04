@@ -1,0 +1,19 @@
+<div class="rating-form-container">
+    <div class="rating-form-header">
+        <h2>Your opinion matters to us</h2>
+    </div>
+    <form class="rating-form" [formGroup]="ratingForm">
+        <div class="center-text bold-text">
+            How do you like the app?
+        </div>
+        <div class="star-rating">
+            <star-rating-control [starType]="'svg'" [size]="'large'" [space]="'between'" [hoverEnabled]="true" formControlName="grade"></star-rating-control>
+        </div>
+        <textarea cols="35" rows="5" formControlName="comment" [value]="ratingForm.value.comment" placeholder="Leave a comment if you'd like" resize="none"></textarea>
+        <div class="btn" [ngClass]="{'disabled-btn': !ratingForm.valid}" (click)="onSubmit()">Submit</div>
+        <div class="btn" *ngIf="rating" (click)="onDelete()">Delete</div>
+    </form>
+    <div class="rating-form-footer">
+        <a class="clickable-text" (click)="closeForm()">Maybe later</a>
+    </div>
+</div>

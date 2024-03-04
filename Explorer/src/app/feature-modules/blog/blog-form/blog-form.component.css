@@ -1,0 +1,104 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+}
+
+.input-container {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.quill-area {
+    display: flex;
+    flex-direction: column;
+    max-width: 50rem;
+    min-width: 15rem;
+    color: rgba(var(--clr-text));
+    height: 30rem;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+::ng-deep .ql-container {
+    flex-grow: 1;
+    border-radius: 0.5rem;
+    overflow-y: auto;
+}
+
+::ng-deep .ql-editor {
+    overflow-y: auto;
+    position: relative;
+}
+
+::ng-deep .ql-toolbar {
+    border-radius: 0.5rem;
+}
+
+::ng-deep .ql-editor.ql-blank::before {
+    color: rgba(var(--clr-text), 0.6) !important;
+}
+
+::ng-deep .ql-snow .ql-tooltip {
+    background-color: rgba(var(--clr-secondary-background)) !important;
+}
+
+::ng-deep .ql-snow .ql-stroke {
+    stroke: rgba(var(--clr-text), 0.6);
+}
+
+::ng-deep .ql-snow .ql-fill {
+    fill: rgba(var(--clr-text), 0.6);
+}
+
+::ng-deep .ql-toolbar.ql-snow .ql-picker-label {
+    color: rgba(var(--clr-text), 0.6);
+}
+
+::ng-deep .ql-snow .ql-tooltip::before {
+    content: "Insert image link: ";
+    color: rgba(var(--clr-text));
+}
+
+::ng-deep .ql-snow .ql-editor img {
+    min-width: 25rem;
+}
+
+::ng-deep .ql-snow .ql-tooltip {
+    position: absolute;
+    top: 0% !important;
+    left: 50% !important;
+    width: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(var(--clr-background)) !important;
+
+    z-index: 9999999999;
+}
+
+::ng-deep .ql-tooltip .ql-editing {
+    /* left: unset !important; */
+    z-index: 9999999999;
+    background-color: black !important;
+    /* background-color: rgba(var(--clr-secondary-background)) !important; */
+}
+
+h1 {
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 1rem;
+}
+
+.error {
+    border-color: red;
+}
+
+input {
+    width: 17rem;
+}

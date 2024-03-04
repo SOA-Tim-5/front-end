@@ -1,0 +1,89 @@
+<button
+    *ngIf="user.role === 'tourist'"
+    (click)="onAddClicked()"
+    [disabled]="!reviewExists"
+    color="primary"
+    mat-icon-button
+>
+    <mat-icon>add</mat-icon>
+</button>
+
+<div class="review-list">
+    <div class="review" *ngFor="let review of reviews">
+        <div class="border">
+            <div class="user-info">
+                <div class="tourist-row">
+                    <div class="tourist-image">
+                        <img
+                            [src]="review.tourist!.profilePicture"
+                            alt="Tourist Image"
+                        />
+                    </div>
+                    <div class="user-details">
+                        <div class="username">
+                            {{ review.tourist?.username }}
+                            <span class="middot"> &middot; </span>
+                            <span class="comment-date">{{
+                                review.commentDate | date : "MMM d, y"
+                            }}</span>
+                        </div>
+                        <div class="stars">
+                            {{ review.rating }}
+                            <fa-icon class="fa-star" [icon]="faStar" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-comment">
+                <div>
+                    {{
+                        review.showMore
+                            ? review.comment
+                            : review.comment.length > 300
+                            ? review.comment.slice(0, 300) + " ..."
+                            : review.comment
+                    }}
+                </div>
+                <button
+                    *ngIf="review.comment.length > 300"
+                    class="show-more-button"
+                    (click)="toggleShowMore(review)"
+                >
+                    {{ review.showMore ? "Hide" : "Show more" }}
+                </button>
+            </div>
+
+            <div class="image-gallery">
+                <div class="gallery-design">
+                    <button
+                        *ngFor="let image of review.images"
+                        (click)="showImage(image)"
+                    >
+                        <img [src]="image" alt="Review Image" />
+                    </button>
+                </div>
+            </div>
+
+            <div class="last-row">
+                <div class="trip-date">
+                    Trip date: {{ review.tourVisitDate | date : "MMM d, y" }}
+                </div>
+                <span class="delete-edit-buttons">
+                    <fa-icon
+                        *ngIf="user.id == review.touristId"
+                        (click)="onEditClicked(review)"
+                        class="fa-icon-edit"
+                        [icon]="faPen"
+                    ></fa-icon>
+                    <fa-icon
+                        *ngIf="user.id == review.touristId"
+                        (click)="deleteReview(review)"
+                        class="fa-icon-delete"
+                        [icon]="faTrash"
+                    ></fa-icon>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

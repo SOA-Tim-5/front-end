@@ -1,0 +1,49 @@
+<div class="users">
+    <div
+        class="card"
+        [ngClass]="{ 'card-red': !person.user.isActive }"
+        *ngFor="let person of people"
+        #userCard
+        [@fadeIn]
+    >
+        <div class="user-data">
+            <div
+                class="picture"
+                [style.background-image]="
+                    'url(' + person.user.profilePicture + ')'
+                "
+            ></div>
+            <div class="row">
+                <div class="username-color">
+                    <div>{{ person.user.username }}</div>
+                </div>
+                <div class="credentials">
+                    <div>{{ person.name }}</div>
+                    <div>{{ person.surname }}</div>
+                </div>
+                <div>{{ person.email }}</div>
+            </div>
+            <div class="button" *ngIf="person.user.isActive">
+                <fa-icon
+                    class="green"
+                    [icon]="faMoneyBill"
+                    (click)="openWalletUpdateDialog(person)"
+                    tooltipPosition="bottom"
+                    pTooltip="wallet"
+                />
+            </div>
+            <div class="button" *ngIf="person.user.isActive; else notActive">
+                <fa-icon
+                    class="red"
+                    [icon]="faUserXmark"
+                    (click)="disableAccount(person, userCard)"
+                    tooltipPosition="bottom"
+                    pTooltip="block"
+                />
+            </div>
+            <ng-template #notActive>
+                <fa-icon class="button green" [icon]="faUserCheck" />
+            </ng-template>
+        </div>
+    </div>
+</div>

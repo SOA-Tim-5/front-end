@@ -1,0 +1,22 @@
+.blogs-container {
+    display: flex;
+    flex-direction: column;
+    /* outline: 2px solid red; */
+    padding: 2rem;
+    width: 100%;
+    margin-inline: auto;
+    gap: 1rem;
+    align-items: center;
+    min-height: 50rem;
+}
+
+.blogs-title {
+    color: rgb(var(--clr-text));
+    font-weight: 800;
+}
+
+select {
+    background-color: rgb(var(--clr-background-secondary));
+    border: 1px solid rgb(var(--clr-outline));
+    color: rgba(var(--clr-text));
+}

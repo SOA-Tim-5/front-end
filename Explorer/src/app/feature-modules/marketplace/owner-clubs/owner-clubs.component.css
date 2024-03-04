@@ -1,0 +1,126 @@
+/* #club {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+#club-details {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+p {
+    font-size: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 300px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+thead tr {
+    background-color: #3f51b5;
+    color: #ffffff;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px 15px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+tbody tr:last-of-type {
+    border-bottom: 2px solid #3f51b5;
+}
+
+tbody tr.active-row {
+    font-weight: bold;
+    color: #3f51b5;
+} */
+
+.clubs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 1rem;
+    padding-inline: 2rem;
+}
+
+.clubs-header-paragraph {
+    align-items: left;
+    width: 100%;
+    font-family: var(--fnt-body);
+    margin-top: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: rgba(var(--clr-text), 1);
+    transition: color 0.15s;
+    line-height: 1.5;
+}
+
+.clubs-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.btn {
+    width: 12rem;
+}
+
+.a {
+    height: 15rem;
+    width: 15rem;
+    background-color: aqua;
+    border: green 1px solid;
+}
+
+.details-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.clubs-header {
+    display: flex;
+    width: 100%;
+    align-items: left;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.club-join-header {
+    align-items: left;
+    width: 100%;
+}
+
+.clubs-header-title {
+    color: rgba(var(--clr-text), 1);
+    transition: color 0.15s;
+    font-family: var(--fnt-header);
+    font-size: 2.5rem;
+}
+
+.separator {
+    height: 1rem;
+    width: 100%;
+    border-bottom: rgba(var(--border-primary), 1) 1px solid;
+    transition: border 0.15s;
+    margin-bottom: 1rem;
+}

@@ -1,0 +1,9 @@
+:host {
+    min-height: 100vh;
+    height: auto;
+    width: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    /* overflow-x: hidden; */
+}

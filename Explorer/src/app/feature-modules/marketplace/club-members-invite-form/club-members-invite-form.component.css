@@ -1,0 +1,123 @@
+/* #member {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+#club-member-details {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+p {
+    font-size: 15px;
+}
+
+table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 300px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+thead tr {
+    background-color: #3f51b5;
+    color: #ffffff;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px 15px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+tbody tr:last-of-type {
+    border-bottom: 2px solid #3f51b5;
+}
+
+tbody tr.active-row {
+    font-weight: bold;
+    color: #3f51b5;
+} */
+
+.container {
+    display: flex;
+    justify-content: center;
+    color: rgb(var(--clr-text));
+    align-items: center;
+    height: 100%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(var(--clr-background-secondary));
+    width: 28rem;
+    padding: 2rem;
+    height: 100%;
+    margin: 1rem;
+    border-radius: 0.5rem;
+    border: rgba(var(--clr-outline-contrast), 1) 1px solid;
+    box-shadow: 0 0 0.5rem rgba(var(--clr-outline-contrast), 0.8);
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 1rem;
+    border-bottom: rgba(var(--clr-outline-contrast), 1) 1px solid;
+    padding: 1rem;
+}
+
+.btn {
+    align-self: center;
+    margin-block: 0.5rem;
+}
+
+.field {
+    margin-block: 0.5rem;
+    position: relative;
+}
+
+.field select {
+    width: 22rem;
+    height: 4rem;
+    border-radius: 0.5rem;
+    font-size: 1.3rem;
+    padding: 1rem;
+    border: rgba(var(--clr-outline-contrast), 1) 2px solid;
+    background: transparent;
+    color: rgb(var(--clr-text));
+    outline: none;
+}
+
+.field label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: rgb(var(--clr-text));
+    font-size: 1.3rem;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+select:focus ~ label,
+select:valid ~ label {
+    top: 0;
+    left: 1rem;
+    font-size: 1.2rem;
+    padding: 1px;
+    background-color: rgb(var(--clr-background-secondary));
+}

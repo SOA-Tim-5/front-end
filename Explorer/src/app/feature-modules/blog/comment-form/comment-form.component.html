@@ -1,0 +1,11 @@
+<div class="comment-form">
+    <textarea
+        cols="80"
+        rows="10"
+        placeholder="Comment text..."
+        [(ngModel)]="commentText"
+        resize="none"
+    ></textarea>
+    <div class="btn" (click)="onCommentClick()">Comment</div>
+    <div class="btn" (click)="onCancelClick()">Cancel</div>
+</div>

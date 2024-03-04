@@ -1,0 +1,127 @@
+::ng-deep .tag {
+    margin-left: 0 !important;
+    padding-right: 0.3rem !important;
+}
+
+.btn-done {
+    margin-inline: auto;
+}
+
+.map {
+    position: relative;
+    width: 100%;
+    flex-grow: 1;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    overflow: hidden;
+}
+
+::ng-deep #keypointMap {
+    height: 30rem !important;
+}
+
+.keypoints {
+    width: 100%;
+    min-height: 22rem;
+    /* outline: 2px solid purple; */
+    display: flex;
+    align-items: center;
+}
+
+.key-point-cards-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.list-cards-button:hover .triangle-left {
+    border-color: transparent rgba(var(--clr-primary-500), 0.95) transparent
+        transparent;
+}
+.list-cards-button:hover .triangle-right {
+    border-color: transparent transparent transparent
+        rgba(var(--clr-primary-500), 0.95);
+}
+
+.list-cards-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.triangle-left,
+.triangle-right {
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+.triangle-left {
+    border-width: 2rem 2.2rem 2rem 0;
+    border-color: transparent rgba(var(--clr-primary-500), 1) transparent
+        transparent;
+}
+
+.triangle-right {
+    border-width: 2rem 0 2rem 2.2rem;
+    border-color: transparent transparent transparent
+        rgba(var(--clr-primary-500), 1);
+}
+
+.cards-buttons-container {
+    display: flex;
+    align-items: center;
+}
+
+#next-button {
+    margin-left: auto;
+}
+
+.tour-search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.tour-search-header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-bottom: rgba(var(--border-primary), 1) 1px solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tour-search-header-title {
+    color: rgba(var(--clr-text), 1);
+    transition: color 0.15s;
+    font-family: var(--fnt-header);
+    font-size: 2.5rem;
+    margin-top: 3rem;
+    margin-right: auto;
+}
+
+.tour-search-header-paragraph {
+    font-family: var(--fnt-body);
+    margin-top: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: rgba(var(--clr-text), 1);
+    transition: color 0.15s;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.tour-search-body {
+    display: flex;
+    width: 100%;
+    min-height: 500px;
+    margin-bottom: 2rem;
+}
