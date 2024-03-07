@@ -3,22 +3,22 @@ import { KeyPoint } from "../../tour-authoring/model/key-point.model";
 import { Review } from "./review.model";
 
 export interface TourLimitedView {
-    authorId?: number;
-    id?: number;
-    name: string;
-    description: string;
-    difficulty?: number;
-    tags?: string[];
-    status?: TourStatus;
-    price?: number;
-    isDeleted?: boolean;
-    distance?: number;
-    publishDate?: Date;
-    durations?: TourDuration[];
-    keyPoint?: KeyPoint;
-    reviews?: Review[];
-    discount?: number;
-    discountedPrice?: number;
+    AuthorId?: number;
+    Id?: number;
+    Name: string;
+    Description: string;
+    Difficulty?: number;
+    Tags?: string[];
+    Status?: TourStatus;
+    Price?: number;
+    IsDeleted?: boolean;
+    Distance?: number;
+    PublishDate?: Date;
+    Durations?: TourDuration[];
+    KeyPoint?: KeyPoint;
+    Reviews?: Review[];
+    Discount?: number;
+    DiscountedPrice?: number;
 }
 
 export enum TourStatus {

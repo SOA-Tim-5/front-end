@@ -55,15 +55,15 @@ export class TouristsTourComponent implements OnInit {
     }
 
     onReadyClicked(tour: Tour): void {
-        if (tour.id) {
-            this.tourAuthoringService.getKeyPoints(tour.id).subscribe({
+        if (tour.Id) {
+            this.tourAuthoringService.getKeyPoints(tour.Id).subscribe({
                 next: (result: KeyPoint[]) => {
                     this.keyPoints = result;
 
                     if (
                         this.keyPoints.length > 1 &&
-                        tour.durations &&
-                        tour.durations.length > 0
+                        tour.Durations &&
+                        tour.Durations.length > 0
                     ) {
                         this.tourAuthoringService
                             .markTourAsReady(tour)

@@ -27,10 +27,10 @@
                 <div class="margin" *ngFor="let tour of tours">
                     <xp-tour-card-view
                         [tour]="tour"
-                        *ngIf="tour.status == 1"
+                        *ngIf="tour.Status == 1"
                         [selectable]="true"
-                        (click)="onSelect(tour.id!)"
-                        [selected]="this.dataCopy.tourIds.includes(tour.id!)"
+                        (click)="onSelect(tour.Id!)"
+                        [selected]="this.dataCopy.tourIds.includes(tour.Id!)"
                     ></xp-tour-card-view>
                 </div>
             </div>

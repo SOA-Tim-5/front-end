@@ -9,9 +9,9 @@
         <textarea class="bottom" cols="35" height="100%" rows="5"
         [(ngModel)]="campaignForm.value.campaignDescription" placeholder="Description"></textarea>
         <div class="selected-tours bottom">
-            <div class="selected-tour-card" *ngFor="let tour of selectedTours" (mouseenter)="selectedTourId = tour.id!" (mouseleave)="selectedTourId = 0">
-                <div class="margin-selected">{{tour.name}}</div>
-                <fa-icon class="form-selected-x" [icon]="faXmark" (click)="removeSelectedChild(tour.id!)" />
+            <div class="selected-tour-card" *ngFor="let tour of selectedTours" (mouseenter)="selectedTourId = tour.Id!" (mouseleave)="selectedTourId = 0">
+                <div class="margin-selected">{{tour.Name}}</div>
+                <fa-icon class="form-selected-x" [icon]="faXmark" (click)="removeSelectedChild(tour.Id!)" />
             </div>
         </div>
         <button class="btn stretch" (click)="createCampaign()">Add campaign</button>
@@ -21,8 +21,8 @@
         <div class="cont">
             <div class="tour-card-grid">
                 <xp-purchased-tour-card *ngFor="let tour of purchasedTours" (onSelected)="onSelectedTour(tour)"
-                    (onDeselected)="onDeselectedTour(tour)" [tour]="tour" [isGlowing]="tour.id == selectedTourId" [hasActiveTour]="hasTourActive"
-                    [isTourActive]="activeTourId == tour.id" [isCampaign]="isCampaign"></xp-purchased-tour-card>
+                    (onDeselected)="onDeselectedTour(tour)" [tour]="tour" [isGlowing]="tour.Id == selectedTourId" [hasActiveTour]="hasTourActive"
+                    [isTourActive]="activeTourId == tour.Id" [isCampaign]="isCampaign"></xp-purchased-tour-card>
             </div>
         </div>
         <h1 class="title title-margin">Campaigns</h1>

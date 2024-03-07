@@ -56,10 +56,10 @@ export class TourExecutingComponent implements OnInit {
         isCampaign: false,
     };
     tour: Tour = {
-        name: ".",
-        description: ".",
-        tags: ["."],
-        difficulty: 1,
+        Name: ".",
+        Description: ".",
+        Tags: ["."],
+        Difficulty: 1,
     };
     isTourInProgress: boolean = true;
     tourImage: string;
@@ -188,7 +188,7 @@ export class TourExecutingComponent implements OnInit {
     }
 
     showSecret(keyPointId: number) {
-        this.tour.keyPoints?.forEach(keyPoint => {
+        this.tour.KeyPoints?.forEach(keyPoint => {
             if (keyPoint.id == keyPointId) {
                 if (keyPoint.secret?.description != "") {
                     this.dialogRef.open(SecretPopupComponent, {
@@ -209,10 +209,10 @@ export class TourExecutingComponent implements OnInit {
                 next: (result: Tour) => {
                     this.tour = result;
                     this.tourImage =
-                        this.tour.keyPoints![0].imagePath.startsWith("http")
-                            ? this.tour.keyPoints![0].imagePath
+                        this.tour.KeyPoints![0].imagePath.startsWith("http")
+                            ? this.tour.KeyPoints![0].imagePath
                             : environment.imageHost +
-                              this.tour.keyPoints![0].imagePath;
+                              this.tour.KeyPoints![0].imagePath;
                     this.getWeather();
                 },
             });
@@ -223,7 +223,7 @@ export class TourExecutingComponent implements OnInit {
                     this.tour = result;
                     this.tourImage =
                         environment.imageHost +
-                        this.tour.keyPoints![0].imagePath;
+                        this.tour.KeyPoints![0].imagePath;
                     this.getWeather();
                 },
             });
@@ -253,7 +253,7 @@ export class TourExecutingComponent implements OnInit {
     }
 
     createBlog(): void {
-        this.router.navigate(["/tourists-blog/" + this.tour.id]);
+        this.router.navigate(["/tourists-blog/" + this.tour.Id]);
     }
 
     getLiveTourExecution() {
@@ -267,7 +267,7 @@ export class TourExecutingComponent implements OnInit {
     }
 
     getKeyPoint(LatLng: any) {
-        this.tour.keyPoints?.forEach(keyPoint => {
+        this.tour.KeyPoints?.forEach(keyPoint => {
             if (
                 keyPoint.latitude == LatLng.lat &&
                 keyPoint.longitude == LatLng.lng
@@ -298,8 +298,8 @@ export class TourExecutingComponent implements OnInit {
     getWeather() {
         this.service
             .getWheather(
-                this.tour.keyPoints![0].latitude,
-                this.tour.keyPoints![0].longitude,
+                this.tour.KeyPoints![0].latitude,
+                this.tour.KeyPoints![0].longitude,
             )
             .subscribe({
                 next: (result: any) => {

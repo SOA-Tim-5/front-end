@@ -6,12 +6,12 @@
     <div class="tour-card-left">
         <div class="tour-image-container">
             <xp-carousel
-                *ngIf="tour && tour.keyPoints && tour.keyPoints[0]"
+                *ngIf="tour && tour.KeyPoints && tour.KeyPoints[0]"
                 [slides]="images"
             ></xp-carousel>
             <img
                 class="tour-image"
-                *ngIf="!tour || !tour.keyPoints || !tour.keyPoints[0]"
+                *ngIf="!tour || !tour.KeyPoints || !tour.KeyPoints[0]"
                 src="https://imgs.search.brave.com/udmDGOGRJTYO6lmJ0ADA03YoW4CdO6jPKGzXWvx1XRI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzAyLzY4LzU1LzYw/LzM2MF9GXzI2ODU1/NjAxMl9jMVdCYUtG/TjVyalJ4UjJleVYz/M3puSzRxblllS1pq/bS5qcGc"
             />
         </div>
@@ -21,19 +21,19 @@
             <div class="tour-tags">
                 <div
                     class="tour-tag"
-                    *ngIf="tour.recommended"
+                    *ngIf="tour.Recommended"
                     style="background-color: olivedrab; color: white"
                 >
                     Recommended
                 </div>
                 <div
                     class="tour-tag"
-                    *ngIf="tour.active"
+                    *ngIf="tour.Active"
                     style="background-color: orange; color: white"
                 >
                     Active
                 </div>
-                <div class="tour-tag" *ngFor="let tag of tour.tags">
+                <div class="tour-tag" *ngFor="let tag of tour.Tags">
                     {{ tag }}
                 </div>
             </div>
@@ -45,7 +45,7 @@
             >
                 <fa-icon
                     class="tour-action red"
-                    *ngIf="tour.status == 2 || tour.status == 0"
+                    *ngIf="tour.Status == 2 || tour.Status == 0"
                     [icon]="faTrash"
                     tooltipPosition="bottom"
                     pTooltip="delete"
@@ -53,13 +53,13 @@
                 <fa-icon
                     class="tour-action"
                     [icon]="faPersonHiking"
-                    [routerLink]="['/tours/equipment', tour.id]"
+                    [routerLink]="['/tours/equipment', tour.Id]"
                     tooltipPosition="bottom"
                     pTooltip="select equipment"
                 />
                 <fa-icon
                     class="tour-action"
-                    *ngIf="tour.status == 2 || tour.status == 0"
+                    *ngIf="tour.Status == 2 || tour.Status == 0"
                     [icon]="faMoneyBills"
                     (click)="onCouponClicked(tour); $event.stopPropagation()"
                     tooltipPosition="bottom"
@@ -67,7 +67,7 @@
                 />
                 <fa-icon
                     class="tour-action"
-                    *ngIf="tour.status == 1"
+                    *ngIf="tour.Status == 1"
                     [icon]="faBoxArchive"
                     (click)="onArchiveClicked(tour); $event.stopPropagation()"
                     tooltipPosition="bottom"
@@ -75,9 +75,9 @@
                 />
                 <fa-icon
                     class="tour-action"
-                    *ngIf="tour.status == 1 || tour.status == 2"
+                    *ngIf="tour.Status == 1 || tour.Status == 2"
                     [icon]="faBarChart"
-                    [routerLink]="['/tour-statistics', tour.id]"
+                    [routerLink]="['/tour-statistics', tour.Id]"
                     tooltipPosition="bottom"
                     pTooltip="statistics"
                 />
@@ -85,13 +85,13 @@
                 <fa-icon
                     class="tour-action"
                     [icon]="faMapLocation"
-                    [routerLink]="['/tour', tour.id, 'key-points']"
+                    [routerLink]="['/tour', tour.Id, 'key-points']"
                     tooltipPosition="bottom"
                     pTooltip="select keypoints"
                 />
                 <fa-icon
                     class="tour-action"
-                    *ngIf="tour.status == 2 || tour.status == 0"
+                    *ngIf="tour.Status == 2 || tour.Status == 0"
                     (click)="onEditClicked(); $event.stopPropagation()"
                     [icon]="faPen"
                     tooltipPosition="bottom"
@@ -101,7 +101,7 @@
         </div>
         <div class="tour-card-information">
             <div class="tour-card-center">
-                <div class="tour-title">{{ tour.name }}</div>
+                <div class="tour-title">{{ tour.Name }}</div>
                 <div class="tour-rating">
                     <fa-icon class="tour-rating-star" [icon]="faStar" />
                     <div class="tour-rating-average">
@@ -109,16 +109,16 @@
                     </div>
                 </div>
                 <div class="tour-description">
-                    {{ tour.description }}
+                    {{ tour.Description }}
                 </div>
                 <div
                     class="tour-keypoints"
-                    *ngIf="tour && tour.keyPoints && tour.keyPoints[0]"
+                    *ngIf="tour && tour.KeyPoints && tour.KeyPoints[0]"
                 >
                     <div class="tour-keypoints-label">Keypoints:</div>
                     <div
                         class="tour-keypoint"
-                        *ngFor="let keyPoint of tour.keyPoints"
+                        *ngFor="let keyPoint of tour.KeyPoints"
                     >
                         {{ keyPoint.name }}
                     </div>
@@ -126,17 +126,17 @@
                 <div class="tour-distance">
                     <div class="tour-distance-label">Distance:</div>
                     <div class="tour-distance-value">
-                        {{ tour.distance }} km
+                        {{ tour.Distance }} km
                     </div>
                 </div>
             </div>
             <div class="tour-card-right">
                 <div class="tour-price" *ngIf="user && user.role === 'author'">
                     <div *ngIf="discount" class="tour-price-value">
-                        <s>{{ tour.price }}</s>
+                        <s>{{ tour.Price }}</s>
                     </div>
                     <div *ngIf="!discount" class="tour-price-value">
-                        {{ tour.price }}
+                        {{ tour.Price }}
                     </div>
                     <fa-icon class="tour-price-tokens" [icon]="faCoins" />
                 </div>
@@ -154,7 +154,7 @@
                     *ngIf="user && user.role === 'tourist'"
                 >
                     <div *ngIf="!discount" class="tour-price-value">
-                        {{ tour.price }}
+                        {{ tour.Price }}
                     </div>
                     <fa-icon
                         *ngIf="!discount"
@@ -169,7 +169,7 @@
                     class="tour-price-tourist"
                 >
                     <div *ngIf="discount" class="tour-price-value">
-                        <s>{{ tour.price }}</s>
+                        <s>{{ tour.Price }}</s>
                     </div>
                     <fa-icon
                         *ngIf="discount"
@@ -192,9 +192,9 @@
                     "
                     (click)="
                         addOrderItem(
-                            tour.id,
-                            tour.name,
-                            discount ? discountedPrice! : tour.price
+                            tour.Id,
+                            tour.Name,
+                            discount ? discountedPrice! : tour.Price
                         );
                         $event.stopPropagation()
                     "
@@ -212,7 +212,7 @@
                         !hideAddToCart
                     "
                     (click)="
-                        onAddToWishlistClicked(tour.id!);
+                        onAddToWishlistClicked(tour.Id!);
                         $event.stopPropagation()
                     "
                 >
@@ -222,7 +222,7 @@
 
                 <div
                     class="btn view"
-                    [routerLink]="['/tour/', tour.id]"
+                    [routerLink]="['/tour/', tour.Id]"
                     *ngIf="!hideIcons && !selectable"
                 >
                     <fa-icon [icon]="faMap" />

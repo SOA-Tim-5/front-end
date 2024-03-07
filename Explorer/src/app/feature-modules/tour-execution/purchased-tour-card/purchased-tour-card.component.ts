@@ -43,7 +43,7 @@ export class PurchasedTourCardComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.images = this.tour.keyPoints!.map(kp =>
+        this.images = this.tour.KeyPoints!.map(kp =>
             kp.imagePath.startsWith("http")
                 ? kp.imagePath
                 : environment.imageHost + kp.imagePath,
@@ -56,11 +56,11 @@ export class PurchasedTourCardComponent implements OnInit {
         }, 1000);
     }
     StartTour() {
-        this.execution.tourId = this.tour.id!;
+        this.execution.tourId = this.tour.Id!;
         this.execution.isCampaign = false;
         this.service.startTour(this.execution).subscribe(() => {
             this.router.navigate([
-                "/tour-executing/" + this.tour.id,
+                "/tour-executing/" + this.tour.Id,
                 { isCampaign: false },
             ]);
         });
@@ -68,7 +68,7 @@ export class PurchasedTourCardComponent implements OnInit {
 
     ContinueTour() {
         this.router.navigate([
-            "/tour-executing/" + this.tour.id,
+            "/tour-executing/" + this.tour.Id,
             { isCampaign: false },
         ]);
     }
@@ -76,7 +76,7 @@ export class PurchasedTourCardComponent implements OnInit {
     ShowKeyPoints() {
         const dialogRef = this.dialogRef.open(KeyPointsViewComponent, {
             data: {
-                keyPoints: this.tour.keyPoints,
+                keyPoints: this.tour.KeyPoints,
             },
         });
     }
@@ -84,7 +84,7 @@ export class PurchasedTourCardComponent implements OnInit {
     ShowProblemForm() {
         const dialogRef = this.dialogRef.open(ProblemFormComponent, {
             data: {
-                tourId: this.tour.id!,
+                tourId: this.tour.Id!,
             },
         });
     }
@@ -102,9 +102,9 @@ export class PurchasedTourCardComponent implements OnInit {
     ShowWheather() {
         const dialogRef = this.dialogRef.open(TourWheatherComponent, {
             data: {
-                longitude: this.tour.keyPoints![0].longitude,
-                latitude: this.tour.keyPoints![0].latitude,
-                tourName: this.tour.name,
+                longitude: this.tour.KeyPoints![0].longitude,
+                latitude: this.tour.KeyPoints![0].latitude,
+                tourName: this.tour.Name,
             },
         });
     }

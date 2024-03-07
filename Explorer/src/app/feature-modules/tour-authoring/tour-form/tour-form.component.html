@@ -2,19 +2,19 @@
     <div>
         <mat-form-field>
             <mat-label >Name</mat-label>
-            <input matInput formControlName="name" type="text"/>
+            <input matInput formControlName="Name" type="text"/>
         </mat-form-field>
         <mat-form-field>
           <mat-label >Description</mat-label>
           <textarea matInput
           cdkTextareaAutosize
           cdkAutosizeMinRows="1"
-          formControlName="description"
+          formControlName="Description"
           cdkAutosizeMaxRows="5"></textarea>
         </mat-form-field>
         <mat-form-field>
             <mat-label >Difficulty</mat-label>
-            <input matInput type="number" min="1" max="5" formControlName="difficulty" >
+            <input matInput type="number" min="1" max="5" formControlName="Difficulty" >
         </mat-form-field>
         
 
@@ -26,7 +26,7 @@
           <button class="form-button" (click)="addTag(tagInput.value); tagInput.value=''">Add Tag</button>
         
           <div>
-            <div *ngFor="let tag of tourForm.get('tags')?.value; let i = index">
+            <div *ngFor="let tag of tourForm.get('Tags')?.value; let i = index">
               <span>{{ tag }}</span>
               <button class="form-button-remove" (click)="removeTag(i)">Remove</button>
             </div>

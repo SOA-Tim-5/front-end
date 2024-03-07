@@ -103,12 +103,12 @@ export class PurchasedToursComponent implements OnInit {
     onSelectedTour(tour: Tour) {
         if (this.selectedTours.includes(tour)) return;
         this.selectedTours.push(tour);
-        if (tour.id) this.selectedTourIds.push(tour.id);
-        console.log(tour.name);
+        if (tour.Id) this.selectedTourIds.push(tour.Id);
+        console.log(tour.Name);
     }
     onDeselectedTour(tour: Tour) {
         this.selectedTours = this.selectedTours.filter(item => item !== tour);
-        console.log(tour.name);
+        console.log(tour.Name);
     }
     CancelCampaignCreating() {
         this.campaignForm.reset({
@@ -120,8 +120,8 @@ export class PurchasedToursComponent implements OnInit {
         this.tourCards.forEach(card => card.selected = false);
     }
     removeSelectedChild(tourId: number) {
-        this.tourCards.forEach(card => { if (card.tour.id == tourId) card.selected = false });
-        this.selectedTours = this.selectedTours.filter(item => item.id !== tourId);
+        this.tourCards.forEach(card => { if (card.tour.Id == tourId) card.selected = false });
+        this.selectedTours = this.selectedTours.filter(item => item.Id !== tourId);
         this.selectedTourId = 0;
     }
     createCampaign() {

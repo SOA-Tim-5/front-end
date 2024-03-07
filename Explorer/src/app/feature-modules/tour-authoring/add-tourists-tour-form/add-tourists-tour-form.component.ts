@@ -21,8 +21,8 @@ export class AddTouristsTourFormComponent {
   @Output() toursUpdated = new EventEmitter<null>();
 
   public tour: Tour = {
-    name:"",
-    description: "",
+    Name:"",
+    Description: "",
   };
 
   addTourForm = new FormGroup({
@@ -37,10 +37,10 @@ export class AddTouristsTourFormComponent {
   submit():void{
     console.log(this.addTourForm.value);
     const tour: Tour = {
-      name: this.addTourForm.value.name || "",
-      description: this.addTourForm.value.description || "",
-      difficulty: 1,
-      tags: []
+      Name: this.addTourForm.value.name || "",
+      Description: this.addTourForm.value.description || "",
+      Difficulty: 1,
+      Tags: []
     };
 
     this.service.addTour(tour).subscribe({

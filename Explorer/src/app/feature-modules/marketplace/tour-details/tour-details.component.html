@@ -1,13 +1,13 @@
 <div class="tour-details">
-    <div class="tour-heading">{{tour?.name}}</div>
+    <div class="tour-heading">{{tour?.Name}}</div>
     <div class="tour-informations">
         <div>
-            <div class="tour-information">Description: {{tour?.description}}</div>
-            <div class="tour-information">Difficulty: {{tour?.difficulty}}</div>
-            <div class="tour-information">Price: {{tour?.price}}</div>
+            <div class="tour-information">Description: {{tour?.Description}}</div>
+            <div class="tour-information">Difficulty: {{tour?.Difficulty}}</div>
+            <div class="tour-information">Price: {{tour?.Price}}</div>
         </div>
 
-        <div class="rate-button" [routerLink]="['/review/', tour?.id]" *ngIf="canBeRated">
+        <div class="rate-button" [routerLink]="['/review/', tour?.Id]" *ngIf="canBeRated">
             <div class="rate-button-text">Rate</div>
         </div>
     </div>

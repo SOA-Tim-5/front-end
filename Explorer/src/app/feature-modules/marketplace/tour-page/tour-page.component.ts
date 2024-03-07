@@ -53,8 +53,8 @@ export class TourPageComponent {
             this.service.getTour(this.tourId).subscribe({
                 next: (result: Tour) => {
                     this.tour = result;
-                    if (this.tour.keyPoints)
-                        this.images = this.tour.keyPoints.map(kp =>
+                    if (this.tour.KeyPoints)
+                        this.images = this.tour.KeyPoints.map(kp =>
                             kp.imagePath.startsWith("http")
                                 ? kp.imagePath
                                 : environment.imageHost + kp.imagePath,
@@ -114,20 +114,20 @@ export class TourPageComponent {
 
     addOrderItem(): void {
         const orderItem: OrderItem = {
-            tourId: this.tour?.id,
-            tourName: this.tour?.name,
-            price: this.tour?.price,
+            tourId: this.tour?.Id,
+            tourName: this.tour?.Name,
+            price: this.tour?.Price,
             shoppingCartId: this.shoppingCart.id,
         };
         console.log(orderItem);
-        if (this.addedTours.find(tr => tr.id == this.tour?.id)) {
+        if (this.addedTours.find(tr => tr.Id == this.tour?.Id)) {
             this.notifier.notify(
                 "error",
                 "You have already added this item to the cart.",
             );
             return;
         }
-        if (this.tokens.find(tok => tok.tourId == this.tour?.id)) {
+        if (this.tokens.find(tok => tok.tourId == this.tour?.Id)) {
             this.notifier.notify(
                 "error",
                 "You have already purcheased this tour.",
@@ -197,7 +197,7 @@ export class TourPageComponent {
     }
 
     getRoundedRating(): number {
-        if (!this.tour || !this.tour.averageRating) return 0;
-        return parseFloat(this.tour.averageRating.toFixed(2));
+        if (!this.tour || !this.tour.AverageRating) return 0;
+        return parseFloat(this.tour.AverageRating.toFixed(2));
     }
 }

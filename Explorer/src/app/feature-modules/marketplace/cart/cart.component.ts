@@ -62,11 +62,11 @@ export class CartComponent implements OnInit {
 
     getDiscount() {
         for (const tour of this.data) {
-            this.service.getDiscountForTour(tour.id!).subscribe(discount => {
+            this.service.getDiscountForTour(tour.Id!).subscribe(discount => {
                 if (discount) {
-                    tour.discount = discount;
-                    tour.discountedPrice =
-                        tour.price! - tour.price! * discount!;
+                    tour.Discount = discount;
+                    tour.DiscountedPrice =
+                        tour.Price! - tour.Price! * discount!;
                 }
             });
         }
@@ -163,11 +163,11 @@ export class CartComponent implements OnInit {
                                                 storedShoppingCart;
                                             const orderItemPrice =
                                                 orderItems?.find(
-                                                    o => o.tourId == tour.id,
+                                                    o => o.tourId == tour.Id,
                                                 )?.price;
                                             const result =
                                                 await this.service.addToken(
-                                                    tour.id!,
+                                                    tour.Id!,
                                                     this.shoppingCart
                                                         .touristId as number,
                                                     totalPrice as number,
@@ -175,7 +175,7 @@ export class CartComponent implements OnInit {
                                                 );
                                             totalPrice =
                                                 (totalPrice as number) -
-                                                tour.price!;
+                                                tour.Price!;
                                             this.notifier.notify(
                                                 "success",
                                                 "You have successfully bought tours!",

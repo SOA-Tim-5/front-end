@@ -29,21 +29,21 @@ export class RecommendedTourCardComponent {
     ) {}
 
     ngOnInit(): void {
-        this.tourImage = this.tour.keyPoints![0].imagePath.startsWith("http")
-            ? this.tour.keyPoints![0].imagePath
-            : environment.imageHost + this.tour.keyPoints![0].imagePath;
+        this.tourImage = this.tour.KeyPoints![0].imagePath.startsWith("http")
+            ? this.tour.KeyPoints![0].imagePath
+            : environment.imageHost + this.tour.KeyPoints![0].imagePath;
         this.authService.user$.subscribe(user => {
             this.user = user;
         });
     }
 
     BuyTour(): void {
-        if (this.tour.id != null) {
+        if (this.tour.Id != null) {
             this.service.addToken(
-                this.tour.id,
+                this.tour.Id,
                 this.user.id,
-                this.tour.price as number,
-                this.tour.price as number,
+                this.tour.Price as number,
+                this.tour.Price as number,
             );
             alert("You have successfully bought the tour!");
         }
@@ -52,7 +52,7 @@ export class RecommendedTourCardComponent {
     ShowKeyPoints() {
         const dialogRef = this.dialogRef.open(KeyPointsViewComponent, {
             data: {
-                keyPoints: this.tour.keyPoints,
+                keyPoints: this.tour.KeyPoints,
             },
         });
     }

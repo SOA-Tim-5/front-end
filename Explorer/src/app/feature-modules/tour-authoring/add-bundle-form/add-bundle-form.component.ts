@@ -95,8 +95,8 @@ export class AddBundleFormComponent implements OnInit {
     calculateTotalPrice(): number {
         let price = 0;
         this.tours.forEach(t => {
-            if (this.bundle.tourIds.includes(t.id!)) {
-                price += t.price!;
+            if (this.bundle.tourIds.includes(t.Id!)) {
+                price += t.Price!;
             }
         });
         return price;

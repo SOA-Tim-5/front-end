@@ -47,7 +47,7 @@ export class PublishTourModalComponent {
 
     publishTour() {
         const tour = this.data.tour;
-        tour.distance = Math.round(this.data.distance * 100) / 100;
+        tour.Distance = Math.round(this.data.distance * 100) / 100;
 
         if (this.publishForm.value.onFootChecked) {
             const tourDuration: TourDuration = {
@@ -91,9 +91,9 @@ export class PublishTourModalComponent {
         this.service.updateTour(tour).subscribe({
             next: () => {
                 if (
-                    tour.keyPoints!.length > 1 &&
-                    tour.durations &&
-                    tour.durations.length > 0
+                    tour.KeyPoints!.length > 1 &&
+                    tour.Durations &&
+                    tour.Durations.length > 0
                 ) {
                     this.service.publishTour(tour).subscribe({
                         next: () => {
@@ -126,9 +126,9 @@ export class PublishTourModalComponent {
 
     handleCheckedDurations(tour: Tour, tourDuration: TourDuration): void {
         let shouldPush = true;
-        if (tour.durations) {
+        if (tour.Durations) {
             let counter = 0;
-            for (let t of tour.durations) {
+            for (let t of tour.Durations) {
                 if (
                     t.transportType == tourDuration.transportType &&
                     t.duration == tourDuration.duration
@@ -139,7 +139,7 @@ export class PublishTourModalComponent {
                     t.transportType == tourDuration.transportType &&
                     t.duration != tourDuration.duration
                 ) {
-                    tour.durations.splice(counter, 1);
+                    tour.Durations.splice(counter, 1);
                     break;
                 }
                 counter++;
@@ -147,16 +147,16 @@ export class PublishTourModalComponent {
         }
 
         if (shouldPush) {
-            tour.durations?.push(tourDuration);
+            tour.Durations?.push(tourDuration);
         }
     }
 
     handleUncheckedDurations(tour: Tour, type: TransportType): void {
-        if (tour.durations) {
+        if (tour.Durations) {
             let counter = 0;
-            for (let t of tour.durations) {
+            for (let t of tour.Durations) {
                 if (t.transportType == type) {
-                    tour.durations.splice(counter, 1);
+                    tour.Durations.splice(counter, 1);
                     break;
                 }
                 counter++;

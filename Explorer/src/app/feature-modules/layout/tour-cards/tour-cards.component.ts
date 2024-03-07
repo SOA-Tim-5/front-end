@@ -56,19 +56,19 @@ export class TourCardsComponent implements OnInit {
             next:(result: PagedResults<Tour>)=>{
                 this.adventureTours=result.results
                 //console.log(this.adventureTours)
-                this.adventureTours=this.adventureTours.filter(a=>a.averageRating as number>4)
+                this.adventureTours=this.adventureTours.filter(a=>a.AverageRating as number>4)
                 this.service.getCruiseTours().subscribe({
                     next:(result: PagedResults<Tour>)=>{
                         this.cruiseTours=result.results
-                        this.cruiseTours=this.cruiseTours.filter(a=>a.averageRating as number>4)
+                        this.cruiseTours=this.cruiseTours.filter(a=>a.AverageRating as number>4)
                         this.service.getCulturalTours().subscribe({
                             next:(result: PagedResults<Tour>)=>{
                                 this.culturalTours=result.results
-                                this.culturalTours=this.culturalTours.filter(a=>a.averageRating as number>4)
+                                this.culturalTours=this.culturalTours.filter(a=>a.AverageRating as number>4)
                                 this.service.getFamilyTours().subscribe({
                                     next:(result: PagedResults<Tour>)=>{
                                         this.familyTours=result.results
-                                        this.familyTours=this.familyTours.filter(a=>a.averageRating as number>4)
+                                        this.familyTours=this.familyTours.filter(a=>a.AverageRating as number>4)
                                     }
                                 })
                             }

@@ -72,7 +72,7 @@ export class TouristsKeyPointsComponent implements OnInit{
         this.service
             .getTour(this.tourIdTemp)
             .subscribe((tourResult: Tour | undefined) => {
-                if (tourResult?.status == TourStatus.Ready) {
+                if (tourResult?.Status == TourStatus.Ready) {
                     this.areButtonsEnabled = false;
                     this.getDurationInfo(tourResult);
                 } else {
@@ -207,14 +207,14 @@ export class TouristsKeyPointsComponent implements OnInit{
                 if (result) {
                     this.tour = result;
                     if (this.mapComponent.waypointMap.size > 1) {
-                        this.tour.distance =
+                        this.tour.Distance =
                             Math.round(this.mapComponent.tourDistance * 100) /
                             100;
                         this.distance =
                             Math.round(this.mapComponent.tourDistance * 100) /
                             100;
                     } else {
-                        this.tour.distance = 0;
+                        this.tour.Distance = 0;
                     }
 
                     if (this.checkBoxForm.value.onFootChecked) {
@@ -281,8 +281,8 @@ export class TouristsKeyPointsComponent implements OnInit{
     }
 
     getDurationInfo(tour: Tour): void {
-        if (tour.durations) {
-            for (let t of tour.durations) {
+        if (tour.Durations) {
+            for (let t of tour.Durations) {
                 if (t.transportType == TransportType.Walking) {
                     this.checkedWalkingDuration = true;
                 } else if (t.transportType == TransportType.Bicycle) {
@@ -296,8 +296,8 @@ export class TouristsKeyPointsComponent implements OnInit{
 
     handleCheckBoxes(tour: Tour): void {
         // Tick all necessary checkboxes
-        if (tour.durations) {
-            for (let t of tour.durations) {
+        if (tour.Durations) {
+            for (let t of tour.Durations) {
                 if (t.transportType == TransportType.Walking) {
                     this.checkBoxForm.get("onFootChecked")?.patchValue(true);
                 } else if (t.transportType == TransportType.Bicycle) {
@@ -313,9 +313,9 @@ export class TouristsKeyPointsComponent implements OnInit{
 
     handleCheckedDurations(tour: Tour, tourDuration: TourDuration): void {
         let shouldPush = true;
-        if (tour.durations) {
+        if (tour.Durations) {
             let counter = 0;
-            for (let t of tour.durations) {
+            for (let t of tour.Durations) {
                 if (
                     t.transportType == tourDuration.transportType &&
                     t.duration == tourDuration.duration
@@ -326,7 +326,7 @@ export class TouristsKeyPointsComponent implements OnInit{
                     t.transportType == tourDuration.transportType &&
                     t.duration != tourDuration.duration
                 ) {
-                    tour.durations.splice(counter, 1);
+                    tour.Durations.splice(counter, 1);
                     break;
                 }
                 counter++;
@@ -334,16 +334,16 @@ export class TouristsKeyPointsComponent implements OnInit{
         }
 
         if (shouldPush) {
-            tour.durations?.push(tourDuration);
+            tour.Durations?.push(tourDuration);
         }
     }
 
     handleUncheckedDurations(tour: Tour, type: TransportType): void {
-        if (tour.durations) {
+        if (tour.Durations) {
             let counter = 0;
-            for (let t of tour.durations) {
+            for (let t of tour.Durations) {
                 if (t.transportType == type) {
-                    tour.durations.splice(counter, 1);
+                    tour.Durations.splice(counter, 1);
                     break;
                 }
                 counter++;

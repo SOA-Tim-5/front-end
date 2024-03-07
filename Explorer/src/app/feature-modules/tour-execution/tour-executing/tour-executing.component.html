@@ -23,7 +23,7 @@
             <button class="back-button" (click)="goBack()">Go back</button>
             <button
                 class="create-blog-button"
-                *ngIf="session.status == 2 && tour.status == 3"
+                *ngIf="session.status == 2 && tour.Status == 3"
                 (click)="createBlog()"
             >
                 Create a blog
@@ -34,8 +34,8 @@
             </p>
             <p style="font-size: 20px">Sunrise at {{ weather.sunrise }}</p>
             <p style="font-size: 20px">Sunset at {{ weather.sunset }}</p>
-            <h2 class="margin-top">{{ tour.name }}</h2>
-            <div class="description">{{ tour.description }}</div>
+            <h2 class="margin-top">{{ tour.Name }}</h2>
+            <div class="description">{{ tour.Description }}</div>
         </div>
     </div>
     <div class="map-container">

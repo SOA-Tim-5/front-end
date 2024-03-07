@@ -21,8 +21,8 @@ export class TouristsTourBlogFormComponent {
     blog: Blog;
     blogId: number;
     tour: Tour = {
-        name: "",
-        description: "",
+        Name: "",
+        Description: "",
     };
     tourId: number;
     tourInfo: string = "";
@@ -43,9 +43,9 @@ export class TouristsTourBlogFormComponent {
                 next: (result: Tour) => {
                     this.tour = result;
 
-                    if (this.tour.id) {
+                    if (this.tour.Id) {
                         this.tourAuthoringService
-                            .getTourEquipment(this.tour.id)
+                            .getTourEquipment(this.tour.Id)
                             .subscribe({
                                 next: result => {
                                     this.equipment = result.results;
@@ -58,8 +58,8 @@ export class TouristsTourBlogFormComponent {
                                     }
 
                                     let durationString = "";
-                                    if (this.tour.durations) {
-                                        durationString = this.tour.durations
+                                    if (this.tour.Durations) {
+                                        durationString = this.tour.Durations
                                             .map(
                                                 d =>
                                                     `${this.transportTypeToString(
@@ -70,15 +70,15 @@ export class TouristsTourBlogFormComponent {
                                     }
 
                                     let keyPointString = "";
-                                    if (this.tour.keyPoints) {
-                                        keyPointString = this.tour.keyPoints
+                                    if (this.tour.KeyPoints) {
+                                        keyPointString = this.tour.KeyPoints
                                             .map(kp => kp.name)
                                             .join(", ");
                                     }
 
                                     this.tourInfo =
                                         "Distance: " +
-                                            this.tour.distance?.toString() +
+                                            this.tour.Distance?.toString() +
                                             "km" +
                                             "<br>" +
                                             "Durations: " +
@@ -99,7 +99,7 @@ export class TouristsTourBlogFormComponent {
     }
 
     blogForm = new FormGroup({
-        title: new FormControl(this.tour.name, [Validators.required]),
+        title: new FormControl(this.tour.Name, [Validators.required]),
         description: new FormControl("", [Validators.required]),
     });
 
@@ -130,7 +130,7 @@ export class TouristsTourBlogFormComponent {
 
     createBlog(): void {
         const blog: CreateBlog = {
-            title: this.tour.name || "",
+            title: this.tour.Name || "",
             description:
                 this.tourInfo +
                     "<br>" +

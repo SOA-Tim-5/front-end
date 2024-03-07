@@ -5,7 +5,7 @@
             <div class="delete">
                 <fa-icon
                     [icon]="faXmark"
-                    (click)="removeOrderItem(item.id!)"
+                    (click)="removeOrderItem(item.Id!)"
                 ></fa-icon>
             </div>
             <div class="card-info">
@@ -14,53 +14,53 @@
                         class="image"
                         [style.background-image]="
                             'url(' +
-                            (item.keyPoint!.imagePath.startsWith('http')
-                                ? item.keyPoint!.imagePath
-                                : imageHost + item.keyPoint!.imagePath) +
+                            (item.KeyPoint!.imagePath.startsWith('http')
+                                ? item.KeyPoint!.imagePath
+                                : imageHost + item.KeyPoint!.imagePath) +
                             ')'
                         "
                     ></div>
                     <div class="column">
-                        <div class="name">{{ item.name }}</div>
+                        <div class="name">{{ item.Name }}</div>
                         <div class="tags">
-                            <div class="tag" *ngFor="let tag of item.tags">
+                            <div class="tag" *ngFor="let tag of item.Tags">
                                 {{ tag }}
                             </div>
                         </div>
-                        <div>{{ item.distance }}km</div>
+                        <div>{{ item.Distance }}km</div>
                     </div>
                     <div class="column bottom">
                         <div class="row">
                             <div class="column">
                                 <div class="row">
-                                    <s *ngIf="item.discount"
+                                    <s *ngIf="item.Discount"
                                         ><fa-icon [icon]="faCoins"></fa-icon
                                     ></s>
                                     <fa-icon
                                         [icon]="faCoins"
-                                        *ngIf="!item.discount"
+                                        *ngIf="!item.Discount"
                                     ></fa-icon>
-                                    <div *ngIf="item.discount">
-                                        <s>{{ item.price }}</s>
+                                    <div *ngIf="item.Discount">
+                                        <s>{{ item.Price }}</s>
                                     </div>
-                                    <div *ngIf="!item.discount">
-                                        {{ item.price }}
+                                    <div *ngIf="!item.Discount">
+                                        {{ item.Price }}
                                     </div>
                                 </div>
-                                <div class="row" *ngIf="item.discount">
+                                <div class="row" *ngIf="item.Discount">
                                     <fa-icon
                                         class="tour-price-tokens"
                                         [icon]="faCoins"
                                     />
                                     <div class="tour-price-value">
-                                        {{ item.discountedPrice! }}
+                                        {{ item.DiscountedPrice! }}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="description">{{ item.description }}</div>
+                <div class="description">{{ item.Description }}</div>
             </div>
         </div>
     </div>

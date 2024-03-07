@@ -472,7 +472,7 @@
                     [@fadeIn]
                     *ngFor="let tour of tours"
                     [tour]="tour"
-                    [routerLink]="['/tour/', tour.id]"
+                    [routerLink]="['/tour/', tour.Id]"
                 ></xp-tour-card-view>
             </div>
             <div class="tour-search-pages" *ngIf="radioButtonSelected == 0">

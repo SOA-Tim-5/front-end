@@ -113,8 +113,8 @@ export class EditBundleFormComponent implements OnInit {
     calculateTotalPrice(): number {
         let price = 0;
         this.tours.forEach(t => {
-            if (this.dataCopy.tourIds.includes(t.id!)) {
-                price += t.price!;
+            if (this.dataCopy.tourIds.includes(t.Id!)) {
+                price += t.Price!;
             }
         });
         return price;

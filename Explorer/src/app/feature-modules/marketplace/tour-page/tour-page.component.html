@@ -6,18 +6,18 @@
             </div>
 
             <div class="title">
-                {{ tour?.name }}
+                {{ tour?.Name }}
             </div>
             <div class="text">
-                {{ tour?.description }}
+                {{ tour?.Description }}
             </div>
         </div>
 
         <div class="tour-page-right">
-            <div class="tour-title">{{ tour?.name }}</div>
+            <div class="tour-title">{{ tour?.Name }}</div>
 
             <div class="tour-tags">
-                <div class="tour-tag" *ngFor="let tag of tour?.tags">
+                <div class="tour-tag" *ngFor="let tag of tour?.Tags">
                     {{ tag }}
                 </div>
             </div>
@@ -30,18 +30,18 @@
             <div class="label-splitter">
                 <div class="label">Difficulty:</div>
                 <div class="label">Distance:</div>
-                <div class="value">{{ tour?.difficulty }}</div>
-                <div class="value">{{ tour?.distance }} km</div>
+                <div class="value">{{ tour?.Difficulty }}</div>
+                <div class="value">{{ tour?.Distance }} km</div>
             </div>
 
             <div class="label-splitter">
                 <div class="label">Publish date:</div>
                 <div class="label">Price:</div>
                 <div class="value" *ngIf="tour">
-                    {{ formatDate(tour.publishDate) }}
+                    {{ formatDate(tour.PublishDate) }}
                 </div>
                 <div class="value yellow" *ngIf="tour">
-                    {{ tour.price }}
+                    {{ tour.Price }}
                     <fa-icon [icon]="faCoins" />
                 </div>
             </div>
@@ -66,7 +66,7 @@
             </div>
             <div class="key-point-cards-container">
                 <div
-                    *ngFor="let kp of tour?.keyPoints"
+                    *ngFor="let kp of tour?.KeyPoints"
                     class="cards-buttons-container"
                 >
                     <xp-key-point-card

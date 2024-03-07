@@ -22,8 +22,8 @@ export class EditTouristsTourFormComponent {
   @Output() toursUpdated = new EventEmitter<null>();
 
   public tour: Tour = {
-    name:"",
-    description: "",
+    Name:"",
+    Description: "",
     //difficulty: parseInt("0"),
     //tags: []
   };
@@ -72,14 +72,14 @@ export class EditTouristsTourFormComponent {
     const updatedData = this.editTourForm.value;
     console.log(updatedData);
     const tour: Tour = {
-      name: this.editTourForm.value.name || "",
-      description: this.editTourForm.value.description || "",
+      Name: this.editTourForm.value.name || "",
+      Description: this.editTourForm.value.description || "",
       //difficulty: parseInt(this.editTourForm.value.difficulty || "0"),
       //tags: this.editTourForm.value.tags ? this.editTourForm.value.tags : []
     };
     
-    this.data.name=tour.name;
-    this.data.description=tour.description;
+    this.data.name=tour.Name;
+    this.data.description=tour.Description;
     //this.data.difficulty=tour.difficulty;
     //this.data.tags=tour.tags;
     console.log(this.data.id);

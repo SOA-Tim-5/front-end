@@ -78,7 +78,7 @@ export class TourSaleFormComponent implements OnInit {
                                     for (var tour of tours.results) {
                                         if (
                                             sale.tourIds.find(
-                                                t => t === tour.id!,
+                                                t => t === tour.Id!,
                                             )
                                         ) {
                                             this.chosenTours.push(tour);
@@ -100,7 +100,7 @@ export class TourSaleFormComponent implements OnInit {
     }
 
     addSale(): void {
-        this.saleForm.value.tourIds = this.chosenTours.map(t => t.id!);
+        this.saleForm.value.tourIds = this.chosenTours.map(t => t.Id!);
         if (!this.saleForm.valid) return;
         const sale: TourSale = {
             name: this.saleForm.value.name || "",
@@ -134,7 +134,7 @@ export class TourSaleFormComponent implements OnInit {
     }
 
     updateSale(): void {
-        this.saleForm.value.tourIds = this.chosenTours.map(t => t.id!);
+        this.saleForm.value.tourIds = this.chosenTours.map(t => t.Id!);
         if (!this.saleForm.valid) return;
         const sale: TourSale = {
             id: this.tourId,

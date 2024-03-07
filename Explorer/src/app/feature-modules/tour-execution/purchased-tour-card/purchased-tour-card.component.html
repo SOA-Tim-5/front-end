@@ -1,12 +1,12 @@
 <div class="flip-card" [class.glow]="isGlowing" [ngClass]="{'flip-card-click': isClicked}" (mouseleave)="isClicked = false">
     <div class="flip-card-inner">
         <div class="flip-card-front image_wrapper">
-            <xp-carousel *ngIf="tour && tour.keyPoints && tour.keyPoints[0]" [disableFocus]="true" [autoScroll]="true"
+            <xp-carousel *ngIf="tour && tour.KeyPoints && tour.KeyPoints[0]" [disableFocus]="true" [autoScroll]="true"
                 [slides]="images"></xp-carousel>
             <div class="cont overlay overlay_4">
-                <h3>{{tour.name}}</h3>
+                <h3>{{tour.Name}}</h3>
                 <p *ngIf="hasActiveTour && isTourActive">In progress</p>
-                <div class="stars-landing" style="--rating: {{tour.averageRating}}; --star-size: 2.5em;"></div>
+                <div class="stars-landing" style="--rating: {{tour.AverageRating}}; --star-size: 2.5em;"></div>
                 <br>
                 <div class="btn" (click)="isClicked = true">Actions & Info</div>
             </div>

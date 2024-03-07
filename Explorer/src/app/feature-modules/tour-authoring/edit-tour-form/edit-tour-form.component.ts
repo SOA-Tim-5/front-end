@@ -29,11 +29,11 @@ export class EditTourFormComponent implements OnInit {
     separatorKeysCodes: number[] = [ENTER, COMMA];
 
     public tour: Tour = {
-        name: "",
-        description: "",
-        difficulty: parseInt("0"),
-        tags: [],
-        price: parseInt("0"),
+        Name: "",
+        Description: "",
+        Difficulty: parseInt("0"),
+        Tags: [],
+        Price: parseInt("0"),
     };
 
     editTourForm = new FormGroup({
@@ -89,13 +89,13 @@ export class EditTourFormComponent implements OnInit {
         const updatedData = this.editTourForm.value;
         // console.log(updatedData);
         const tour: Tour = {
-            id: this.data.id,
-            name: updatedData.name || "",
-            description: updatedData.description || "",
-            difficulty: parseInt(updatedData.difficulty || "0"),
-            tags: updatedData.tags ? updatedData.tags : [],
-            price: parseInt(updatedData.price || "0"),
-            durations: this.data.durations,
+            Id: this.data.id,
+            Name: updatedData.name || "",
+            Description: updatedData.description || "",
+            Difficulty: parseInt(updatedData.difficulty || "0"),
+            Tags: updatedData.tags ? updatedData.tags : [],
+            Price: parseInt(updatedData.price || "0"),
+            Durations: this.data.durations,
         };
 
         // console.log(this.data.id);
@@ -105,11 +105,11 @@ export class EditTourFormComponent implements OnInit {
         }
         this.service.updateTour(tour).subscribe({
             next: () => {
-                this.data.name = tour.name;
-                this.data.description = tour.description;
-                this.data.difficulty = tour.difficulty;
-                this.data.tags = tour.tags;
-                this.data.price = tour.price;
+                this.data.name = tour.Name;
+                this.data.description = tour.Description;
+                this.data.difficulty = tour.Difficulty;
+                this.data.tags = tour.Tags;
+                this.data.price = tour.Price;
                 this.toursUpdated.emit();
                 this.onClose();
                 this.notifier.notify("success", "Successfully updated tour!");

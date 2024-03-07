@@ -2,23 +2,23 @@
     <div class="information">
         <div class="tour-name">
             <div class="name">
-                {{ tour?.name }}
+                {{ tour?.Name }}
             </div>
         </div>
         <div class="tour-price">
-            {{ tour?.price }}
+            {{ tour?.Price }}
             <fa-icon class="tour-price-tokens" [icon]="faCoins" />
         </div>
         <div class="tour-tags">
-            <xp-tag *ngFor="let tag of tour?.tags" tagText="{{ tag }}" />
+            <xp-tag *ngFor="let tag of tour?.Tags" tagText="{{ tag }}" />
         </div>
-        <div class="tour-description">{{ tour?.description }}</div>
+        <div class="tour-description">{{ tour?.Description }}</div>
         <div class="buttons">
             <div class="btn btn-done" [routerLink]="['/tours']">Back</div>
             <div
                 class="btn btn-done"
                 (click)="openPublishModal()"
-                *ngIf="tour?.status == 2 || tour?.status == 0"
+                *ngIf="tour?.Status == 2 || tour?.Status == 0"
             >
                 Done
             </div>
@@ -45,12 +45,12 @@
     <div class="key-point-cards-container">
         <xp-key-point-card
             [isAddNew]="true"
-            *ngIf="tour?.status == 2 || tour?.status == 0"
+            *ngIf="tour?.Status == 2 || tour?.Status == 0"
             (click)="openNewKeyPointDialog()"
         />
         <xp-key-point-card
             [isAddNewPublic]="true"
-            *ngIf="tour?.status == 2 || tour?.status == 0"
+            *ngIf="tour?.Status == 2 || tour?.Status == 0"
             (click)="openPublicKeyPointsDialog()"
         />
         <div *ngFor="let kp of keyPoints" class="cards-buttons-container">

@@ -5,32 +5,32 @@
       <div id="tour-details" class="tour-rectangles">
           <div *ngFor="let to of tour" class="tour-rectangle">
               <div class="tour-info">
-                  <p class="text"><strong>Name:</strong> {{to.name}}</p>
-                  <p class="text"><strong>Description:</strong> {{to.description}}</p>
-                  <p class="text"><strong>Status:</strong> {{getTourStatusText(to.status)}}</p>
-                  <p class="text"><strong>Distance:</strong> {{to.distance}} km</p>
+                  <p class="text"><strong>Name:</strong> {{to.Name}}</p>
+                  <p class="text"><strong>Description:</strong> {{to.Description}}</p>
+                  <p class="text"><strong>Status:</strong> {{getTourStatusText(to.Status)}}</p>
+                  <p class="text"><strong>Distance:</strong> {{to.Distance}} km</p>
               </div>
               <div class="tour-buttons">
                  
-                  <button *ngIf="getTourStatusText(to.status) !== 'Ready'" color="accent" (click)="deleteTour(to.id || 0)" mat-icon-button>
+                  <button *ngIf="getTourStatusText(to.Status) !== 'Ready'" color="accent" (click)="deleteTour(to.Id || 0)" mat-icon-button>
                       Delete
                   </button>
-                  <button *ngIf="getTourStatusText(to.status) !== 'Ready'" color="primary" (click)="onEditClicked(to)" mat-icon-button>
+                  <button *ngIf="getTourStatusText(to.Status) !== 'Ready'" color="primary" (click)="onEditClicked(to)" mat-icon-button>
                       Edit
                   </button>
-                  <button *ngIf="getTourStatusText(to.status) !== 'Ready'" color="primary" mat-raised-button [routerLink]="['equipment',to.id]">
+                  <button *ngIf="getTourStatusText(to.Status) !== 'Ready'" color="primary" mat-raised-button [routerLink]="['equipment',to.Id]">
                       Manage equipment
                   </button>
-                  <button *ngIf="getTourStatusText(to.status) === 'Ready'" color="primary" mat-raised-button [routerLink]="['/tour', to.id, 'tourists-key-points']" id="view-key-points-button">
+                  <button *ngIf="getTourStatusText(to.Status) === 'Ready'" color="primary" mat-raised-button [routerLink]="['/tour', to.Id, 'tourists-key-points']" id="view-key-points-button">
                       View key points
                   </button>
-                  <button *ngIf="getTourStatusText(to.status) !== 'Ready'" color="primary" mat-raised-button [routerLink]="['/tour', to.id, 'tourists-key-points']">
+                  <button *ngIf="getTourStatusText(to.Status) !== 'Ready'" color="primary" mat-raised-button [routerLink]="['/tour', to.Id, 'tourists-key-points']">
                       Manage key points
                   </button>
-                  <button *ngIf="getTourStatusText(to.status) !== 'Ready'" color="primary" mat-raised-button (click)="onReadyClicked(to)">
+                  <button *ngIf="getTourStatusText(to.Status) !== 'Ready'" color="primary" mat-raised-button (click)="onReadyClicked(to)">
                       Mark as ready
                   </button>
-                  <button *ngIf="getTourStatusText(to.status) === 'Ready'" color="primary" mat-raised-button (click)="StartTour(to.id || 0)">
+                  <button *ngIf="getTourStatusText(to.Status) === 'Ready'" color="primary" mat-raised-button (click)="StartTour(to.Id || 0)">
                     Start tour
                   </button>
               </div>

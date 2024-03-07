@@ -101,19 +101,19 @@ export class TourCardViewComponent implements OnChanges {
     ngOnChanges(): void {
         this.discount = this.preliminaryDiscount;
         this.discountedPrice =
-            this.tour.price! - this.tour.price! * this.discount!;
+            this.tour.Price! - this.tour.Price! * this.discount!;
     }
 
     ngOnInit(): void {
-        this.images = this.tour.keyPoints!.map(kp =>
+        /*this.images = this.tour.KeyPoints!.map(kp =>
             kp.imagePath.startsWith("http")
                 ? kp.imagePath
                 : environment.imageHost + kp.imagePath,
-        );
+        );*/
         if (this.preliminaryDiscount) {
             this.discount = this.preliminaryDiscount;
             this.discountedPrice =
-                this.tour.price! - this.tour.price! * this.discount!;
+                this.tour.Price! - this.tour.Price! * this.discount!;
         } else {
             this.getDiscount();
         }
@@ -140,12 +140,12 @@ export class TourCardViewComponent implements OnChanges {
 
     getDiscount() {
         this.marketplaceService
-            .getDiscountForTour(this.tour.id!)
+            .getDiscountForTour(this.tour.Id!)
             .subscribe(discount => {
                 this.discount = discount;
                 if (this.discount) {
                     this.discountedPrice =
-                        this.tour.price! - this.tour.price! * discount!;
+                        this.tour.Price! - this.tour.Price! * discount!;
                 }
             });
     }
@@ -208,7 +208,7 @@ export class TourCardViewComponent implements OnChanges {
             price: price,
             shoppingCartId: this.shoppingCart.id,
         };
-        if (this.addedTours.find(tr => tr.id == tourId)) {
+        if (this.addedTours.find(tr => tr.Id == tourId)) {
             this.notifier.notify(
                 "error",
                 "You have already added this item to the cart.",
@@ -240,19 +240,19 @@ export class TourCardViewComponent implements OnChanges {
     }
 
     onPublishClicked(tour: Tour): void {
-        if (tour.id) {
-            this.tourAuthoringService.getKeyPoints(tour.id).subscribe({
+        if (tour.Id) {
+            this.tourAuthoringService.getKeyPoints(tour.Id).subscribe({
                 next: (result: KeyPoint[]) => {
                     const keyPoints = result;
 
                     if (
                         keyPoints.length > 1 &&
-                        tour.durations &&
-                        tour.durations.length > 0
+                        tour.Durations &&
+                        tour.Durations.length > 0
                     ) {
                         this.tourAuthoringService.publishTour(tour).subscribe({
                             next: () => {
-                                this.tour.status = 1;
+                                this.tour.Status = 1;
                             },
                         });
                     } else {
@@ -272,7 +272,7 @@ export class TourCardViewComponent implements OnChanges {
     onArchiveClicked(tour: Tour): void {
         this.tourAuthoringService.archiveTour(tour).subscribe({
             next: () => {
-                this.tour.status = 2;
+                this.tour.Status = 2;
                 this.notifier.notify("success", "Tour archived.");
             },
             error: err => {
@@ -310,7 +310,7 @@ export class TourCardViewComponent implements OnChanges {
 
                 let alreadyAdded = false;
                 for (let tour of this.toursFromWishlist) {
-                    if (tour.id === tourId) {
+                    if (tour.Id === tourId) {
                         alreadyAdded = true;
                     }
                 }
@@ -347,7 +347,7 @@ export class TourCardViewComponent implements OnChanges {
     }
 
     getRoundedRating(): number {
-        if(!this.tour.averageRating) return 0;
-        return parseFloat(this.tour.averageRating.toFixed(2));
+        if(!this.tour.AverageRating) return 0;
+        return parseFloat(this.tour.AverageRating.toFixed(2));
     }
 }

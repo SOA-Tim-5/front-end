@@ -20,12 +20,12 @@ export class AddTourFormComponent {
     category: number;
     @Output() toursUpdated = new EventEmitter<Tour>();
     public tour: Tour = {
-        name: "",
-        description: "",
-        difficulty: parseInt("0"),
-        tags: [],
-        price: parseInt("0"),
-        category: TourCategory.Adventure,
+        Name: "",
+        Description: "",
+        Difficulty: parseInt("0"),
+        Tags: [],
+        Price: parseInt("0"),
+        Category: TourCategory.Adventure,
     };
 
     addTourForm = new FormGroup({
@@ -82,17 +82,17 @@ export class AddTourFormComponent {
         console.log(categ);
         this.category = categ;
         const tour: Tour = {
-            name: this.addTourForm.value.name || "",
-            description: this.addTourForm.value.description || "",
-            difficulty: parseInt(this.addTourForm.value.difficulty || "0"),
-            tags: this.addTourForm.value.tags
+            Name: this.addTourForm.value.name || "",
+            Description: this.addTourForm.value.description || "",
+            Difficulty: parseInt(this.addTourForm.value.difficulty || "0"),
+            Tags: this.addTourForm.value.tags
                 ? this.addTourForm.value.tags
                 : [],
-            price: parseInt(this.addTourForm.value.price || "0"),
-            category: categ,
-            keyPoints: [],
-            authorId: this.data.userId,
-            status: 0,
+            Price: parseInt(this.addTourForm.value.price || "0"),
+            Category: categ,
+            KeyPoints: [],
+            AuthorId: this.data.userId,
+            Status: 0,
         };
         if (!this.isValidForm()) {
             this.notifier.notify("error", "Please enter valid data.");

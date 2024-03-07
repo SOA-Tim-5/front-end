@@ -96,7 +96,7 @@ export class KeyPointsComponent implements OnInit {
     }
 
     enableButtons(): void {
-        if (this.tour?.status == TourStatus.Published) {
+        if (this.tour?.Status == TourStatus.Published) {
             this.areButtonsEnabled = false;
             this.getDurationInfo(this.tour);
         } else {
@@ -105,12 +105,12 @@ export class KeyPointsComponent implements OnInit {
     }
 
     getKeyPoints(): void {
-        this.service.getKeyPoints(this.tour?.id!).subscribe({
+        this.service.getKeyPoints(this.tour?.Id!).subscribe({
             next: (result: KeyPoint[]) => {
                 this.keyPoints = result.sort((x, y) => {
                     return x.order < y.order ? -1 : 1;
                 });
-                this.tour!.keyPoints = this.tour!.keyPoints?.sort((x, y) => {
+                this.tour!.KeyPoints = this.tour!.KeyPoints?.sort((x, y) => {
                     return x.order < y.order ? -1 : 1;
                 });
             },
@@ -127,8 +127,8 @@ export class KeyPointsComponent implements OnInit {
         } else if (distance != 0) {
             this.calculateDurations(distance);
         } else {
-            if (this.tour?.distance) {
-                this.calculateDurations(this.tour.distance);
+            if (this.tour?.Distance) {
+                this.calculateDurations(this.tour.Distance);
                 // this.handleCheckBoxes(this.tour);
             }
         }
@@ -143,7 +143,7 @@ export class KeyPointsComponent implements OnInit {
             next: (params: ParamMap) => {
                 this.service.deleteKeyPoint(+params.get("id")!, id).subscribe({
                     next: () => {
-                        this.tour!.keyPoints = this.tour?.keyPoints?.filter(
+                        this.tour!.KeyPoints = this.tour?.KeyPoints?.filter(
                             x => x.id != id,
                         );
                         this.keyPoints = this.keyPoints.filter(x => x.id != id);
@@ -196,7 +196,7 @@ export class KeyPointsComponent implements OnInit {
         const dialogRef = this.dialogRef.open(PublicKeyPointsComponent, {
             //data: this.listaJavnihTacaka, // lista javnih tacaka koju dobijam u ovoj komponenti i ovim je saljem u modalni dijalog
             data: {
-                tourId: this.tour?.id!,
+                tourId: this.tour?.Id!,
                 keyPoints: this.keyPoints,
             },
         });
@@ -220,7 +220,7 @@ export class KeyPointsComponent implements OnInit {
         dialogRef.componentInstance.keyPointCreated.subscribe(keyPoint => {
             this.keyPoints.push(keyPoint);
             this.keyPoints = this.keyPoints.slice();
-            this.tour?.keyPoints?.push(keyPoint);
+            this.tour?.KeyPoints?.push(keyPoint);
         });
     }
     openEditKeyPointDialog(kp: KeyPoint) {
@@ -236,8 +236,8 @@ export class KeyPointsComponent implements OnInit {
             let index = this.keyPoints.findIndex(x => x.id == keyPoint.id);
             this.keyPoints[index] = keyPoint;
 
-            index = this.tour!.keyPoints!.findIndex(x => x.id == keyPoint.id);
-            this.tour!.keyPoints![index] = keyPoint;
+            index = this.tour!.KeyPoints!.findIndex(x => x.id == keyPoint.id);
+            this.tour!.KeyPoints![index] = keyPoint;
         });
     }
 
@@ -324,8 +324,8 @@ export class KeyPointsComponent implements OnInit {
     }
 
     getDurationInfo(tour: Tour): void {
-        if (tour.durations) {
-            for (let t of tour.durations) {
+        if (tour.Durations) {
+            for (let t of tour.Durations) {
                 if (t.transportType == TransportType.Walking) {
                     this.checkedWalkingDuration = true;
                 } else if (t.transportType == TransportType.Bicycle) {

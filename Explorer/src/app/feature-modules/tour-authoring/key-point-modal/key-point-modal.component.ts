@@ -122,7 +122,7 @@ export class KeyPointModalComponent implements OnInit {
         this.service.uploadImage(this.tourImageFile!).subscribe({
             next: (imagePath: string) => {
                 const keyPoint: KeyPoint = {
-                    tourId: this.tour.id!,
+                    tourId: this.tour.Id!,
                     name: this.keyPointForm.value.name || "",
                     description: this.keyPointForm.value.description || "",
                     longitude: this.keyPointForm.value.longitude || 0,
@@ -217,7 +217,7 @@ export class KeyPointModalComponent implements OnInit {
         }
         let keyPoint: KeyPoint = {
             id: this.keyPoint!.id,
-            tourId: this.tour.id!,
+            tourId: this.tour.Id!,
             name: this.keyPointForm.value.name || "",
             description: this.keyPointForm.value.description || "",
             longitude: this.keyPointForm.value.longitude || 0,

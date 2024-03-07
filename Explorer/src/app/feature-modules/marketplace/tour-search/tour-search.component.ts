@@ -191,7 +191,7 @@ export class TourSearchComponent implements OnInit {
         result.forEach(tour => {
             add = true;
             this.tours.forEach(el => {
-                if (el.id == tour.id) {
+                if (el.Id == tour.Id) {
                     add = false;
                 }
             });
@@ -587,7 +587,7 @@ export class TourSearchComponent implements OnInit {
             this.tours.push(obj);
         }
         this.tours.forEach(el => {
-            el.recommended = true;
+            el.Recommended = true;
         });
     }
     setActiveTours() {
@@ -595,8 +595,8 @@ export class TourSearchComponent implements OnInit {
         this.activeTours.forEach(active => {
             add = true;
             this.tours.forEach(el => {
-                if (el.id == active.id) {
-                    el.active = true;
+                if (el.Id == active.Id) {
+                    el.Active = true;
                     add = false;
                 }
             });
@@ -608,8 +608,8 @@ export class TourSearchComponent implements OnInit {
     setRecommendedTag() {
         this.tours.forEach(tour => {
             for (let i = 0; i < this.recommendedTours.length; i++) {
-                if (tour.id == this.recommendedTours[i].id) {
-                    tour.recommended = true;
+                if (tour.Id == this.recommendedTours[i].Id) {
+                    tour.Recommended = true;
                     break;
                 }
             }
@@ -618,8 +618,8 @@ export class TourSearchComponent implements OnInit {
     setActiveTag() {
         this.tours.forEach(tour => {
             for (let i = 0; i < this.activeTours.length; i++) {
-                if (tour.id == this.activeTours[i].id) {
-                    tour.active = true;
+                if (tour.Id == this.activeTours[i].Id) {
+                    tour.Active = true;
                     break;
                 }
             }
@@ -635,13 +635,13 @@ export class TourSearchComponent implements OnInit {
             // this.tours = this.toursBackup.filter((tour) => tour.recommended);
             this.tours = [];
             for (const obj of this.recommendedTours) {
-                obj.recommended = true;
+                obj.Recommended = true;
                 this.tours.push(obj);
             }
         } else if (this.radioButtonSelected == 2) {
             this.tours = [];
             for (const obj of this.activeTours) {
-                obj.active = true;
+                obj.Active = true;
                 this.tours.push(obj);
             }
         } else {

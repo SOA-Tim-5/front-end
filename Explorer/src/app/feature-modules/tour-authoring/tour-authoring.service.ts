@@ -42,7 +42,7 @@ export class TourAuthoringService {
 
     updateTour(tour: Tour): Observable<Tour> {
         return this.http.put<Tour>(
-            environment.apiHost + "tour/" + tour.id,
+            environment.apiHost + "tour/" + tour.Id,
             tour,
         );
     }
@@ -184,21 +184,21 @@ export class TourAuthoringService {
 
     publishTour(tour: Tour): Observable<Tour> {
         return this.http.put<Tour>(
-            environment.apiHost + "tour/publish/" + tour.id,
+            environment.apiHost + "tour/publish/" + tour.Id,
             tour,
         );
     }
 
     archiveTour(tour: Tour): Observable<Tour> {
         return this.http.put<Tour>(
-            environment.apiHost + "tour/archive/" + tour.id,
+            environment.apiHost + "tour/archive/" + tour.Id,
             tour,
         );
     }
 
     markTourAsReady(tour: Tour): Observable<Tour> {
         return this.http.put<Tour>(
-            environment.apiHost + "tour/markAsReady/" + tour.id,
+            environment.apiHost + "tour/markAsReady/" + tour.Id,
             tour,
         );
     }

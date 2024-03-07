@@ -66,7 +66,7 @@ export class TourSalesComponent implements OnInit {
 
     updateChosenTours(sale: TourSale): void {
         this.chosenToursForSale = this.availableTours.filter(t =>
-            sale.tourIds.find(id => id == t.id!),
+            sale.tourIds.find(id => id == t.Id!),
         );
         this.chosenToursDiscount = sale.discountPercentage;
         this.chosenSaleId = sale.id!;

@@ -83,11 +83,11 @@ export class TouristsWishlistComponent {
     ngOnChanges(): void {
         this.discount = this.preliminaryDiscount;
         this.discountedPrice =
-            this.tour.price! - this.tour.price! * this.discount!;
+            this.tour.Price! - this.tour.Price! * this.discount!;
     }
 
     ngOnInit(): void {
-        this.images = this.tour.keyPoints!.map(kp =>
+        this.images = this.tour.KeyPoints!.map(kp =>
             kp.imagePath.startsWith("http")
                 ? kp.imagePath
                 : environment.imageHost + kp.imagePath,
@@ -95,7 +95,7 @@ export class TouristsWishlistComponent {
         if (this.preliminaryDiscount) {
             this.discount = this.preliminaryDiscount;
             this.discountedPrice =
-                this.tour.price! - this.tour.price! * this.discount!;
+                this.tour.Price! - this.tour.Price! * this.discount!;
         } else {
             this.getDiscount();
         }
@@ -103,23 +103,23 @@ export class TouristsWishlistComponent {
 
     getDiscount() {
         this.marketplaceService
-            .getDiscountForTour(this.tour.id!)
+            .getDiscountForTour(this.tour.Id!)
             .subscribe(discount => {
                 this.discount = discount;
                 if (this.discount) {
                     this.discountedPrice =
-                        this.tour.price! - this.tour.price! * discount!;
+                        this.tour.Price! - this.tour.Price! * discount!;
                 }
             });
     }
 
     BuyTour(): void {
-        if (this.tour.id != null) {
+        if (this.tour.Id != null) {
             this.marketplaceService.addToken(
-                this.tour.id,
+                this.tour.Id,
                 this.user.id,
-                this.tour.price as number,
-                this.tour.price as number,
+                this.tour.Price as number,
+                this.tour.Price as number,
             );
             alert("You have successfully bought the tour!");
         }
@@ -135,7 +135,7 @@ export class TouristsWishlistComponent {
 
     remove() {
         this.marketplaceService
-            .removeTourFromWishList(this.tour.id!)
+            .removeTourFromWishList(this.tour.Id!)
             .subscribe({
                 next: () => {
                     location.reload();
@@ -147,7 +147,7 @@ export class TouristsWishlistComponent {
     }
 
     getRoundedRating(): number {
-        if (!this.tour.averageRating) return 0;
-        return parseFloat(this.tour.averageRating.toFixed(2));
+        if (!this.tour.AverageRating) return 0;
+        return parseFloat(this.tour.AverageRating.toFixed(2));
     }
 }
