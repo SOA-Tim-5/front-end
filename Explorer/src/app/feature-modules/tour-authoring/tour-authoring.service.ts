@@ -20,8 +20,8 @@ import { BundleCreation } from "./model/bundle-creation.model";
 export class TourAuthoringService {
     constructor(private http: HttpClient) {}
 
-    getTours(): Observable<PagedResults<Tour>> {
-        return this.http.get<PagedResults<Tour>>(
+    getTours(): Observable<Tour[]> {
+        return this.http.get<Tour[]>(
             "https://localhost:44333/api/tour/authors",
         );
     }
@@ -342,19 +342,19 @@ export class TourAuthoringService {
 
     getSoldToursNumber(): Observable<number> {
         return this.http.get<number>(
-            environment.apiHost + "tour/statistics/bought"
+            environment.apiHost + "tour/statistics/bought",
         );
     }
 
     getStartedToursNumber(): Observable<number> {
         return this.http.get<number>(
-            environment.apiHost + "tour/statistics/started"
+            environment.apiHost + "tour/statistics/started",
         );
     }
 
     getCompletedToursNumber(): Observable<number> {
         return this.http.get<number>(
-            environment.apiHost + "tour/statistics/completed"
+            environment.apiHost + "tour/statistics/completed",
         );
     }
 
@@ -376,21 +376,27 @@ export class TourAuthoringService {
         );
     }
 
-    getCompletionPercentages(): Observable<number[]>{
+    getCompletionPercentages(): Observable<number[]> {
         return this.http.get<number[]>(
-            environment.apiHost + "tour/statistics/distribution"
+            environment.apiHost + "tour/statistics/distribution",
         );
     }
 
-    getKeyPointVisitPercentage(tourId: number): Observable<number[]>{
+    getKeyPointVisitPercentage(tourId: number): Observable<number[]> {
         return this.http.get<number[]>(
-            environment.apiHost + "tour/statistics/keyPointVisitPercentage/" + tourId,
+            environment.apiHost +
+                "tour/statistics/keyPointVisitPercentage/" +
+                tourId,
         );
     }
 
-    getKeyPointEncounterCompletionPercentage(tourId: number): Observable<{[key: number]: number }>{
-        return this.http.get<{[key: number]: number }>(
-            environment.apiHost + "tour/statistics/keyPointEncounterCompletionPercentage/" + tourId,
+    getKeyPointEncounterCompletionPercentage(
+        tourId: number,
+    ): Observable<{ [key: number]: number }> {
+        return this.http.get<{ [key: number]: number }>(
+            environment.apiHost +
+                "tour/statistics/keyPointEncounterCompletionPercentage/" +
+                tourId,
         );
     }
 }

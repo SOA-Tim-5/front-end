@@ -5,12 +5,12 @@ export interface Bundle {
     name: string;
     price: number;
     status: BundleStatus;
-    bundleItems: BundleItem[]
+    bundleItems: BundleItem[];
 }
 
 export enum BundleStatus {
     Draft = 0,
     Published = 1,
     Archived = 2,
-    Deleted = 3
+    Deleted = 3,
 }

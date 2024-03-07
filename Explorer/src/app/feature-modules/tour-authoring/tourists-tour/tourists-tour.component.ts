@@ -87,8 +87,8 @@ export class TouristsTourComponent implements OnInit {
 
     getTours(): void {
         this.tourAuthoringService.getTours().subscribe({
-            next: (result: PagedResults<Tour>) => {
-                this.tour = result.results;
+            next: (result: Tour[]) => {
+                this.tour = result;
             },
             error: (err: any) => {
                 console.log(err);
