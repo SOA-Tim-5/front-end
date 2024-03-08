@@ -105,30 +105,31 @@ export class TourCardViewComponent implements OnChanges {
     }
 
     ngOnInit(): void {
-        if(this.tour.KeyPoints!=null){
+        console.log(this.tour.KeyPoints);
+        if (this.tour.KeyPoints != null) {
             this.images = this.tour.KeyPoints!.map(kp =>
                 kp.ImagePath.startsWith("http")
                     ? kp.ImagePath
                     : environment.imageHost + kp.ImagePath,
             );
         }
-        
-        if (this.preliminaryDiscount) {
+
+        /*if (this.preliminaryDiscount) {
             this.discount = this.preliminaryDiscount;
             this.discountedPrice =
                 this.tour.Price! - this.tour.Price! * this.discount!;
         } else {
             this.getDiscount();
-        }
+        }*/
 
         this.authService.user$.subscribe(user => {
             this.user = user;
             if (this.user.role === "tourist" && this.user.id !== 0) {
-                this.getShoppingCart();
+                //this.getShoppingCart();
             }
         });
 
-        if (this.user.role === "tourist" && this.user.id !== 0) {
+        /*if (this.user.role === "tourist" && this.user.id !== 0) {
             this.marketplaceService.cart$.subscribe(cart => {
                 this.marketplaceService.getToursInCart(this.user.id).subscribe({
                     next: (result: PagedResults<TourLimitedView>) => {
@@ -138,10 +139,10 @@ export class TourCardViewComponent implements OnChanges {
                     },
                 });
             });
-        }
+        }*/
     }
 
-    getDiscount() {
+    /* getDiscount() {
         this.marketplaceService
             .getDiscountForTour(this.tour.Id!)
             .subscribe(discount => {
@@ -151,9 +152,9 @@ export class TourCardViewComponent implements OnChanges {
                         this.tour.Price! - this.tour.Price! * discount!;
                 }
             });
-    }
+    }*/
 
-    getTour(id: number): void {
+    /* getTour(id: number): void {
         this.marketplaceService.getTourById(1).subscribe({
             next: (result: Tour) => {
                 this.tour = result;
@@ -162,9 +163,9 @@ export class TourCardViewComponent implements OnChanges {
                 console.log(err);
             },
         });
-    }
+    }*/
 
-    getShoppingCart(): void {
+    /* getShoppingCart(): void {
         this.marketplaceService.cart$.subscribe({
             next: (result: ShoppingCart) => {
                 this.shoppingCart = result;
@@ -190,15 +191,15 @@ export class TourCardViewComponent implements OnChanges {
                 }
             },
         });
-    }
+    }*/
 
-    getTokens(): void {
+    /*getTokens(): void {
         this.marketplaceService.getTouristTokens().subscribe({
             next: result => {
                 this.tokens = result;
             },
         });
-    }
+    }*/
 
     addOrderItem(
         tourId: number | undefined,
@@ -350,7 +351,7 @@ export class TourCardViewComponent implements OnChanges {
     }
 
     getRoundedRating(): number {
-        if(!this.tour.AverageRating) return 0;
+        if (!this.tour.AverageRating) return 0;
         return parseFloat(this.tour.AverageRating.toFixed(2));
     }
 }
