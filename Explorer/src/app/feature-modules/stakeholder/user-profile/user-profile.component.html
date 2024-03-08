@@ -79,6 +79,17 @@
                             >
                                 +
                             </div>
+                            
+                        </div>
+                        <div>
+                            xp 
+                            <span class="current-xp">
+                                {{user.touristProgress?.xp}}
+                            </span>
+                           |  level
+                            <span class="current-xp">
+                                {{user.touristProgress?.level}}
+                            </span>
                         </div>
                         <div class="row wallet" *ngIf="user.role == 'tourist'">
                             <div>
@@ -95,36 +106,6 @@
                         </div>
                         <div *ngIf="user.role == 'tourist'" class="btn edit-btn" style="margin-top: 10px;" (click)="openClubsDialog()">
                             Clubs
-                        </div>
-                        <div
-                            class="level-container"
-                            *ngIf="user.role == 'tourist'"
-                        >
-                            <div class="level">
-                                {{
-                                    "Level " +
-                                        user.touristProgress?.level +
-                                        " Tourist"
-                                }}
-                            </div>
-                            <div class="level-bar-border">
-                                <div
-                                    class="level-bar"
-                                    [style.width]="
-                                        user.touristProgress?.xp + '%'
-                                    "
-                                ></div>
-                            </div>
-                            <div class="xp">
-                                <div>0</div>
-                                <div>
-                                    <span class="current-xp">
-                                        {{ user.touristProgress?.xp }}
-                                    </span>
-                                    xp
-                                </div>
-                                <div>100</div>
-                            </div>
                         </div>
                     </div>
                 </div>

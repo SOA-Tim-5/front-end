@@ -33,6 +33,8 @@ export class UserProfileComponent implements OnInit {
     showFollowings: boolean = false;
     bioMarkdown: string;
     wallet: Wallet;
+    xp:number
+    level:number
 
     constructor(
         private authService: AuthService,
@@ -49,6 +51,7 @@ export class UserProfileComponent implements OnInit {
         const md = marked.setOptions({});
         this.authService.user$.subscribe(user => {
             this.user = user;
+
             if (!user.id) return;
             this.service.getByUserId(this.user.id).subscribe(result => {
                 this.person = result;
@@ -61,6 +64,14 @@ export class UserProfileComponent implements OnInit {
             this.loadFollowings();
             this.loadWallet();
         });
+        this.authService.user$.subscribe(user => {
+            this.xp = user.touristProgress?.xp||0;
+            this.level = user.touristProgress?.level||0;
+            console.log(this.xp)
+            console.log(this.level)
+
+        });
+
     }
     loadFollowings() {
         this.service.getFollowings(this.user.id).subscribe(result => {

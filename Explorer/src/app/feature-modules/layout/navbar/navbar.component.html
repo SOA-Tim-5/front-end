@@ -166,8 +166,8 @@
                     <div
                         *ngIf="
                             user.role === 'author' ||
-                            (user.touristProgress &&
-                                user.touristProgress.level >= 10)
+                            (user.role === 'tourist' && 
+                                user.touristProgress && user.touristProgress.level>=10)
                         "
                         class="navbar-submenu-item"
                         [routerLink]="['encounter-form']"

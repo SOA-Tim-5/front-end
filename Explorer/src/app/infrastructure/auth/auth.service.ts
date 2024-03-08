@@ -109,6 +109,10 @@ export class AuthService {
                     next: progress => {
                         user.touristProgress = progress;
                         this.user$.next(user);
+                        console.log("DOBAVLJENI TURISTA JE")
+                        console.log(user.touristProgress.level)
+                        console.log(user.touristProgress)
+
                     },
                     error: () => {},
                 });
