@@ -1,17 +1,17 @@
 import { KeyPointSecret } from "./key-point-secret.model";
 
 export interface KeyPoint {
-    id?: number;
-    tourId: number;
-    name: string;
-    description: string;
-    longitude: number;
-    latitude: number;
-    locationAddress?: string;
-    imagePath: string;
-    order: number;
-    haveSecret: boolean;
-    secret: KeyPointSecret | null;
-    hasEncounter: boolean;
-    isEncounterRequired: boolean;
+    Id?: number;
+    TourId: number;
+    Name: string;
+    Description: string;
+    Longitude: number;
+    Latitude: number;
+    LocationAddress?: string;
+    ImagePath: string;
+    Order: number;
+    HaveSecret: boolean;
+    Secret: KeyPointSecret | null;
+    HasEncounter: boolean;
+    IsEncounterRequired: boolean;
 }

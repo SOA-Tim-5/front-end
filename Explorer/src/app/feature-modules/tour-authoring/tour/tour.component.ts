@@ -285,8 +285,8 @@ export class TourComponent implements OnInit {
                 console.log(this.publicKeyPoints);
                 for (let pkp of this.publicKeyPoints) {
                     this.mapComponent.setMarkersForPublicKeyPoints(
-                        pkp.latitude,
-                        pkp.longitude,
+                        pkp.Latitude,
+                        pkp.Longitude,
                     );
                 }
             },

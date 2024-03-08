@@ -220,8 +220,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
         if (!this.canEdit) this.previousCommitted = true;
         if (this.selectedKeyPoint) {
             this.panMapTo(
-                this.selectedKeyPoint.latitude,
-                this.selectedKeyPoint.longitude,
+                this.selectedKeyPoint.Latitude,
+                this.selectedKeyPoint.Longitude,
             );
         }
 
@@ -489,9 +489,9 @@ export class MapComponent implements AfterViewInit, OnChanges {
 
             if (
                 this.selectedKeyPoint &&
-                this.selectedKeyPoint.id != undefined
+                this.selectedKeyPoint.Id != undefined
             ) {
-                this.waypointMap.set(this.selectedKeyPoint.id, { lng, lat });
+                this.waypointMap.set(this.selectedKeyPoint.Id, { lng, lat });
             } else {
                 this.waypointMap.set(Number.POSITIVE_INFINITY, { lng, lat });
             }
@@ -651,11 +651,11 @@ export class MapComponent implements AfterViewInit, OnChanges {
         this.waypointMap.clear();
 
         for (const kp of this.keyPoints!) {
-            let lng = kp.longitude;
-            let lat = kp.latitude;
-            let order = kp.order;
+            let lng = kp.Longitude;
+            let lat = kp.Latitude;
+            let order = kp.Order;
 
-            this.waypointMap.set(kp.id!, { lng, lat, order });
+            this.waypointMap.set(kp.Id!, { lng, lat, order });
         }
 
         this.createWaypoints(this.keyPoints);
@@ -666,8 +666,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
 
             if (this.keyPoints!.length > 0) {
                 this.panMapTo(
-                    this.keyPoints![0].latitude,
-                    this.keyPoints![0].longitude,
+                    this.keyPoints![0].Latitude,
+                    this.keyPoints![0].Longitude,
                 );
             }
         }

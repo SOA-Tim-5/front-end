@@ -84,7 +84,7 @@ export class PublicKeyPointsComponent implements OnInit {
                     // console.log("USAO U METODU");
                     this.onAdd.emit();
                     let idx = this.publicKeyPoints.findIndex(
-                        d => d.id == publicKeyPointId,
+                        d => d.Id == publicKeyPointId,
                     );
                     this.publicKeyPoints.splice(idx, 1);
                     this.onClose();
@@ -101,8 +101,8 @@ export class PublicKeyPointsComponent implements OnInit {
             pkp =>
                 this.keyPoints.filter(
                     kp =>
-                        kp.longitude == pkp.longitude &&
-                        kp.latitude == pkp.latitude,
+                        kp.Longitude == pkp.Longitude &&
+                        kp.Latitude == pkp.Latitude,
                 ).length == 0,
         );
     }

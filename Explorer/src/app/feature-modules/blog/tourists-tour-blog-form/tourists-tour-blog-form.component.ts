@@ -72,7 +72,7 @@ export class TouristsTourBlogFormComponent {
                                     let keyPointString = "";
                                     if (this.tour.KeyPoints) {
                                         keyPointString = this.tour.KeyPoints
-                                            .map(kp => kp.name)
+                                            .map(kp => kp.Name)
                                             .join(", ");
                                     }
 

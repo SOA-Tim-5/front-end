@@ -30,9 +30,9 @@ export class CampaignCardComponent implements OnInit {
     ) {}
     ngOnInit(): void {
         this.images = this.campaign.keyPoints!.map(kp =>
-            kp.imagePath.startsWith("http")
-                ? kp.imagePath
-                : environment.imageHost + kp.imagePath,
+            kp.ImagePath.startsWith("http")
+                ? kp.ImagePath
+                : environment.imageHost + kp.ImagePath,
         );
 
         setInterval(() => {

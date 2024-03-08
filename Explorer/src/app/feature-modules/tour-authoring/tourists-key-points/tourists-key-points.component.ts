@@ -356,8 +356,8 @@ export class TouristsKeyPointsComponent implements OnInit{
 
         if(this.keyPoints){
             for(let kp of this.keyPoints){
-                if(kp.id){
-                    this.keyPointIds.push(kp.id);
+                if(kp.Id){
+                    this.keyPointIds.push(kp.Id);
                 }
             }
         

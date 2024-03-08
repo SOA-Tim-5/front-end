@@ -189,13 +189,13 @@ export class TourExecutingComponent implements OnInit {
 
     showSecret(keyPointId: number) {
         this.tour.KeyPoints?.forEach(keyPoint => {
-            if (keyPoint.id == keyPointId) {
-                if (keyPoint.secret?.description != "") {
+            if (keyPoint.Id == keyPointId) {
+                if (keyPoint.Secret?.description != "") {
                     this.dialogRef.open(SecretPopupComponent, {
                         width: "auto",
                         height: "auto",
                         data: {
-                            dataKey: keyPoint.secret?.description,
+                            dataKey: keyPoint.Secret?.description,
                         },
                     });
                 }
@@ -209,10 +209,10 @@ export class TourExecutingComponent implements OnInit {
                 next: (result: Tour) => {
                     this.tour = result;
                     this.tourImage =
-                        this.tour.KeyPoints![0].imagePath.startsWith("http")
-                            ? this.tour.KeyPoints![0].imagePath
+                        this.tour.KeyPoints![0].ImagePath.startsWith("http")
+                            ? this.tour.KeyPoints![0].ImagePath
                             : environment.imageHost +
-                              this.tour.KeyPoints![0].imagePath;
+                              this.tour.KeyPoints![0].ImagePath;
                     this.getWeather();
                 },
             });
@@ -223,7 +223,7 @@ export class TourExecutingComponent implements OnInit {
                     this.tour = result;
                     this.tourImage =
                         environment.imageHost +
-                        this.tour.KeyPoints![0].imagePath;
+                        this.tour.KeyPoints![0].ImagePath;
                     this.getWeather();
                 },
             });
@@ -269,8 +269,8 @@ export class TourExecutingComponent implements OnInit {
     getKeyPoint(LatLng: any) {
         this.tour.KeyPoints?.forEach(keyPoint => {
             if (
-                keyPoint.latitude == LatLng.lat &&
-                keyPoint.longitude == LatLng.lng
+                keyPoint.Latitude == LatLng.lat &&
+                keyPoint.Longitude == LatLng.lng
             ) {
                 this.clickedKeyPoint = keyPoint;
             }
@@ -298,8 +298,8 @@ export class TourExecutingComponent implements OnInit {
     getWeather() {
         this.service
             .getWheather(
-                this.tour.KeyPoints![0].latitude,
-                this.tour.KeyPoints![0].longitude,
+                this.tour.KeyPoints![0].Latitude,
+                this.tour.KeyPoints![0].Longitude,
             )
             .subscribe({
                 next: (result: any) => {

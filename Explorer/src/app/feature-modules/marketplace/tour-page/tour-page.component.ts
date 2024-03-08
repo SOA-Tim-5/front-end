@@ -55,9 +55,9 @@ export class TourPageComponent {
                     this.tour = result;
                     if (this.tour.KeyPoints)
                         this.images = this.tour.KeyPoints.map(kp =>
-                            kp.imagePath.startsWith("http")
-                                ? kp.imagePath
-                                : environment.imageHost + kp.imagePath,
+                            kp.ImagePath.startsWith("http")
+                                ? kp.ImagePath
+                                : environment.imageHost + kp.ImagePath,
                         );
                 },
             });

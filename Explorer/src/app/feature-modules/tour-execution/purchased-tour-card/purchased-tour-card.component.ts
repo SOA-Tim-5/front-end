@@ -44,9 +44,9 @@ export class PurchasedTourCardComponent implements OnInit {
 
     ngOnInit(): void {
         this.images = this.tour.KeyPoints!.map(kp =>
-            kp.imagePath.startsWith("http")
-                ? kp.imagePath
-                : environment.imageHost + kp.imagePath,
+            kp.ImagePath.startsWith("http")
+                ? kp.ImagePath
+                : environment.imageHost + kp.ImagePath,
         );
 
         setInterval(() => {
@@ -102,8 +102,8 @@ export class PurchasedTourCardComponent implements OnInit {
     ShowWheather() {
         const dialogRef = this.dialogRef.open(TourWheatherComponent, {
             data: {
-                longitude: this.tour.KeyPoints![0].longitude,
-                latitude: this.tour.KeyPoints![0].latitude,
+                longitude: this.tour.KeyPoints![0].Longitude,
+                latitude: this.tour.KeyPoints![0].Latitude,
                 tourName: this.tour.Name,
             },
         });

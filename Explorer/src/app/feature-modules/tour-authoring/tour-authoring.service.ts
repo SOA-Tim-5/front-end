@@ -70,7 +70,7 @@ export class TourAuthoringService {
         return this.http.post<KeyPoint>(
             environment.apiHost +
                 "tour-authoring/tours/" +
-                keyPoint.tourId +
+                keyPoint.TourId +
                 "/key-points",
             keyPoint,
         );
@@ -80,9 +80,9 @@ export class TourAuthoringService {
         return this.http.put<KeyPoint>(
             environment.apiHost +
                 "tour-authoring/tours/" +
-                keyPoint.tourId +
+                keyPoint.TourId +
                 "/key-points/" +
-                keyPoint.id,
+                keyPoint.Id,
             keyPoint,
         );
     }

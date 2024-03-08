@@ -29,13 +29,13 @@ export class KeyPointCardComponent implements OnInit {
 
     ngOnInit(): void {
         if (!this.isAddNew && !this.isAddNewPublic) {
-            this.keyPointImage = this.keyPoint.imagePath.startsWith("http")
-                ? this.keyPoint.imagePath
-                : environment.imageHost + this.keyPoint.imagePath;
+            this.keyPointImage = this.keyPoint.ImagePath.startsWith("http")
+                ? this.keyPoint.ImagePath
+                : environment.imageHost + this.keyPoint.ImagePath;
         }
     }
 
     delete() {
-        this.deleteClicked.emit(this.keyPoint.id!);
+        this.deleteClicked.emit(this.keyPoint.Id!);
     }
 }

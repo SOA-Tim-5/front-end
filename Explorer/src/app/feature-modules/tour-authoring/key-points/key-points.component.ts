@@ -108,10 +108,10 @@ export class KeyPointsComponent implements OnInit {
         this.service.getKeyPoints(this.tour?.Id!).subscribe({
             next: (result: KeyPoint[]) => {
                 this.keyPoints = result.sort((x, y) => {
-                    return x.order < y.order ? -1 : 1;
+                    return x.Order < y.Order ? -1 : 1;
                 });
                 this.tour!.KeyPoints = this.tour!.KeyPoints?.sort((x, y) => {
-                    return x.order < y.order ? -1 : 1;
+                    return x.Order < y.Order ? -1 : 1;
                 });
             },
             error: () => {},
@@ -144,9 +144,9 @@ export class KeyPointsComponent implements OnInit {
                 this.service.deleteKeyPoint(+params.get("id")!, id).subscribe({
                     next: () => {
                         this.tour!.KeyPoints = this.tour?.KeyPoints?.filter(
-                            x => x.id != id,
+                            x => x.Id != id,
                         );
-                        this.keyPoints = this.keyPoints.filter(x => x.id != id);
+                        this.keyPoints = this.keyPoints.filter(x => x.Id != id);
                         this.notifier.notify("success", "Removed keypoint.");
                     },
                     error: (err: any) => {
@@ -233,10 +233,10 @@ export class KeyPointsComponent implements OnInit {
         });
 
         dialogRef.componentInstance.keyPointUpdated.subscribe(keyPoint => {
-            let index = this.keyPoints.findIndex(x => x.id == keyPoint.id);
+            let index = this.keyPoints.findIndex(x => x.Id == keyPoint.Id);
             this.keyPoints[index] = keyPoint;
 
-            index = this.tour!.KeyPoints!.findIndex(x => x.id == keyPoint.id);
+            index = this.tour!.KeyPoints!.findIndex(x => x.Id == keyPoint.Id);
             this.tour!.KeyPoints![index] = keyPoint;
         });
     }

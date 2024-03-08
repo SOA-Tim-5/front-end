@@ -69,9 +69,9 @@ export class KeyPointModalComponent implements OnInit {
         this.isUpdateForm = data.isUpdateForm;
         this.keyPoint = data.keyPoint;
         if (this.isUpdateForm) {
-            this.tourImage = this.keyPoint!.imagePath.startsWith("http")
-                ? this.keyPoint!.imagePath
-                : environment.imageHost + this.keyPoint!.imagePath;
+            this.tourImage = this.keyPoint!.ImagePath.startsWith("http")
+                ? this.keyPoint!.ImagePath
+                : environment.imageHost + this.keyPoint!.ImagePath;
             this.keyPointForm.patchValue(this.keyPoint!);
         }
     }
@@ -81,16 +81,16 @@ export class KeyPointModalComponent implements OnInit {
     }
 
     keyPointForm = new FormGroup({
-        name: new FormControl("", [Validators.required]),
-        description: new FormControl("", [Validators.required]),
-        longitude: new FormControl<number>(null!, [Validators.required]),
-        latitude: new FormControl<number>(null!, [Validators.required]),
-        address: new FormControl<string>("", [Validators.required]),
-        imagePath: new FormControl<string>("", [Validators.required]),
-        isPublicChecked: new FormControl<boolean>(false),
-        haveSecret: new FormControl<boolean>(false),
-        secretDescription: new FormControl<string>(""),
-        secretImages: new FormControl<string>(""),
+        Name: new FormControl("", [Validators.required]),
+        Description: new FormControl("", [Validators.required]),
+        Longitude: new FormControl<number>(null!, [Validators.required]),
+        Latitude: new FormControl<number>(null!, [Validators.required]),
+        Address: new FormControl<string>("", [Validators.required]),
+        ImagePath: new FormControl<string>("", [Validators.required]),
+        IsPublicChecked: new FormControl<boolean>(false),
+        HaveSecret: new FormControl<boolean>(false),
+        SecretDescription: new FormControl<string>(""),
+        SecretImages: new FormControl<string>(""),
     });
 
     onSelectImage(event: Event) {
@@ -103,14 +103,14 @@ export class KeyPointModalComponent implements OnInit {
             reader.readAsDataURL(this.tourImageFile);
             reader.onload = (e: ProgressEvent<FileReader>) => {
                 this.tourImage = reader.result as string;
-                this.keyPointForm.value.imagePath = "";
+                this.keyPointForm.value.ImagePath = "";
             };
         }
     }
 
     addEncounter() {
         this.dialog.open(KeyPointEncounterFormComponent, {
-            data: { keyPointId: this.keyPoint!.id },
+            data: { keyPointId: this.keyPoint!.Id },
         });
     }
 
@@ -122,28 +122,28 @@ export class KeyPointModalComponent implements OnInit {
         this.service.uploadImage(this.tourImageFile!).subscribe({
             next: (imagePath: string) => {
                 const keyPoint: KeyPoint = {
-                    tourId: this.tour.Id!,
-                    name: this.keyPointForm.value.name || "",
-                    description: this.keyPointForm.value.description || "",
-                    longitude: this.keyPointForm.value.longitude || 0,
-                    latitude: this.keyPointForm.value.latitude || 0,
-                    locationAddress: this.keyPointForm.value.address || "",
-                    imagePath: imagePath,
-                    order: 0,
-                    haveSecret:
-                        this.keyPointForm.value.secretDescription?.length != 0,
-                    secret:
+                    TourId: this.tour.Id!,
+                    Name: this.keyPointForm.value.Name || "",
+                    Description: this.keyPointForm.value.Description || "",
+                    Longitude: this.keyPointForm.value.Longitude || 0,
+                    Latitude: this.keyPointForm.value.Latitude || 0,
+                    LocationAddress: this.keyPointForm.value.Address || "",
+                    ImagePath: imagePath,
+                    Order: 0,
+                    HaveSecret:
+                        this.keyPointForm.value.SecretDescription?.length != 0,
+                    Secret:
                         {
                             images: [""],
                             description:
-                                this.keyPointForm.value.secretDescription || "",
+                                this.keyPointForm.value.SecretDescription || "",
                         } || null,
-                    hasEncounter: this.hasEncounter,
-                    isEncounterRequired: this.isEncounterRequired,
+                    HasEncounter: this.hasEncounter,
+                    IsEncounterRequired: this.isEncounterRequired,
                 };
                 // Get Key Points location address
                 this.mapService
-                    .reverseSearch(keyPoint.latitude, keyPoint.longitude)
+                    .reverseSearch(keyPoint.Latitude, keyPoint.Longitude)
                     .subscribe((res: { display_name: string }) => {
                         let addressInfo = {
                             number: "",
@@ -170,14 +170,14 @@ export class KeyPointModalComponent implements OnInit {
                             " " +
                             addressInfo.country;
 
-                        keyPoint.locationAddress = concatenatedAddress;
+                        keyPoint.LocationAddress = concatenatedAddress;
 
                         this.service.addKeyPoint(keyPoint).subscribe({
                             next: result => {
                                 this.keyPointCreated.emit(result);
-                                if (this.keyPointForm.value.isPublicChecked) {
+                                if (this.keyPointForm.value.IsPublicChecked) {
                                     const request: PublicKeyPointRequest = {
-                                        keyPointId: result.id as number,
+                                        keyPointId: result.Id as number,
                                         status: PublicStatus.Pending,
                                         authorName:
                                             this.person.name +
@@ -216,30 +216,30 @@ export class KeyPointModalComponent implements OnInit {
             return;
         }
         let keyPoint: KeyPoint = {
-            id: this.keyPoint!.id,
-            tourId: this.tour.Id!,
-            name: this.keyPointForm.value.name || "",
-            description: this.keyPointForm.value.description || "",
-            longitude: this.keyPointForm.value.longitude || 0,
-            latitude: this.keyPointForm.value.latitude || 0,
-            locationAddress: this.keyPointForm.value.address || "",
-            imagePath: this.keyPointForm.value.imagePath || "",
-            order: this.keyPoint!.order,
-            haveSecret: this.keyPointForm.value.secretDescription?.length != 0,
-            secret: this.keyPointForm.value.secretDescription?.length != 0 ?
+            Id: this.keyPoint!.Id,
+            TourId: this.tour.Id!,
+            Name: this.keyPointForm.value.Name || "",
+            Description: this.keyPointForm.value.Description || "",
+            Longitude: this.keyPointForm.value.Longitude || 0,
+            Latitude: this.keyPointForm.value.Latitude || 0,
+            LocationAddress: this.keyPointForm.value.Address || "",
+            ImagePath: this.keyPointForm.value.ImagePath || "",
+            Order: this.keyPoint!.Order,
+            HaveSecret: this.keyPointForm.value.SecretDescription?.length != 0,
+            Secret: this.keyPointForm.value.SecretDescription?.length != 0 ?
                     {
                         images: [""],
                         description:
-                            this.keyPointForm.value.secretDescription || "",
+                            this.keyPointForm.value.SecretDescription || "",
                     } || null : null,
-            hasEncounter: this.hasEncounter,
-            isEncounterRequired: this.isEncounterRequired,
+            HasEncounter: this.hasEncounter,
+            IsEncounterRequired: this.isEncounterRequired,
         };
 
-        if (!keyPoint.imagePath) {
+        if (!keyPoint.ImagePath) {
             this.service.uploadImage(this.tourImageFile!).subscribe({
                 next: (imagePath: string) => {
-                    keyPoint.imagePath = imagePath;
+                    keyPoint.ImagePath = imagePath;
                     this.service.updateKeyPoint(keyPoint).subscribe({
                         next: () => {
                             this.keyPointUpdated.emit();
@@ -253,7 +253,7 @@ export class KeyPointModalComponent implements OnInit {
         } else {
             // Get Key Points location address
             this.mapService
-                .reverseSearch(keyPoint.latitude, keyPoint.longitude)
+                .reverseSearch(keyPoint.Latitude, keyPoint.Longitude)
                 .subscribe(res => {
                     let addressInfo = {
                         number: "",
@@ -280,7 +280,7 @@ export class KeyPointModalComponent implements OnInit {
                         " " +
                         addressInfo.country;
 
-                    keyPoint.locationAddress = concatenatedAddress;
+                    keyPoint.LocationAddress = concatenatedAddress;
 
                     this.service.updateKeyPoint(keyPoint).subscribe({
                         next: response => {
@@ -305,8 +305,8 @@ export class KeyPointModalComponent implements OnInit {
     isValidForm(): boolean {
         if (
             this.keyPointForm.errors ||
-            !this.keyPointForm.value.latitude ||
-            !this.keyPointForm.value.longitude
+            !this.keyPointForm.value.Latitude ||
+            !this.keyPointForm.value.Longitude
         ) {
             return true;
         }
@@ -359,10 +359,10 @@ export class KeyPointModalComponent implements OnInit {
         });
         dialogRef.componentInstance.positionChanged.subscribe(
             (result: LocationCoords) => {
-                this.keyPointForm.controls["longitude"].setValue(
+                this.keyPointForm.controls["Longitude"].setValue(
                     result.longitude,
                 );
-                this.keyPointForm.controls["latitude"].setValue(
+                this.keyPointForm.controls["Latitude"].setValue(
                     result.latitude,
                 );
                 this.notifier.notify(

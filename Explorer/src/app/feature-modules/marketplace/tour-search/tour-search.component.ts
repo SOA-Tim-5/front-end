@@ -226,8 +226,8 @@ export class TourSearchComponent implements OnInit {
                 this.publicKeyPoints = result.results;
                 for (let pkp of this.publicKeyPoints) {
                     this.mapComponent.setMarkersForPublicKeyPoints(
-                        pkp.latitude,
-                        pkp.longitude,
+                        pkp.Latitude,
+                        pkp.Longitude,
                     );
                 }
             },

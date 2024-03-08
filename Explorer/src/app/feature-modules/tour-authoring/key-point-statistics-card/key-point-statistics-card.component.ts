@@ -15,8 +15,8 @@ export class KeyPointStatisticsCardComponent {
     keyPointImage: string;
 
     ngOnInit(): void {
-        this.keyPointImage = this.keyPoint.imagePath.startsWith("http")
-            ? this.keyPoint.imagePath
-            : environment.imageHost + this.keyPoint.imagePath;
+        this.keyPointImage = this.keyPoint.ImagePath.startsWith("http")
+            ? this.keyPoint.ImagePath
+            : environment.imageHost + this.keyPoint.ImagePath;
     }
 }

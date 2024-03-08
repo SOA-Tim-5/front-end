@@ -64,7 +64,7 @@ export class SingleTourStatisticsComponent implements OnInit{
               this.encounterStatistics = {};
             
               for (let kp of this.keyPoints) {
-                this.encounterStatistics[kp.id!] = 0;
+                this.encounterStatistics[kp.Id!] = 0;
               }
             }
             

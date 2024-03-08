@@ -6,8 +6,8 @@
         "
     >
         {{
-            keyPointForm.get("name")!.value
-                ? keyPointForm.get("name")!.value
+            keyPointForm.get("Name")!.value
+                ? keyPointForm.get("Name")!.value
                 : "New keypoint"
         }}
     </div>
@@ -20,7 +20,7 @@
             <div class="option-name">Name:</div>
             <input
                 matInput
-                formControlName="name"
+                formControlName="Name"
                 type="text"
                 placeholder="Dunavski park"
             />
@@ -31,7 +31,7 @@
                 cols="50"
                 rows="4"
                 resize="none"
-                formControlName="description"
+                formControlName="Description"
                 placeholder="Short description of this keypoint..."
             ></textarea>
         </div>
@@ -58,7 +58,7 @@
                 cols="50"
                 rows="4"
                 resize="none"
-                formControlName="secretDescription"
+                formControlName="SecretDescription"
                 placeholder="Short description of this keypoint's secret..."
             ></textarea>
         </div>
@@ -67,7 +67,7 @@
             <input
                 id="is-public-checkbox"
                 class="is-public-checkbox"
-                formControlName="isPublicChecked"
+                formControlName="IsPublicChecked"
                 type="checkbox"
             />
         </div>
