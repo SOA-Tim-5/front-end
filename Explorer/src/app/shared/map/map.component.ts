@@ -312,8 +312,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
 
         if (this.isKeyPointMap) {
             this.mapService.getAuthorsFacilities().subscribe({
-                next: (result: PagedResults<Facilities>) => {
-                    let facilities = result.results;
+                next: (result: Facilities[]) => {
+                    let facilities = result;
 
                     for (let f of facilities) {
                         this.setMarkersForAllFacilities(
