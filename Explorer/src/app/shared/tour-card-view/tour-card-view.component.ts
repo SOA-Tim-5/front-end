@@ -105,11 +105,14 @@ export class TourCardViewComponent implements OnChanges {
     }
 
     ngOnInit(): void {
-        /*this.images = this.tour.KeyPoints!.map(kp =>
-            kp.imagePath.startsWith("http")
-                ? kp.imagePath
-                : environment.imageHost + kp.imagePath,
-        );*/
+        if(this.tour.KeyPoints!=null){
+            this.images = this.tour.KeyPoints!.map(kp =>
+                kp.imagePath.startsWith("http")
+                    ? kp.imagePath
+                    : environment.imageHost + kp.imagePath,
+            );
+        }
+        
         if (this.preliminaryDiscount) {
             this.discount = this.preliminaryDiscount;
             this.discountedPrice =

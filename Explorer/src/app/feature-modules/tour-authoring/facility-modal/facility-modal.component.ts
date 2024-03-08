@@ -66,16 +66,16 @@ export class FacilityModalComponent implements OnInit {
         this.isUpdateForm = data.isUpdateForm;
         this.facility = data.facility;
         if (this.isUpdateForm) {
-            this.facilityImage = this.facility!.imagePath!.startsWith("http")
-                ? this.facility!.imagePath!
-                : environment.imageHost + this.facility!.imagePath;
+            this.facilityImage = this.facility!.ImagePath!.startsWith("http")
+                ? this.facility!.ImagePath!
+                : environment.imageHost + this.facility!.ImagePath;
             const facilityToPatch = {
-                name: this.facility!.name || null,
-                description: this.facility!.description || null,
-                imagePath: this.facility!.imagePath || null,
-                category: this.facility!.category.toString() || null,
-                longitude: this.facility!.longitude.toString() || null,
-                latitude: this.facility!.latitude.toString() || null,
+                name: this.facility!.Name || null,
+                description: this.facility!.Description || null,
+                imagePath: this.facility!.ImagePath || null,
+                category: this.facility!.Category.toString() || null,
+                longitude: this.facility!.Longitude.toString() || null,
+                latitude: this.facility!.Latitude.toString() || null,
             };
             this.facilityForm.patchValue(facilityToPatch);
         }
@@ -132,16 +132,16 @@ export class FacilityModalComponent implements OnInit {
         this.service.uploadImage(this.facilityImageFile!).subscribe({
             next: (imagePath: string) => {
                 const facility: Facilities = {
-                    name: this.facilityForm.value.name || "",
-                    description: this.facilityForm.value.description || "",
-                    imagePath: imagePath,
-                    category: this.selectedOption
+                    Name: this.facilityForm.value.name || "",
+                    Description: this.facilityForm.value.description || "",
+                    ImagePath: imagePath,
+                    Category: this.selectedOption
                         ? parseInt(this.selectedOption, 10)
                         : 0,
-                    longitude:
+                    Longitude:
                         parseFloat(this.facilityForm.value.longitude || "0") ||
                         0,
-                    latitude:
+                    Latitude:
                         parseFloat(this.facilityForm.value.latitude || "0") ||
                         0,
                 };
@@ -152,7 +152,7 @@ export class FacilityModalComponent implements OnInit {
                             this.facilityCreated.emit(result);
                             if (this.facilityForm.value.isPublicChecked) {
                                 const request: PublicFacilityRequest = {
-                                    facilityId: result.id as number,
+                                    facilityId: result.Id as number,
                                     status: PublicStatus.Pending,
                                     authorName:
                                         this.person.name +
@@ -196,23 +196,23 @@ export class FacilityModalComponent implements OnInit {
             return;
         }
         let facility: Facilities = {
-            id: this.facility!.id!,
-            name: this.facilityForm.value.name || "",
-            description: this.facilityForm.value.description || "",
-            category: this.selectedOption
+            Id: this.facility!.Id!,
+            Name: this.facilityForm.value.name || "",
+            Description: this.facilityForm.value.description || "",
+            Category: this.selectedOption
                 ? parseInt(this.selectedOption, 10)
                 : 0,
-            longitude:
+            Longitude:
                 parseFloat(this.facilityForm.value.longitude || "0") || 0,
-            latitude: parseFloat(this.facilityForm.value.latitude || "0") || 0,
+            Latitude: parseFloat(this.facilityForm.value.latitude || "0") || 0,
 
-            imagePath: this.facilityForm.value.imagePath || "",
+            ImagePath: this.facilityForm.value.imagePath || "",
         };
 
-        if (!facility.imagePath) {
+        if (!facility.ImagePath) {
             this.service.uploadImage(this.facilityImageFile!).subscribe({
                 next: (imagePath: string) => {
-                    facility.imagePath = imagePath;
+                    facility.ImagePath = imagePath;
                     this.service.updateFacility(facility).subscribe({
                         next: () => {
                             this.facilityUpdated.emit();

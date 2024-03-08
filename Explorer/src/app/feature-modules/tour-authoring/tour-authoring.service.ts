@@ -101,8 +101,8 @@ export class TourAuthoringService {
         );
     }
 
-    getAuthorsFacilities(): Observable<PagedResults<Facilities>> {
-        return this.http.get<PagedResults<Facilities>>(
+    getAuthorsFacilities(): Observable<Facilities[]> {
+        return this.http.get<Facilities[]>(
             environment.apiHost + "facility/authorsFacilities",
         );
     }
@@ -116,7 +116,7 @@ export class TourAuthoringService {
 
     updateFacility(facility: Facilities): Observable<Facilities> {
         return this.http.put<Facilities>(
-            environment.apiHost + "facility/" + facility.id,
+            environment.apiHost + "facility/" + facility.Id,
             facility,
         );
     }

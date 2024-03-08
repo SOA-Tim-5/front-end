@@ -42,13 +42,13 @@ export class FacilitiesComponent implements OnInit {
 
     getFacilities(): void {
         this.service.getAuthorsFacilities().subscribe({
-            next: (result: PagedResults<Facilities>) => {
-                this.facilities = result.results;
-
+            next: (result: Facilities[]) => {
+                this.facilities = result;
+                console.log(this.facilities)
                 for (let f of this.facilities) {
                     this.mapComponent.setMarkersForAllFacilities(
-                        f.latitude,
-                        f.longitude,
+                        f.Latitude,
+                        f.Longitude,
                     );
                 }
             },
@@ -73,7 +73,7 @@ export class FacilitiesComponent implements OnInit {
     onTableRowClicked(facility: Facilities): void {
         this.selectedFacility = facility;
         if (this.mapComponent) {
-            this.mapComponent.setMarker(facility.latitude, facility.longitude);
+            this.mapComponent.setMarker(facility.Latitude, facility.Longitude);
             this.mapComponent.facilitiesUsed = true;
         }
     }
@@ -120,7 +120,7 @@ export class FacilitiesComponent implements OnInit {
         });
 
         dialogRef.componentInstance.facilityUpdated.subscribe(facility => {
-            let index = this.facilities.findIndex(x => x.id == facility.id);
+            let index = this.facilities.findIndex(x => x.Id == facility.Id);
             this.facilities[index] = facility;
         });
     }
@@ -131,7 +131,7 @@ export class FacilitiesComponent implements OnInit {
                 this.service.deleteFacility(id).subscribe({
                     next: () => {
                         this.facilities = this.facilities.filter(
-                            x => x.id != id,
+                            x => x.Id != id,
                         );
                         this.notifier.notify("success", "Removed facility.");
                     },

@@ -59,12 +59,12 @@ export class FacilitiesFormComponent implements OnChanges {
         this.facilitiesForm.reset();
         if (this.shouldEdit) {
             const facilityToPatch = {
-                name: this.facility.name || null,
-                description: this.facility.description || null,
-                imagePath: this.facility.imagePath || null,
-                category: this.facility.category.toString() || null,
-                longitude: this.facility.longitude.toString() || null,
-                latitude: this.facility.latitude.toString() || null,
+                name: this.facility.Name || null,
+                description: this.facility.Description || null,
+                imagePath: this.facility.ImagePath || null,
+                category: this.facility.Category.toString() || null,
+                longitude: this.facility.Longitude.toString() || null,
+                latitude: this.facility.Latitude.toString() || null,
             };
             this.facilitiesForm.patchValue(facilityToPatch);
         }
@@ -82,21 +82,21 @@ export class FacilitiesFormComponent implements OnChanges {
 
     addFacility(): void {
         const facility: Facilities = {
-            name: this.facilitiesForm.value.name || "",
-            description: this.facilitiesForm.value.description || "",
-            imagePath: this.facilitiesForm.value.imagePath || "",
-            category: this.selectedOption
+            Name: this.facilitiesForm.value.name || "",
+            Description: this.facilitiesForm.value.description || "",
+            ImagePath: this.facilitiesForm.value.imagePath || "",
+            Category: this.selectedOption
                 ? parseInt(this.selectedOption, 10)
                 : 0,
-            longitude:
+            Longitude:
                 parseFloat(this.facilitiesForm.value.longitude || "0") || 0,
-            latitude:
+            Latitude:
                 parseFloat(this.facilitiesForm.value.latitude || "0") || 0,
         };
 
         if (this.newLatitude != 0 && this.newLongitude != 0) {
-            facility.longitude = this.newLongitude;
-            facility.latitude = this.newLatitude;
+            facility.Longitude = this.newLongitude;
+            facility.Latitude = this.newLatitude;
 
             /*this.service.addFacility(facility).subscribe({
                 next: result => {
@@ -118,14 +118,14 @@ export class FacilitiesFormComponent implements OnChanges {
             });*/
             this.service.uploadImage(this.tourImageFile!).subscribe({
                 next: (imagePath: string) => {
-                    facility.imagePath=imagePath;
+                    facility.ImagePath=imagePath;
                     this.service.addFacility(facility).subscribe({
                         next: result => {
                             this.facilitiesUpdated.emit();
                             //location.reload();
                             if (this.facilitiesForm.value.isPublicChecked) {
                                 const request: PublicFacilityRequest = {
-                                    facilityId: result.id as number,
+                                    facilityId: result.Id as number,
                                     status: PublicStatus.Pending,
                                     // Dodajte komentar ako je potrebno
                                     authorName:
@@ -151,31 +151,31 @@ export class FacilitiesFormComponent implements OnChanges {
 
     updateFacility(): void {
         const facility: Facilities = {
-            name: this.facilitiesForm.value.name || "",
-            description: this.facilitiesForm.value.description || "",
-            imagePath: this.facilitiesForm.value.imagePath || "",
-            category: this.selectedOption
+            Name: this.facilitiesForm.value.name || "",
+            Description: this.facilitiesForm.value.description || "",
+            ImagePath: this.facilitiesForm.value.imagePath || "",
+            Category: this.selectedOption
                 ? parseInt(this.selectedOption, 10)
                 : 0,
-            longitude:
+            Longitude:
                 parseFloat(this.facilitiesForm.value.longitude || "0") || 0,
-            latitude:
+            Latitude:
                 parseFloat(this.facilitiesForm.value.latitude || "0") || 0,
         };
 
         if (this.selectedOption == null) {
-            facility.category = this.facility.category;
+            facility.Category = this.facility.Category;
         }
 
-        facility.id = this.facility.id;
+        facility.Id = this.facility.Id;
 
         if (this.newLatitude != 0 && this.newLongitude != 0) {
-            facility.longitude = this.newLongitude;
-            facility.latitude = this.newLatitude;
+            facility.Longitude = this.newLongitude;
+            facility.Latitude = this.newLatitude;
         }
         this.service.uploadImage(this.tourImageFile!).subscribe({
             next: (imagePath: string) => {
-                facility.imagePath = imagePath;
+                facility.ImagePath = imagePath;
                 this.service.updateFacility(facility).subscribe({
                     next: _ => {
                         this.facilitiesUpdated.emit();
