@@ -14,10 +14,10 @@
             </thead>
             <tbody>
                 <tr *ngFor="let eq of equipment">
-                    <td>{{eq.name}}</td>
-                    <td>{{eq.description}}</td>
+                    <td>{{eq.Name}}</td>
+                    <td>{{eq.Description}}</td>
                     <td>
-                        <button color="accent" (click)="deleteEquipment(eq.id || 0)" mat-icon-button>
+                        <button color="accent" (click)="deleteEquipment(eq.Id || 0)" mat-icon-button>
                             <mat-icon>delete</mat-icon>
                         </button>
                         <button color="primary" (click)="onEditClicked(eq)" mat-icon-button>

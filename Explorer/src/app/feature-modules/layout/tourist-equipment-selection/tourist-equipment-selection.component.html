@@ -12,14 +12,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let eq of allEquipment" [ngClass]="(touristEquipment.equipmentIds.indexOf(eq.id!=undefined?eq.id:-1)!==-1)? 'selected-item':''">
-                    <td>{{eq.name}}</td>
-                    <td>{{eq.description}}</td>
+                <tr *ngFor="let eq of allEquipment" [ngClass]="(touristEquipment.equipmentIds.indexOf(eq.Id!=undefined?eq.Id:-1)!==-1)? 'selected-item':''">
+                    <td>{{eq.Name}}</td>
+                    <td>{{eq.Description}}</td>
                     <td>
-                        <button *ngIf="touristEquipment.equipmentIds.indexOf(eq.id!=undefined?eq.id:-1)!==-1" color="accent" (click)="removeEquipmentFromTourist(eq.id!==undefined?eq.id:-1)" mat-icon-button>
+                        <button *ngIf="touristEquipment.equipmentIds.indexOf(eq.Id!=undefined?eq.Id:-1)!==-1" color="accent" (click)="removeEquipmentFromTourist(eq.Id!==undefined?eq.Id:-1)" mat-icon-button>
                             <mat-icon>delete</mat-icon>
                         </button>
-                        <button *ngIf="touristEquipment.equipmentIds.indexOf(eq.id!=undefined?eq.id:-1)===-1" color="primary" (click)="addEquipmentToTourist(eq.id!==undefined?eq.id:-1)" mat-icon-button>
+                        <button *ngIf="touristEquipment.equipmentIds.indexOf(eq.Id!=undefined?eq.Id:-1)===-1" color="primary" (click)="addEquipmentToTourist(eq.Id!==undefined?eq.Id:-1)" mat-icon-button>
                             <mat-icon>add</mat-icon>
                         </button>
                     </td>

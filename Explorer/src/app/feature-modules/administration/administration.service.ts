@@ -31,8 +31,8 @@ export class AdministrationService {
         );
     }
 
-    getEquipment(): Observable<PagedResults<Equipment>> {
-        return this.http.get<PagedResults<Equipment>>(
+    getEquipment(): Observable<Equipment[]> {
+        return this.http.get<Equipment[]>(
             environment.apiHost + "administration/equipment",
         );
     }
@@ -58,7 +58,7 @@ export class AdministrationService {
 
     updateEquipment(equipment: Equipment): Observable<Equipment> {
         return this.http.put<Equipment>(
-            environment.apiHost + "administration/equipment/" + equipment.id,
+            environment.apiHost + "administration/equipment/" + equipment.Id,
             equipment,
         );
     }

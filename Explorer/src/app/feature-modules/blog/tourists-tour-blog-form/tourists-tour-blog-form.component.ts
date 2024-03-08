@@ -53,7 +53,7 @@ export class TouristsTourBlogFormComponent {
                                     let equipmentString = "";
                                     if (this.equipment) {
                                         equipmentString = this.equipment
-                                            .map(eq => eq.name)
+                                            .map(eq => eq.Name)
                                             .join(", ");
                                     }
 

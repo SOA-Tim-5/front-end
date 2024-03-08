@@ -57,7 +57,7 @@ export class TourEquipmentFormComponent implements OnInit{
   }
 
   checkIfAlreadyExists(eqId:number): boolean{
-    return this.equipment.filter(eqp=> eqp.id === eqId).length > 0;
+    return this.equipment.filter(eqp=> eqp.Id === eqId).length > 0;
   }
   
   onRemoveClicked(eqId:number): void {

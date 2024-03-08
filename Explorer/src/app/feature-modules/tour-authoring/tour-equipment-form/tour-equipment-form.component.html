@@ -13,10 +13,10 @@
             </thead>
             <tbody>
                 <tr *ngFor = "let eq of equipment">
-                    <td>{{eq.name}}</td>
-                    <td>{{eq.description}}</td>
+                    <td>{{eq.Name}}</td>
+                    <td>{{eq.Description}}</td>
                     <td>
-                        <button color="primary" (click)="onRemoveClicked(eq.id || 0)" mat-icon-button >
+                        <button color="primary" (click)="onRemoveClicked(eq.Id || 0)" mat-icon-button >
                             <mat-icon>remove</mat-icon>
                         </button> 
                     </td>
@@ -40,10 +40,10 @@
             </thead>
             <tbody>
                 <tr *ngFor = "let eq of allEquipment">
-                    <td>{{eq.name}}</td>
-                    <td>{{eq.description}}</td>
+                    <td>{{eq.Name}}</td>
+                    <td>{{eq.Description}}</td>
                     <td>
-                        <button color="primary" (click)="onAddClicked(eq.id || 0)" mat-icon-button [disabled] = "checkIfAlreadyExists(eq.id || 0)">
+                        <button color="primary" (click)="onAddClicked(eq.Id || 0)" mat-icon-button [disabled] = "checkIfAlreadyExists(eq.Id || 0)">
                             <mat-icon>add</mat-icon>
                         </button>    
                     <td>
