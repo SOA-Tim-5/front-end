@@ -222,6 +222,8 @@ export class TourComponent implements OnInit {
             },
         });
         addDialog.componentInstance.toursUpdated.subscribe(tour => {
+            if(this.tours==null)
+                this.tours=[]
             this.tours.push(tour);
         });
     }
