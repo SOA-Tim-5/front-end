@@ -46,7 +46,7 @@ export class TourPreferencesComponent implements OnInit {
     ngOnInit(): void {
         this.service.getTourPreference().subscribe({
             next: (result: TourPreference) => {
-                this.preference = result;
+                if (result.DifficultyLevel != 0) this.preference = result;
                 this.authService.user$.subscribe(user => {
                     if (!user.id) return;
                     this.user = user;

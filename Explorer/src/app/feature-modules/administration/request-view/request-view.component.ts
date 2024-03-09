@@ -16,7 +16,7 @@ import {
     faTimes,
     faBuilding,
     faSquareCheck,
-    faSquareXmark
+    faSquareXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
 enum Tab {
@@ -64,8 +64,8 @@ export class RequestViewComponent implements OnInit {
 
     getRequests(): void {
         this.service.getRequests().subscribe({
-            next: (result: PagedResults<PublicKeyPointRequest>) => {
-                this.requests = result.results;
+            next: (result: PublicKeyPointRequest[]) => {
+                this.requests = result;
                 this.service.getFacilityRequests().subscribe({
                     next: (result: PagedResults<PublicFacilityRequest>) => {
                         this.facilityRequests = result.results;
@@ -78,10 +78,10 @@ export class RequestViewComponent implements OnInit {
         });
     }
     acceptPublicKeyPointRequest(request: PublicKeyPointRequest): void {
-        request.status = 1;
-        request.comment = "";
-        if (request.id != undefined) {
-            this.service.acceptPublicKeyPointRequest(request.id).subscribe({
+        request.Status = 1;
+        request.Comment = "";
+        if (request.Id != undefined) {
+            this.service.acceptPublicKeyPointRequest(request.Id).subscribe({
                 next: () => {
                     this.getRequests();
                 },
@@ -132,7 +132,7 @@ export class RequestViewComponent implements OnInit {
     }
 
     rejectPublicFacilityRequest(request: PublicFacilityRequest): void {
-        const dialogRef=this.dialogRef.open(CommentRequestFormComponent, {
+        const dialogRef = this.dialogRef.open(CommentRequestFormComponent, {
             data: request,
         });
         dialogRef.afterClosed().subscribe(result => {

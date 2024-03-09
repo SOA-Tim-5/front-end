@@ -28,18 +28,18 @@
                     <fa-icon
                         class="fa-accept"
                         [icon]="faSquareCheck"
-                        *ngIf="request.status == 0"
+                        *ngIf="request.Status == 0"
                         (click)="acceptPublicKeyPointRequest(request)"
                     ></fa-icon>
-                    </div>
-                    <div class="reject">
+                </div>
+                <div class="reject">
                     <fa-icon
                         class="fa-reject"
                         [icon]="faSquareXmark"
-                        *ngIf="request.status == 0"
+                        *ngIf="request.Status == 0"
                         (click)="rejectPublicKeyPointRequest(request)"
                     ></fa-icon>
-                    </div>
+                </div>
             </div>
         </div>
         <div *ngIf="selectedTab === Tab.FACILITIES">
@@ -57,8 +57,8 @@
                         *ngIf="request.status == 0"
                         (click)="acceptPublicFacilityRequest(request)"
                     ></fa-icon>
-                    </div>
-                    <div class="reject">
+                </div>
+                <div class="reject">
                     <fa-icon
                         class="fa-reject"
                         [icon]="faSquareXmark"
