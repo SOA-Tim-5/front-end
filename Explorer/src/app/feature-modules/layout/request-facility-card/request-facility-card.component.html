@@ -1,38 +1,38 @@
 <div class="notification">
     <div
         class="marker"
-        [class.pending]="request.status == 0"
-        [class.accepted]="request.status == 1"
-        [class.rejected]="request.status == 2"
+        [class.pending]="request.Status == 0"
+        [class.accepted]="request.Status == 1"
+        [class.rejected]="request.Status == 2"
     ></div>
     <div class="data">
         <div class="picture">
             <div
                 class="sender-avatar"
                 [style.background-image]="
-                    'url(' + request.author!.profilePicture + ')'
+                    'url(' + request.AuthorPicture + ')'
                 "
             ></div>
         </div>
         <div class="row">
             <div class="notification-column">
                 <div class="notification-header">
-                    <span>{{ getPublicStatusText(request.status) }} </span>
-                    request for publishing {{ request.facilityName || "" }}
+                    <span>{{ getPublicStatusText(request.Status) }} </span>
+                    request for publishing {{ request.FacilityName || "" }}
                 </div>
                 <div class="notification-row">
                     <div>Sent by</div>
 
                     <div class="sender">
-                        {{ "@" + request.author!.username }}
+                        {{ "@" + request.AuthorName }}
                     </div>
                     <div>on</div>
                     <div
-                        [class.acceptedDate]="request.status == 1"
-                        [class.rejectedDate]="request.status == 2"
-                        [class.pendingDate]="request.status == 0"
+                        [class.acceptedDate]="request.Status == 1"
+                        [class.rejectedDate]="request.Status == 2"
+                        [class.pendingDate]="request.Status == 0"
                     >
-                        {{ request.created | date : "dd/MM/yyyy,  HH:mm" }}
+                        {{ request.Created | date : "dd/MM/yyyy,  HH:mm" }}
                     </div>
                 </div>
             </div>

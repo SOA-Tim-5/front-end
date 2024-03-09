@@ -92,8 +92,8 @@ export class AdministrationService {
             comment;
         return this.http.patch<any>(route, { observe: "response" });
     }
-    getFacilityRequests(): Observable<PagedResults<PublicFacilityRequest>> {
-        return this.http.get<PagedResults<PublicFacilityRequest>>(
+    getFacilityRequests(): Observable<PublicFacilityRequest[]> {
+        return this.http.get<PublicFacilityRequest[]>(
             environment.apiHost + "administration/requests/facility",
         );
     }

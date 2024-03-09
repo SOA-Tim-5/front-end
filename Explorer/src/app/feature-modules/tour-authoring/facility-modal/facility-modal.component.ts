@@ -152,12 +152,10 @@ export class FacilityModalComponent implements OnInit {
                             this.facilityCreated.emit(result);
                             if (this.facilityForm.value.isPublicChecked) {
                                 const request: PublicFacilityRequest = {
-                                    facilityId: result.Id as number,
-                                    status: PublicStatus.Pending,
-                                    authorName:
-                                        this.person.name +
-                                        " " +
-                                        this.person.surname,
+                                    FacilityId: result.Id as number,
+                                    Status: PublicStatus.Pending,
+                                    AuthorName:
+                                        ""
                                 };
                                 this.service
                                     .addPublicFacilityRequest(request)

@@ -270,8 +270,8 @@ export class TourComponent implements OnInit {
                 this.publicFacilities = result.results;
                 for (let fac of this.publicFacilities) {
                     this.mapComponent.setMarkersForAllFacilities(
-                        fac.latitude,
-                        fac.longitude,
+                        fac.Latitude,
+                        fac.Longitude,
                     );
                 }
             },

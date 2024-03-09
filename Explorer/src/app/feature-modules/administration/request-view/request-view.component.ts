@@ -67,8 +67,8 @@ export class RequestViewComponent implements OnInit {
             next: (result: PublicKeyPointRequest[]) => {
                 this.requests = result;
                 this.service.getFacilityRequests().subscribe({
-                    next: (result: PagedResults<PublicFacilityRequest>) => {
-                        this.facilityRequests = result.results;
+                    next: (result: PublicFacilityRequest[]) => {
+                        this.facilityRequests = result;
                     },
                 });
             },
@@ -117,10 +117,10 @@ export class RequestViewComponent implements OnInit {
         }
     }
     acceptPublicFacilityRequest(request: PublicFacilityRequest): void {
-        request.status = 1;
-        request.comment = "";
-        if (request.id != undefined) {
-            this.service.acceptPublicFacilityRequest(request.id).subscribe({
+        request.Status = 1;
+        request.Comment = "";
+        if (request.Id != undefined) {
+            this.service.acceptPublicFacilityRequest(request.Id).subscribe({
                 next: () => {
                     this.getRequests();
                 },

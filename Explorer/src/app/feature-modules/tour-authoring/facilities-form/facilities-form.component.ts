@@ -125,11 +125,10 @@ export class FacilitiesFormComponent implements OnChanges {
                             //location.reload();
                             if (this.facilitiesForm.value.isPublicChecked) {
                                 const request: PublicFacilityRequest = {
-                                    facilityId: result.Id as number,
-                                    status: PublicStatus.Pending,
+                                    FacilityId: result.Id as number,
+                                    Status: PublicStatus.Pending,
                                     // Dodajte komentar ako je potrebno
-                                    authorName:
-                                        this.person.name + " " + this.person.surname,
+                                    AuthorName:""
                                 };
                                 this.service
                                     .addPublicFacilityRequest(request)
