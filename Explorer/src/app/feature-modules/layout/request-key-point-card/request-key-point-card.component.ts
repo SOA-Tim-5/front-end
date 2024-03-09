@@ -27,6 +27,6 @@ export class RequestKeyPointCardComponent {
     }
 
     showName(request: PublicKeyPointRequest): string {
-        return request.keyPointName || "";
+        return request.KeyPointName || "";
     }
 }

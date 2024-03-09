@@ -20,14 +20,14 @@ export class TourPreferencesComponent implements OnInit {
     user: User;
 
     preference: TourPreference = {
-        id: -1,
-        userId: -1,
-        difficultyLevel: -1,
-        walkingRating: 0,
-        cyclingRating: 0,
-        carRating: 0,
-        boatRating: 0,
-        selectedTags: [],
+        Id: -1,
+        UserId: -1,
+        DifficultyLevel: -1,
+        WalkingRating: 0,
+        CyclingRating: 0,
+        CarRating: 0,
+        BoatRating: 0,
+        SelectedTags: [],
     };
 
     subscriber: Subscription = {
@@ -46,21 +46,21 @@ export class TourPreferencesComponent implements OnInit {
     ngOnInit(): void {
         this.service.getTourPreference().subscribe({
             next: (result: TourPreference) => {
-                this.preference = result;
+                if (result.DifficultyLevel != 0) this.preference = result;
+                this.authService.user$.subscribe(user => {
+                    if (!user.id) return;
+                    this.user = user;
+                    this.getMailingListSubscribeStatus(user.id);
+                    this.service
+                        .getByUserId(this.authService.user$.getValue().id)
+                        .subscribe(result => {
+                            this.person = result;
+                            this.subscriber.emailAddress = result.email;
+                            this.subscriber.touristId = result.userId;
+                        });
+                });
             },
             error: (err: any) => {},
-        });
-        this.authService.user$.subscribe(user => {
-            if (!user.id) return;
-            this.user = user;
-            this.getMailingListSubscribeStatus(user.id);
-            this.service
-                .getByUserId(this.authService.user$.getValue().id)
-                .subscribe(result => {
-                    this.person = result;
-                    this.subscriber.emailAddress = result.email;
-                    this.subscriber.touristId = result.userId;
-                });
         });
     }
 
@@ -88,7 +88,7 @@ export class TourPreferencesComponent implements OnInit {
                 this.preference = result;
             },
             error: error => {
-                this.preference.id = -1;
+                this.preference.Id = -1;
             },
         });
     }

@@ -1,44 +1,44 @@
 <div>
     <div id="tourPreference">
         <hr />
-        <div *ngIf="preference.id != -1" id="tourPreference-details">
+        <div *ngIf="preference.Id != -1" id="tourPreference-details">
             <div class="card-container">
                 <div class="card">
                     <div class="card-content">
                         <div>
                             <strong>Difficulty rating:</strong
-                            >{{ preference.difficultyLevel }}
+                            >{{ preference.DifficultyLevel }}
                         </div>
 
                         <div>
                             <strong>Walking rating:</strong>
-                            {{ preference.walkingRating }}
+                            {{ preference.WalkingRating }}
                         </div>
 
                         <div>
                             <strong>Cycling rating:</strong>
-                            {{ preference.cyclingRating }}
+                            {{ preference.CyclingRating }}
                         </div>
 
                         <div>
                             <strong>Car rating:</strong>
-                            {{ preference.carRating }}
+                            {{ preference.CarRating }}
                         </div>
 
                         <div>
                             <strong>Boat rating:</strong>
-                            {{ preference.boatRating }}
+                            {{ preference.BoatRating }}
                         </div>
 
                         <div>
                             <strong>Selected tags:</strong>
-                            {{ preference.selectedTags }}
+                            {{ preference.SelectedTags }}
                         </div>
                     </div>
                     <button
                         color="accent"
                         *ngIf="isEditing == false"
-                        (click)="deleteEquipment(preference.id || 0)"
+                        (click)="deleteEquipment(preference.Id || 0)"
                         mat-icon-button
                     >
                         <mat-icon>delete</mat-icon>
@@ -56,7 +56,7 @@
         </div>
         <tr>
             <button
-                *ngIf="preference.id == -1"
+                *ngIf="preference.Id == -1"
                 color="primary"
                 mat-raised-button
                 [routerLink]="['tour-preference-form']"

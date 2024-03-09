@@ -1,10 +1,10 @@
 export interface TourPreference {
-    id?: number;
-    userId?: number;
-    difficultyLevel: number;
-    walkingRating: number;
-    cyclingRating: number;
-    carRating: number;
-    boatRating: number;
-    selectedTags: Array<string>;
+    Id?: number;
+    UserId?: number;
+    DifficultyLevel: number;
+    WalkingRating: number;
+    CyclingRating: number;
+    CarRating: number;
+    BoatRating: number;
+    SelectedTags: Array<string>;
 }

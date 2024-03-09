@@ -2,15 +2,17 @@ import { User } from "src/app/infrastructure/auth/model/user.model";
 import { KeyPoint } from "./key-point.model";
 
 export interface PublicKeyPointRequest {
-    id?: number;
-    keyPointId: number;
-    status: PublicStatus;
-    comment?: string;
-    keyPoint?: KeyPoint;
-    created?: Date;
-    authorName: string;
-    keyPointName?: string;
-    author?: User;
+    Id?: number;
+    KeyPointId: number;
+    Status: PublicStatus;
+    Comment?: string;
+    KeyPoint?: KeyPoint;
+    Created?: Date;
+    AuthorName: string;
+    KeyPointName?: string;
+    Author?: User;
+    AuthorUsername?: string;
+    AuthorPicture?: string;
 }
 
 export enum PublicStatus {

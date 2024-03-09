@@ -1,10 +1,10 @@
 export interface PublicFacilities {
-    id?: number;
-    name: string;
-    description?: string;
-    imagePath?: string;
-    authorId?: number;
-    category: number;
-    longitude: number;
-    latitude: number;
+    Id?: number;
+    Name: string;
+    Description?: string;
+    ImagePath?: string;
+    AuthorId?: number;
+    Category: number;
+    Longitude: number;
+    Latitude: number;
 }

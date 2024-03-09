@@ -68,8 +68,8 @@ export class AdministrationService {
             environment.apiHost + "administration/problem",
         );
     }
-    getRequests(): Observable<PagedResults<PublicKeyPointRequest>> {
-        return this.http.get<PagedResults<PublicKeyPointRequest>>(
+    getRequests(): Observable<PublicKeyPointRequest[]> {
+        return this.http.get<PublicKeyPointRequest[]>(
             environment.apiHost + "administration/requests",
         );
     }
@@ -92,8 +92,8 @@ export class AdministrationService {
             comment;
         return this.http.patch<any>(route, { observe: "response" });
     }
-    getFacilityRequests(): Observable<PagedResults<PublicFacilityRequest>> {
-        return this.http.get<PagedResults<PublicFacilityRequest>>(
+    getFacilityRequests(): Observable<PublicFacilityRequest[]> {
+        return this.http.get<PublicFacilityRequest[]>(
             environment.apiHost + "administration/requests/facility",
         );
     }
@@ -118,14 +118,15 @@ export class AdministrationService {
             comment;
         return this.http.patch<any>(route, { observe: "response" });
     }
-    getTouristWallet(
-        toursitId: number
-    ): Observable<Wallet> {
-        return this.http.get<Wallet>(environment.apiHost + "wallet/getTourists?touristId=" + toursitId)
+    getTouristWallet(toursitId: number): Observable<Wallet> {
+        return this.http.get<Wallet>(
+            environment.apiHost + "wallet/getTourists?touristId=" + toursitId,
+        );
     }
-    updateToursitWallet(
-        walletUpdate: walletUpdate
-    ): Observable<Wallet> {
-        return this.http.put<Wallet>(environment.apiHost + "wallet/" + walletUpdate.id, walletUpdate);
+    updateToursitWallet(walletUpdate: walletUpdate): Observable<Wallet> {
+        return this.http.put<Wallet>(
+            environment.apiHost + "wallet/" + walletUpdate.id,
+            walletUpdate,
+        );
     }
 }

@@ -164,10 +164,10 @@ export class KeyPointFormComponent implements OnChanges {
                                         ) {
                                             const request: PublicKeyPointRequest =
                                                 {
-                                                    keyPointId:
+                                                    KeyPointId:
                                                         result.Id as number,
-                                                    status: PublicStatus.Pending,
-                                                    authorName:
+                                                    Status: PublicStatus.Pending,
+                                                    AuthorName:
                                                         this.person.name +
                                                         " " +
                                                         this.person.surname,

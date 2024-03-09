@@ -177,12 +177,9 @@ export class KeyPointModalComponent implements OnInit {
                                 this.keyPointCreated.emit(result);
                                 if (this.keyPointForm.value.IsPublicChecked) {
                                     const request: PublicKeyPointRequest = {
-                                        keyPointId: result.Id as number,
-                                        status: PublicStatus.Pending,
-                                        authorName:
-                                            this.person.name +
-                                            " " +
-                                            this.person.surname,
+                                        KeyPointId: result.Id as number,
+                                        Status: PublicStatus.Pending,
+                                        AuthorName: "",
                                     };
                                     this.service
                                         .addPublicKeyPointRequest(request)
@@ -226,12 +223,14 @@ export class KeyPointModalComponent implements OnInit {
             ImagePath: this.keyPointForm.value.ImagePath || "",
             Order: this.keyPoint!.Order,
             HaveSecret: this.keyPointForm.value.SecretDescription?.length != 0,
-            Secret: this.keyPointForm.value.SecretDescription?.length != 0 ?
-                    {
-                        images: [""],
-                        description:
-                            this.keyPointForm.value.SecretDescription || "",
-                    } || null : null,
+            Secret:
+                this.keyPointForm.value.SecretDescription?.length != 0
+                    ? {
+                          images: [""],
+                          description:
+                              this.keyPointForm.value.SecretDescription || "",
+                      } || null
+                    : null,
             HasEncounter: this.hasEncounter,
             IsEncounterRequired: this.isEncounterRequired,
         };
