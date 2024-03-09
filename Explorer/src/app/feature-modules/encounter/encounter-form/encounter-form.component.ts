@@ -84,20 +84,20 @@ export class EncounterFormComponent implements OnInit {
 
     createEncounter() {
         const encounter: Encounter = {
-            id: 0,
-            title: this.encounterForm.value.title || "",
-            description: this.encounterForm.value.description || "",
-            picture: this.picturePath || "",
-            longitude: this.encounterCoords.longitude || 0,
-            latitude: this.encounterCoords.latitude || 0,
-            radius: this.encounterForm.value.radius || 0,
-            xpReward: this.encounterForm.value.xp || 0,
-            status: 0,
-            type: this.encounterForm.value.selectedStatus,
-            peopleNumber: this.encounterForm.value.peopleNumber || 0,
-            pictureLongitude: this.imageCoords.longitude || 0,
-            pictureLatitude: this.imageCoords.latitude || 0,
-            challengeDone: false,
+            Id: 0,
+            Title: this.encounterForm.value.title || "",
+            Description: this.encounterForm.value.description || "",
+            Picture: this.picturePath || "",
+            Longitude: this.encounterCoords.longitude || 0,
+            Latitude: this.encounterCoords.latitude || 0,
+            Radius: this.encounterForm.value.radius || 0,
+            XpReward: this.encounterForm.value.xp || 0,
+            Status: 0,
+            Type: this.encounterForm.value.selectedStatus,
+            PeopleNumber: this.encounterForm.value.peopleNumber || 0,
+            PictureLongitude: this.imageCoords.longitude || 0,
+            PictureLatitude: this.imageCoords.latitude || 0,
+            ChallengeDone: false,
         };
 
         if (this.encounterType == 1) {
@@ -108,7 +108,7 @@ export class EncounterFormComponent implements OnInit {
                 if (this.encounterImage) {
                     this.service.uploadImage(this.encounterImage).subscribe({
                         next: result => {
-                            encounter.picture = result;
+                            encounter.Picture = result;
                             this.service
                                 .createSocialEncounter(
                                     encounter,
@@ -150,7 +150,7 @@ export class EncounterFormComponent implements OnInit {
                 if (this.encounterImage) {
                     this.service.uploadImage(this.encounterImage).subscribe({
                         next: result => {
-                            encounter.picture = result;
+                            encounter.Picture = result;
                             this.service
                                 .createHiddenEncounter(
                                     encounter,
@@ -188,7 +188,7 @@ export class EncounterFormComponent implements OnInit {
                 if (this.encounterImage) {
                     this.service.uploadImage(this.encounterImage).subscribe({
                         next: result => {
-                            encounter.picture = result;
+                            encounter.Picture = result;
                             this.service
                                 .createMiscEncounter(
                                     encounter,

@@ -1,19 +1,19 @@
 export interface Encounter {
-    id: number;
-    title: string;
-    description: string;
-    picture: string;
-    longitude: number;
-    latitude: number;
-    radius: number;
-    xpReward: number;
-    status: EncounterStatus;
-    type: EncounterType;
-    peopleNumber?: number;
-    pictureLongitude?: number;
-    pictureLatitude?: number;
-    challengeDone: boolean;
-    instances?: number[];
+    Id: number;
+    Title: string;
+    Description: string;
+    Picture: string;
+    Longitude: number;
+    Latitude: number;
+    Radius: number;
+    XpReward: number;
+    Status: EncounterStatus;
+    Type: EncounterType;
+    PeopleNumber?: number;
+    PictureLongitude?: number;
+    PictureLatitude?: number;
+    ChallengeDone: boolean;
+    Instances?: number[];
 }
 
 export enum EncounterType {
