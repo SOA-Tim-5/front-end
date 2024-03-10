@@ -207,6 +207,42 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                         );
                     },
                 });
+        }else{
+            console.log(this.encounter!.Id)
+            this.service
+                .completeSocialEncounter(this.userPosition, this.encounter!.Id)
+                .subscribe({
+                    next: (result) => {
+                        if(!result)
+                        {
+                            this.notifier.notify(
+                                "success",
+                                "Not enough people or server error" +
+                                    EncounterType[this.encounter!.Type] +
+                                    " encounter!",
+                            );
+                            return;
+                        }
+                        this.notifier.notify(
+                            "success",
+                            "Successfully completed " +
+                                EncounterType[this.encounter!.Type] +
+                                " encounter!",
+                        );
+                        this.authService.updateXp();
+                        this.getEncounterInstance(this.encounter!.Id);
+                        this.matDialogRef = this.dialog.open(
+                            EncounterCompletedPopupComponent,
+                        );
+                    },
+                    error: err => {
+                        // console.log(err);
+                        this.notifier.notify(
+                            "error",
+                            xpError.getErrorMessage(err),
+                        );
+                    },
+                });
         }
     }
 
