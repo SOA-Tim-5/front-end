@@ -41,7 +41,7 @@
         <div *ngFor="let encounter of encounters" class="encounter-item">
             <div
                 class="encounter-content"
-                [ngClass]="getEncounterStatusClass(encounter.type)"
+                [ngClass]="getEncounterStatusClass(encounter.Type)"
                 [ngStyle]="{
                     border:
                         encounter === encounterWithMaxXpReward
@@ -49,9 +49,9 @@
                             : 'none'
                 }"
             >
-                <h2>{{ encounter.title }}</h2>
-                <p>{{ encounter.description }}</p>
-                <p><b>XP:</b>{{ encounter.xpReward }}</p>
+                <h2>{{ encounter.Title }}</h2>
+                <p>{{ encounter.Description }}</p>
+                <p><b>XP:</b>{{ encounter.XpReward }}</p>
             </div>
         </div>
     </div>
@@ -60,12 +60,12 @@
         <div *ngFor="let encounter of encounters" class="encounter-item">
             <div
                 class="encounter-content"
-                *ngIf="encounter.type == 0"
-                [ngClass]="getEncounterStatusClass(encounter.type)"
+                *ngIf="encounter.Type == 0"
+                [ngClass]="getEncounterStatusClass(encounter.Type)"
             >
-                <h2>{{ encounter.title }}</h2>
-                <p>{{ encounter.description }}</p>
-                <p><b>XP:</b>{{ encounter.xpReward }}</p>
+                <h2>{{ encounter.Title }}</h2>
+                <p>{{ encounter.Description }}</p>
+                <p><b>XP:</b>{{ encounter.XpReward }}</p>
             </div>
         </div>
     </div>
@@ -74,12 +74,12 @@
         <div *ngFor="let encounter of encounters" class="encounter-item">
             <div
                 class="encounter-content"
-                *ngIf="encounter.type == 1"
-                [ngClass]="getEncounterStatusClass(encounter.type)"
+                *ngIf="encounter.Type == 1"
+                [ngClass]="getEncounterStatusClass(encounter.Type)"
             >
-                <h2>{{ encounter.title }}</h2>
-                <p>{{ encounter.description }}</p>
-                <p><b>XP:</b>{{ encounter.xpReward }}</p>
+                <h2>{{ encounter.Title }}</h2>
+                <p>{{ encounter.Description }}</p>
+                <p><b>XP:</b>{{ encounter.XpReward }}</p>
             </div>
         </div>
     </div>
@@ -87,12 +87,12 @@
         <div *ngFor="let encounter of encounters" class="encounter-item">
             <div
                 class="encounter-content"
-                *ngIf="encounter.type == 2"
-                [ngClass]="getEncounterStatusClass(encounter.type)"
+                *ngIf="encounter.Type == 2"
+                [ngClass]="getEncounterStatusClass(encounter.Type)"
             >
-                <h2>{{ encounter.title }}</h2>
-                <p>{{ encounter.description }}</p>
-                <p><b>XP:</b>{{ encounter.xpReward }}</p>
+                <h2>{{ encounter.Title }}</h2>
+                <p>{{ encounter.Description }}</p>
+                <p><b>XP:</b>{{ encounter.XpReward }}</p>
             </div>
         </div>
     </div>

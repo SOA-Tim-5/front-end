@@ -12,13 +12,13 @@
         <div
             class="img"
         >
-            <img [src]="encounter.picture" alt="Encounter Image" width="200" height="150" />
+            <img [src]="encounter.Picture" alt="Encounter Image" width="200" height="150" />
         </div>
-        <h3 class="title">{{ encounter.title }}</h3>
-        <div class="description">{{ encounter.description }}</div>
+        <h3 class="title">{{ encounter.Title }}</h3>
+        <div class="description">{{ encounter.Description }}</div>
         <div
             class="btn"
-            *ngIf="!encounterInstance && encounter"
+            *ngIf="dugme==0 && encounter"
             (click)="activateEncounter()"
         >
             Activate
@@ -28,7 +28,7 @@
             *ngIf="
                 encounterInstance?.status === 0 &&
                 encounter &&
-                encounter.type !== 1
+                encounter.Type !== 1
             "
             (click)="completeEncounter()"
         >

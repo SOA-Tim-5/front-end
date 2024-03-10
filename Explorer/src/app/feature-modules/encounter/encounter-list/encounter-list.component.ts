@@ -38,9 +38,9 @@ export class EncounterListComponent {
         console.log(userId);
         this.encounterService
             .getAllEncounters(userId, 1, 10) //obozavam spagete
-            .subscribe((pagedResults: PagedResults<Encounter>) => {
-                if (pagedResults.results) {
-                    this.encounters = pagedResults.results;
+            .subscribe((pagedResults: Encounter[]) => {
+                if (pagedResults) {
+                    this.encounters = pagedResults;
                     console.log(this.encounters);
                 } else {
                     console.error("No results found.");

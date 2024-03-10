@@ -19,6 +19,7 @@ import { EncounterCompletedPopupComponent } from "../encounter-completed-popup/e
     styleUrls: ["./active-encounter-view.component.css"],
 })
 export class ActiveEncounterViewComponent implements AfterViewInit {
+    dugme:number=0;
     points: any;
     encounters: Encounter[];
     filteredEncounters: Encounter[];
@@ -38,9 +39,9 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
     faLocation = faLocationCrosshairs;
 
     userPosition: UserPositionWithRange = {
-        range: 200,
-        longitude: 19.84113513341626,
-        latitude: 45.260218642510154,
+        range: 70000,
+        longitude: 19,
+        latitude: 45,
     };
 
     constructor(
@@ -79,15 +80,15 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
 
     activateEncounter() {
         this.service
-            .activateEncounter(this.userPosition, this.encounter!.id)
+            .activateEncounter(this.userPosition, this.encounter!.Id)
             .subscribe({
                 next: () => {
                     this.notifier.notify(
                         "info",
                         "Successfully activated encounter!",
                     );
-                    this.getEncounterInstance(this.encounter!.id);
-                    if (this.encounter!.type === 1) {
+                    this.getEncounterInstance(this.encounter!.Id);
+                    if (this.encounter!.Type === 1) {
                         this.hiddenEncounterCheck = true;
                         this.handleHiddenLocationCompletion();
                     }
@@ -100,7 +101,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
 
     handleHiddenLocationCompletion() {
         let counter = 0;
-        const currentEncounterId = this.encounter?.id;
+        const currentEncounterId = this.encounter?.Id;
         console.log("Testing hidden location...");
         const interval = setInterval(() => {
             if (!this.encounter) {
@@ -110,7 +111,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
             this.service
                 .checkIfUserInCompletionRange(
                     this.userPosition,
-                    this.encounter!.id,
+                    this.encounter!.Id,
                 )
                 .subscribe({
                     next: result => {
@@ -123,7 +124,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                         if (counter >= 4) {
                             if (
                                 this.hiddenEncounterCheck &&
-                                currentEncounterId == this.encounter?.id &&
+                                currentEncounterId == this.encounter?.Id &&
                                 this.encounterInstance?.status == 0
                             ) {
                                 console.log("Test passed, completing...");
@@ -137,11 +138,11 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
     }
 
     completeEncounter() {
-        if (this.encounter!.type === 1) {
+        if (this.encounter!.Type === 1) {
             this.service
                 .completeHiddenLocationEncounter(
                     this.userPosition,
-                    this.encounter!.id,
+                    this.encounter!.Id,
                 )
                 .subscribe({
                     next: () => {
@@ -150,7 +151,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                             "Successfully completed hidden encounter!",
                         );
                         this.authService.updateXp();
-                        this.getEncounterInstance(this.encounter!.id);
+                        this.getEncounterInstance(this.encounter!.Id);
                         this.matDialogRef = this.dialog.open(
                             EncounterCompletedPopupComponent,
                         );
@@ -165,17 +166,17 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                 });
         } else {
             this.service
-                .completeEncounter(this.userPosition, this.encounter!.id)
+                .completeEncounter(this.userPosition, this.encounter!.Id)
                 .subscribe({
                     next: () => {
                         this.notifier.notify(
                             "success",
                             "Successfully completed " +
-                                EncounterType[this.encounter!.type] +
+                                EncounterType[this.encounter!.Type] +
                                 " encounter!",
                         );
                         this.authService.updateXp();
-                        this.getEncounterInstance(this.encounter!.id);
+                        this.getEncounterInstance(this.encounter!.Id);
                         this.matDialogRef = this.dialog.open(
                             EncounterCompletedPopupComponent,
                         );
@@ -194,8 +195,8 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
     checkIfUserInEncounterRange(encounter: Encounter): boolean {
         const userLat = this.userPosition.latitude;
         const userLng = this.userPosition.longitude;
-        const encounterLat = encounter.latitude;
-        const encounterLng = encounter.longitude;
+        const encounterLat = encounter.Latitude;
+        const encounterLng = encounter.Longitude;
         const earthRadius = 6371;
         const toRadians = (value: number) => (value * Math.PI) / 180;
         const haversine = (a: number, b: number) =>
@@ -216,49 +217,56 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                 ),
             );
         // console.log(distance * 1000);
-        return distance * 1000 <= encounter.radius;
+        return distance * 1000 <= encounter.Radius;
     }
 
     loadEncountersInRangeOfFromCurrentLocation(
         userPosition: UserPositionWithRange,
     ) {
         this.service.getEncountersInRangeOf(userPosition).subscribe(result => {
-            this.filteredEncounters = result.results;
+            this.filteredEncounters = result;
+
+
             this.filteredEncounters.forEach((enc, i) => {
-                this.filteredEncounters[i].picture = enc.picture.startsWith(
+                this.filteredEncounters[i].Picture = enc.Picture.startsWith(
                     "http",
                 )
-                    ? enc.picture
-                    : environment.imageHost + enc.picture;
+                    ? enc.Picture
+                    : environment.imageHost + enc.Picture;
 
-                this.service.getEncounterInstance(enc.id).subscribe(result => {
+                 this.service.getEncounterInstance(enc.Id).subscribe(result => {
                     this.loadEncounterInstance = result;
+                    if (this.loadEncounterInstance?.status === 0) {
+                        this.mapComponent.setEncounterActiveMarker(
+                            enc.Latitude,
+                            enc.Longitude,
+                        );
+                    }
+                    if (this.loadEncounterInstance?.status === 1) {
+                        this.mapComponent.setEncounterCompletedMarker(
+                            enc.Latitude,
+                            enc.Longitude,
+                        );
+                    }
+                    if (!this.loadEncounterInstance) {
+                        this.mapComponent.setEncounterMarker(
+                            enc.Latitude,
+                            enc.Longitude,
+                        );
+                    }
+
                 });
-                if (this.loadEncounterInstance?.status === 0) {
-                    this.mapComponent.setEncounterActiveMarker(
-                        enc.latitude,
-                        enc.longitude,
-                    );
-                }
-                if (this.loadEncounterInstance?.status === 1) {
-                    this.mapComponent.setEncounterCompletedMarker(
-                        enc.latitude,
-                        enc.longitude,
-                    );
-                }
-                if (!this.loadEncounterInstance) {
-                    this.mapComponent.setEncounterMarker(
-                        enc.latitude,
-                        enc.longitude,
-                    );
-                }
+
+              
             });
             if (this.filteredEncounters) {
                 this.filteredEncounters.forEach(enc => {
                     if (this.checkIfUserInEncounterRange(enc)) {
                         this.encounter = enc;
-                        this.getEncounterInstance(enc.id);
-                        if (this.encounter.type === 1) {
+                        this.getEncounterInstance(enc.Id);
+                        if(this.encounterInstance?.status==0|| this.encounterInstance?.status==1)
+                            this.dugme=1
+                        if (this.encounter.Type === 1) {
                             if (this.encounterInstance) {
                                 if (this.encounterInstance.status == 0) {
                                     this.hiddenEncounterCheck = true;
