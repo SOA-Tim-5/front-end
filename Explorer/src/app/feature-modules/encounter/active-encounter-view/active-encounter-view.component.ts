@@ -19,7 +19,6 @@ import { EncounterCompletedPopupComponent } from "../encounter-completed-popup/e
     styleUrls: ["./active-encounter-view.component.css"],
 })
 export class ActiveEncounterViewComponent implements AfterViewInit {
-    dugme:number=0;
     points: any;
     encounters: Encounter[];
     filteredEncounters: Encounter[];

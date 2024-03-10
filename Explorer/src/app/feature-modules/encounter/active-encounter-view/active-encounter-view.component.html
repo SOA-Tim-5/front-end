@@ -18,7 +18,7 @@
         <div class="description">{{ encounter.Description }}</div>
         <div
             class="btn"
-            *ngIf="dugme==0 && encounter"
+            *ngIf="!(encounterInstance?.status===0 || encounterInstance?.status===1) && encounter"
             (click)="activateEncounter()"
         >
             Activate
