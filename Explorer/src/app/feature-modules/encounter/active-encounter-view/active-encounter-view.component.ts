@@ -103,6 +103,11 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                     "info",
                     "Already activated encounter!",
                     );
+                    this.getEncounterInstance(this.encounter!.Id);
+                    if (this.encounter!.Type === 1) {
+                        this.hiddenEncounterCheck = true;
+                        this.handleHiddenLocationCompletion();
+                    }
             }else{
                 this.notifier.notify(
                     "info",

@@ -18,10 +18,17 @@
         <div class="description">{{ encounter.Description }}</div>
         <div
             class="btn"
-            *ngIf="dugme==0 && encounter"
+            *ngIf="dugme==0 && encounter && encounterInstance?.userId == 0"
             (click)="activateEncounter()"
         >
             Activate
+        </div>
+        <div
+            class="btn"
+            *ngIf="dugme==0 && encounter && encounter.Type == 1 && encounterInstance?.userId != 0 && encounterInstance?.status == 0"
+            (click)="activateEncounter()"
+        >
+            Resume
         </div>
         <div
             class="btn"
