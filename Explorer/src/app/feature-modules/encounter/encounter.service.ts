@@ -116,7 +116,7 @@ export class EncounterService {
         encounterId: number,
     ): Observable<Encounter> {
         return this.http.post<Encounter>(
-            environment.apiHost + `tourist/encounter/${encounterId}/complete`,
+            environment.apiHost + `tourist/encounter/${encounterId}/complete/misc`,
             userPositionWithRange,
         );
     }
