@@ -79,40 +79,52 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
     }
 
     activateEncounter() {
-        this.service
+        if(this.encounterInstance?.userId == 0){
+            this.service
             .activateEncounter(this.userPosition, this.encounter!.Id)
             .subscribe({
                 next: () => {
                     this.notifier.notify(
                         "info",
                         "Successfully activated encounter!",
+                        );
+                        this.getEncounterInstance(this.encounter!.Id);
+                        if (this.encounter!.Type === 1) {
+                            this.hiddenEncounterCheck = true;
+                            this.handleHiddenLocationCompletion();
+                        }
+                    },
+                    error: err => {
+                        this.notifier.notify("error", xpError.getErrorMessage(err));
+                    },
+                });
+            }else if(this.encounterInstance?.status == 0){
+                this.notifier.notify(
+                    "info",
+                    "Already activated encounter!",
                     );
-                    this.getEncounterInstance(this.encounter!.Id);
-                    if (this.encounter!.Type === 1) {
-                        this.hiddenEncounterCheck = true;
-                        this.handleHiddenLocationCompletion();
-                    }
-                },
-                error: err => {
-                    this.notifier.notify("error", xpError.getErrorMessage(err));
-                },
-            });
-    }
-
-    handleHiddenLocationCompletion() {
-        let counter = 0;
-        const currentEncounterId = this.encounter?.Id;
-        console.log("Testing hidden location...");
-        const interval = setInterval(() => {
-            if (!this.encounter) {
-                clearInterval(interval);
-                return;
+            }else{
+                this.notifier.notify(
+                    "info",
+                    "Already completed encounter!",
+                    );
             }
-            this.service
-                .checkIfUserInCompletionRange(
-                    this.userPosition,
-                    this.encounter!.Id,
-                )
+            }
+            
+            handleHiddenLocationCompletion() {
+                let counter = 0;
+                const currentEncounterId = this.encounter?.Id;
+                console.log("Testing hidden location...");
+                const interval = setInterval(() => {
+                    if (!this.encounter) {
+                        clearInterval(interval);
+                        return;
+                    }
+                    this.service
+                    .checkIfUserInCompletionRange(
+                        this.userPosition,
+                        this.encounter!.Id,
+                        )
                 .subscribe({
                     next: result => {
                         this.hiddenEncounterCheck = result;
