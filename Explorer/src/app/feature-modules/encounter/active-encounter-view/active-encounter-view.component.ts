@@ -181,7 +181,8 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                         );
                     },
                 });
-        } else {
+        } else if(this.encounter!.Type === 2){
+            console.log(this.encounter!.Id)
             this.service
                 .completeEncounter(this.userPosition, this.encounter!.Id)
                 .subscribe({
