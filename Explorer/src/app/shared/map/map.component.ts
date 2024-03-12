@@ -588,6 +588,10 @@ export class MapComponent implements AfterViewInit, OnChanges {
         this.map.addLayer(this.markerGroup);
     }
 
+    removeMarkers(): void{
+        this.markerGroup.clearLayers();
+    }
+
     setMarkersForAllFacilities(lat: number, lng: number): void {
         const marker = new L.Marker([lat, lng], { icon: this.facilityIcon });
         this.markerGroup.addLayer(marker);

@@ -1,4 +1,10 @@
 <div class="wrapper">
+    <div
+        class="btn"
+        (click)="nextEncounter()"
+    >
+        Next available encounter
+    </div><br>
     <xp-map mapName="encounter_map"></xp-map>
     <div class="simulator-btn" (click)="openSimulator()">
         <fa-icon
@@ -18,28 +24,47 @@
         <div class="description">{{ encounter.Description }}</div>
         <div
             class="btn"
-            *ngIf="dugme==0 && encounter && encounterInstance?.userId == 0"
             (click)="activateEncounter()"
+            *ngIf="encounter && encounter.Type == 0 && encounterInstance?.userId == 0"
         >
             Activate
         </div>
         <div
             class="btn"
-            *ngIf="dugme==0 && encounter && encounter.Type == 1 && encounterInstance?.userId != 0 && encounterInstance?.status == 0"
+            *ngIf="encounter && encounter.Type == 0 && encounterInstance?.userId != 0 && encounterInstance?.status == 0"
             (click)="activateEncounter()"
         >
             Resume
         </div>
+
         <div
-            class="btn"
-            *ngIf="
-                encounterInstance?.status === 0 &&
-                encounter &&
-                encounter.Type !== 1
-            "
-            (click)="completeEncounter()"
-        >
-            Complete
-        </div>
+        class="btn"
+        (click)="activateEncounter()"
+        *ngIf="encounter && encounter.Type == 1 && encounterInstance?.userId == 0"
+    >
+        Activate
+    </div>
+    <div
+        class="btn"
+        *ngIf="encounter && encounter.Type == 1 && encounterInstance?.userId != 0 && encounterInstance?.status == 0"
+        (click)="activateEncounter()"
+    >
+        Resume
+    </div>
+
+    <div
+    class="btn"
+    (click)="activateEncounter()"
+    *ngIf="encounter && encounter.Type == 2 && encounterInstance?.userId == 0"
+    >
+        Activate
+    </div>
+    <div
+        class="btn"
+        (click)="completeEncounter()"
+        *ngIf="encounter && encounter.Type != 1 && encounterInstance?.userId != 0 && encounterInstance?.status == 0"
+    >
+        Complete
+    </div>
     </div>
 </div>

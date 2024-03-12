@@ -49,6 +49,7 @@ img {
     color: rgb(var(--clr-text));
     padding: 1rem;
     align-items: center;
+    margin-top: 5%;
 }
 
 .btn {

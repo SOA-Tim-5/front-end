@@ -31,6 +31,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
         | MatDialogRef<EncounterCompletedPopupComponent, any>
         | undefined;
     hiddenEncounterCheck: boolean = false;
+    encounterNumber: number = 0
 
     private readonly notifier: NotifierService;
 
@@ -83,16 +84,21 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
             this.service
             .activateEncounter(this.userPosition, this.encounter!.Id)
             .subscribe({
-                next: () => {
-                    this.notifier.notify(
-                        "info",
-                        "Successfully activated encounter!",
-                        );
-                        this.getEncounterInstance(this.encounter!.Id);
-                        if (this.encounter!.Type === 1) {
-                            this.hiddenEncounterCheck = true;
-                            this.handleHiddenLocationCompletion();
-                        }
+                next: (result) => {
+                    if(result != null)
+                    {
+                        this.notifier.notify(
+                            "info",
+                            "Successfully activated encounter!",
+                            );
+                            this.getEncounterInstance(this.encounter!.Id);
+                            if (this.encounter!.Type === 1) {
+                                this.hiddenEncounterCheck = true;
+                                this.handleHiddenLocationCompletion();
+                            }
+                    }else{
+                        this.notifier.notify("error", "Not in range or already activated");
+                    }
                     },
                     error: err => {
                         this.notifier.notify("error", xpError.getErrorMessage(err));
@@ -172,6 +178,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                         this.matDialogRef = this.dialog.open(
                             EncounterCompletedPopupComponent,
                         );
+                        this.completeEncounterOnMap();
                     },
                     error: err => {
                         // console.log(err);
@@ -193,6 +200,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                                 EncounterType[this.encounter!.Type] +
                                 " encounter!",
                         );
+                        this.completeEncounterOnMap();
                         this.authService.updateXp();
                         this.getEncounterInstance(this.encounter!.Id);
                         this.matDialogRef = this.dialog.open(
@@ -229,6 +237,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                                 EncounterType[this.encounter!.Type] +
                                 " encounter!",
                         );
+                        this.completeEncounterOnMap();
                         this.authService.updateXp();
                         this.getEncounterInstance(this.encounter!.Id);
                         this.matDialogRef = this.dialog.open(
@@ -279,47 +288,24 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
     ) {
         this.service.getEncountersInRangeOf(userPosition).subscribe(result => {
             this.filteredEncounters = result;
-
-
             this.filteredEncounters.forEach((enc, i) => {
                 this.filteredEncounters[i].Picture = enc.Picture.startsWith(
                     "http",
                 )
                     ? enc.Picture
-                    : environment.imageHost + enc.Picture;
-
-                 this.service.getEncounterInstance(enc.Id).subscribe(result => {
-                    this.loadEncounterInstance = result;
-                    if (this.loadEncounterInstance?.status === 0) {
-                        this.mapComponent.setEncounterActiveMarker(
-                            enc.Latitude,
-                            enc.Longitude,
-                        );
-                    }
-                    if (this.loadEncounterInstance?.status === 1) {
-                        this.mapComponent.setEncounterCompletedMarker(
-                            enc.Latitude,
-                            enc.Longitude,
-                        );
-                    }
-                    if (!this.loadEncounterInstance) {
-                        this.mapComponent.setEncounterMarker(
-                            enc.Latitude,
-                            enc.Longitude,
-                        );
-                    }
-
+                    : environment.imageHost + enc.Picture;                
                 });
-
-              
             });
+            this.encounter = this.filteredEncounters.at(this.encounterNumber)
+            this.service.getEncounterInstance(this.encounter?.Id || 0).subscribe(result => {
+
+                this.encounterInstance = result;
+            })
             if (this.filteredEncounters) {
                 this.filteredEncounters.forEach(enc => {
                     if (this.checkIfUserInEncounterRange(enc)) {
                         this.encounter = enc;
                         this.getEncounterInstance(enc.Id);
-                        if(this.encounterInstance?.status==0|| this.encounterInstance?.status==1)
-                            this.dugme=1
                         if (this.encounter.Type === 1) {
                             if (this.encounterInstance) {
                                 if (this.encounterInstance.status == 0) {
@@ -331,8 +317,8 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                     }
                 });
             }
-        });
     }
+
 
     openSimulator() {
         if (this.dialogRef) {
@@ -343,5 +329,43 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = undefined;
         });
+    }
+
+    nextEncounter(){
+        this.mapComponent.removeMarkers();
+        this.encounterNumber = this.encounterNumber + 1;
+        if (this.encounterNumber > this.filteredEncounters.length-1)
+            this.encounterNumber = 0;
+        this.service.getEncounterInstance(this.filteredEncounters.at(this.encounterNumber)?.Id || 0).subscribe(result => {
+            this.loadEncounterInstance = result;
+            this.encounter = this.filteredEncounters.at(this.encounterNumber);
+            this.encounterInstance = this.loadEncounterInstance;
+            if (this.loadEncounterInstance?.userId !=0 && this.loadEncounterInstance?.status === 0) {
+                this.mapComponent.setEncounterActiveMarker(
+                    this.encounter?.Latitude || 0,
+                    this.encounter?.Longitude || 0,
+                );
+            }
+            if (this.loadEncounterInstance?.userId !=0 && this.loadEncounterInstance?.status === 1) {
+                this.mapComponent.setEncounterCompletedMarker(
+                    this.encounter?.Latitude || 0,
+                    this.encounter?.Longitude || 0,
+                );
+            }
+            if (this.loadEncounterInstance?.userId == 0) {
+                this.mapComponent.setEncounterMarker(
+                    this.encounter?.Latitude || 0,
+                    this.encounter?.Longitude || 0,
+                );
+            }
+        })
+    }
+
+    completeEncounterOnMap() : void{
+        this.mapComponent.removeMarkers();
+        this.mapComponent.setEncounterCompletedMarker(
+            this.encounter?.Latitude || 0,
+            this.encounter?.Longitude || 0,
+        );
     }
 }
