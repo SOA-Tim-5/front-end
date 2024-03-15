@@ -566,6 +566,17 @@ export class MapComponent implements AfterViewInit, OnChanges {
         this.map.setView([lat, lng], this.map.getZoom());
     }
 
+    setUserPositionMarker(lat: number, lng: number): void {
+        // Clear all previous markers on the map
+        this.markerGroup.clearLayers();
+
+        const marker = new L.Marker([lat, lng], { icon: this.positionIcon });
+        this.markerGroup.addLayer(marker);
+        this.map.addLayer(this.markerGroup);
+
+        this.map.setView([lat, lng], this.map.getZoom());
+    }
+
     setEncounterMarker(lat: number, lng: number): void {
         const marker = new L.Marker([lat, lng], { icon: this.encounterIcon });
         this.markerGroup.addLayer(marker);
