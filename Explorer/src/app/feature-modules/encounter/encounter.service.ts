@@ -121,6 +121,16 @@ export class EncounterService {
         );
     }
 
+    completeSocialEncounter(
+        userPositionWithRange: UserPositionWithRange,
+        encounterId: number,
+    ): Observable<Encounter> {
+        return this.http.post<Encounter>(
+            environment.apiHost + `tourist/encounter/${encounterId}/complete/social`,
+            userPositionWithRange,
+        );
+    }
+
     createSocialEncounter(
         socialEncounter: Encounter,
         isTourist: Boolean,

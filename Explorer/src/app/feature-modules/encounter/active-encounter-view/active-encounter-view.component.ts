@@ -30,6 +30,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
         | MatDialogRef<EncounterCompletedPopupComponent, any>
         | undefined;
     hiddenEncounterCheck: boolean = false;
+    encounterNumber: number = 0
 
     private readonly notifier: NotifierService;
 
@@ -58,15 +59,15 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                 this.encounter = undefined;
                 this.userPosition.latitude = location.latitude;
                 this.userPosition.longitude = location.longitude;
-                this.loadEncountersInRangeOfFromCurrentLocation(
-                    this.userPosition,
-                );
                 if (this.mapComponent) {
-                    this.mapComponent.setMarker(
+                    this.mapComponent.setUserPositionMarker(
                         this.userPosition.latitude,
                         this.userPosition.longitude,
                     );
                 }
+                this.loadEncountersInRangeOfFromCurrentLocation(
+                    this.userPosition,
+                );
             },
         });
     }
@@ -78,61 +79,83 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
     }
 
     activateEncounter() {
-        this.service
+        if(this.encounterInstance?.userId == 0){
+            this.service
             .activateEncounter(this.userPosition, this.encounter!.Id)
             .subscribe({
-                next: () => {
-                    this.notifier.notify(
-                        "info",
-                        "Successfully activated encounter!",
+                next: (result) => {
+                    if(result != null)
+                    {
+                        this.notifier.notify(
+                            "info",
+                            "Successfully activated encounter!",
+                            );
+                            this.getEncounterInstance(this.encounter!.Id);
+                            if (this.encounter!.Type === 1) {
+                                this.hiddenEncounterCheck = true;
+                                this.handleHiddenLocationCompletion();
+                            }
+                    }else{
+                        this.notifier.notify("error", "Not in range or already activated");
+                    }
+                    },
+                    error: err => {
+                        this.notifier.notify("error", xpError.getErrorMessage(err));
+                    },
+                });
+            }else if(this.encounterInstance?.status == 0){
+                this.notifier.notify(
+                    "info",
+                    "Already activated encounter!",
                     );
                     this.getEncounterInstance(this.encounter!.Id);
                     if (this.encounter!.Type === 1) {
                         this.hiddenEncounterCheck = true;
                         this.handleHiddenLocationCompletion();
                     }
-                },
-                error: err => {
-                    this.notifier.notify("error", xpError.getErrorMessage(err));
-                },
-            });
-    }
-
-    handleHiddenLocationCompletion() {
-        let counter = 0;
-        const currentEncounterId = this.encounter?.Id;
-        console.log("Testing hidden location...");
-        const interval = setInterval(() => {
-            if (!this.encounter) {
-                clearInterval(interval);
-                return;
+            }else{
+                this.notifier.notify(
+                    "info",
+                    "Already completed encounter!",
+                    );
             }
-            this.service
-                .checkIfUserInCompletionRange(
-                    this.userPosition,
-                    this.encounter!.Id,
-                )
-                .subscribe({
-                    next: result => {
-                        this.hiddenEncounterCheck = result;
-                        if (this.hiddenEncounterCheck == false) {
-                            clearInterval(interval);
-                            return;
-                        }
-                        counter++;
-                        if (counter >= 4) {
-                            if (
-                                this.hiddenEncounterCheck &&
-                                currentEncounterId == this.encounter?.Id &&
-                                this.encounterInstance?.status == 0
-                            ) {
-                                console.log("Test passed, completing...");
-                                this.completeEncounter();
-                            }
-                            clearInterval(interval);
-                        }
-                    },
-                });
+            }
+            
+            handleHiddenLocationCompletion() {
+                let counter = 0;
+                const currentEncounterId = this.encounter?.Id;
+                console.log("Testing hidden location...");
+                const interval = setInterval(() => {
+                    if (!this.encounter) {
+                        clearInterval(interval);
+                        return;
+                    }
+                            this.service
+                            .checkIfUserInCompletionRange(
+                                this.userPosition,
+                                this.encounter!.Id,
+                                )
+                        .subscribe({
+                            next: result => {
+                                this.hiddenEncounterCheck = result;
+                                if (this.hiddenEncounterCheck == false) {
+                                    clearInterval(interval);
+                                    return;
+                                }
+                                counter++;
+                                if (counter >= 4) {
+                                    if (
+                                        this.hiddenEncounterCheck &&
+                                        currentEncounterId == this.encounter?.Id &&
+                                        this.encounterInstance?.status == 0
+                                    ) {
+                                        console.log("Test passed, completing...");
+                                        this.completeEncounter();
+                                    }
+                                    clearInterval(interval);
+                                }
+                            },
+                        });
         }, 2000);
     }
 
@@ -154,6 +177,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                         this.matDialogRef = this.dialog.open(
                             EncounterCompletedPopupComponent,
                         );
+                        this.completeEncounterOnMap();
                     },
                     error: err => {
                         // console.log(err);
@@ -175,6 +199,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                                 EncounterType[this.encounter!.Type] +
                                 " encounter!",
                         );
+                        this.completeEncounterOnMap();
                         this.authService.updateXp();
                         this.getEncounterInstance(this.encounter!.Id);
                         this.matDialogRef = this.dialog.open(
@@ -189,6 +214,44 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                         );
                     },
                 });
+        }else{
+            console.log(this.encounter!.Id)
+
+                    this.service
+                        .completeSocialEncounter(this.userPosition, this.encounter!.Id)
+                        .subscribe({
+                            next: (result) => {
+                                if(!result)
+                                {
+                                    this.notifier.notify(
+                                        "success",
+                                        "Not enough people or server error" +
+                                            EncounterType[this.encounter!.Type] +
+                                            " encounter!",
+                                    );
+                                    return;
+                                }
+                                this.notifier.notify(
+                                    "success",
+                                    "Successfully completed " +
+                                        EncounterType[this.encounter!.Type] +
+                                        " encounter!",
+                                );
+                                this.completeEncounterOnMap();
+                                this.authService.updateXp();
+                                this.getEncounterInstance(this.encounter!.Id);
+                                this.matDialogRef = this.dialog.open(
+                                    EncounterCompletedPopupComponent,
+                                );
+                            },
+                            error: err => {
+                                // console.log(err);
+                                this.notifier.notify(
+                                    "error",
+                                    xpError.getErrorMessage(err),
+                                );
+                            },
+            });
         }
     }
 
@@ -225,47 +288,24 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
     ) {
         this.service.getEncountersInRangeOf(userPosition).subscribe(result => {
             this.filteredEncounters = result;
-
-
             this.filteredEncounters.forEach((enc, i) => {
                 this.filteredEncounters[i].Picture = enc.Picture.startsWith(
                     "http",
                 )
                     ? enc.Picture
-                    : environment.imageHost + enc.Picture;
-
-                 this.service.getEncounterInstance(enc.Id).subscribe(result => {
-                    this.loadEncounterInstance = result;
-                    if (this.loadEncounterInstance?.status === 0) {
-                        this.mapComponent.setEncounterActiveMarker(
-                            enc.Latitude,
-                            enc.Longitude,
-                        );
-                    }
-                    if (this.loadEncounterInstance?.status === 1) {
-                        this.mapComponent.setEncounterCompletedMarker(
-                            enc.Latitude,
-                            enc.Longitude,
-                        );
-                    }
-                    if (!this.loadEncounterInstance) {
-                        this.mapComponent.setEncounterMarker(
-                            enc.Latitude,
-                            enc.Longitude,
-                        );
-                    }
-
+                    : environment.imageHost + enc.Picture;                
                 });
-
-              
             });
+            this.encounter = this.filteredEncounters.at(this.encounterNumber)
+            this.service.getEncounterInstance(this.encounter?.Id || 0).subscribe(result => {
+
+                this.encounterInstance = result;
+            })
             if (this.filteredEncounters) {
                 this.filteredEncounters.forEach(enc => {
                     if (this.checkIfUserInEncounterRange(enc)) {
                         this.encounter = enc;
                         this.getEncounterInstance(enc.Id);
-                        if(this.encounterInstance?.status==0|| this.encounterInstance?.status==1)
-                            this.dugme=1
                         if (this.encounter.Type === 1) {
                             if (this.encounterInstance) {
                                 if (this.encounterInstance.status == 0) {
@@ -277,8 +317,8 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                     }
                 });
             }
-        });
     }
+
 
     openSimulator() {
         if (this.dialogRef) {
@@ -288,6 +328,65 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
         this.dialogRef = this.dialog.open(PositionSimulatorComponent);
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = undefined;
+            this.authService.userLocation$.subscribe({
+                next: location => {
+                    this.encounter = undefined;
+                    this.userPosition.latitude = location.latitude;
+                    this.userPosition.longitude = location.longitude;
+                    if (this.mapComponent) {
+                        this.mapComponent.setUserPositionMarker(
+                            this.userPosition.latitude,
+                            this.userPosition.longitude,
+                        );
+                    }
+                },
+            });
         });
+    }
+
+    nextEncounter(){
+        this.mapComponent.removeMarkers();
+        this.mapComponent.setUserPositionMarker(
+            this.userPosition.latitude,
+            this.userPosition.longitude,
+        );
+        this.encounterNumber = this.encounterNumber + 1;
+        if (this.encounterNumber > this.filteredEncounters.length-1)
+            this.encounterNumber = 0;
+        this.service.getEncounterInstance(this.filteredEncounters.at(this.encounterNumber)?.Id || 0).subscribe(result => {
+            this.loadEncounterInstance = result;
+            this.encounter = this.filteredEncounters.at(this.encounterNumber);
+            this.encounterInstance = this.loadEncounterInstance;
+            if (this.loadEncounterInstance?.userId !=0 && this.loadEncounterInstance?.status === 0) {
+                this.mapComponent.setEncounterActiveMarker(
+                    this.encounter?.Latitude || 0,
+                    this.encounter?.Longitude || 0,
+                );
+            }
+            if (this.loadEncounterInstance?.userId !=0 && this.loadEncounterInstance?.status === 1) {
+                this.mapComponent.setEncounterCompletedMarker(
+                    this.encounter?.Latitude || 0,
+                    this.encounter?.Longitude || 0,
+                );
+            }
+            if (this.loadEncounterInstance?.userId == 0) {
+                this.mapComponent.setEncounterMarker(
+                    this.encounter?.Latitude || 0,
+                    this.encounter?.Longitude || 0,
+                );
+            }
+            if(this.encounter?.Type == 1){
+                this.mapComponent.setEncounterMarker(this.encounter?.PictureLatitude || 0, this.encounter?.PictureLongitude || 0);
+            }
+
+        })
+    }
+
+    completeEncounterOnMap() : void{
+        this.mapComponent.removeMarkers();
+        this.mapComponent.setEncounterCompletedMarker(
+            this.encounter?.Latitude || 0,
+            this.encounter?.Longitude || 0,
+        );
     }
 }
