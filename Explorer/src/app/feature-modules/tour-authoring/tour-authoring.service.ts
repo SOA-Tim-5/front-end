@@ -22,7 +22,7 @@ export class TourAuthoringService {
 
     getTours(): Observable<Tour[]> {
         return this.http.get<Tour[]>(
-            "https://localhost:44333/api/tour/authors",
+            "http://localhost:44333/api/tour/authors",
         );
     }
 
