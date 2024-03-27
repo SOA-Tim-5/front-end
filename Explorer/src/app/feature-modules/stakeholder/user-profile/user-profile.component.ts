@@ -65,8 +65,8 @@ export class UserProfileComponent implements OnInit {
             this.loadWallet();
         });
         this.authService.user$.subscribe(user => {
-            this.xp = user.touristProgress?.xp||0;
-            this.level = user.touristProgress?.level||0;
+            this.xp = user.touristProgress?.Xp||0;
+            this.level = user.touristProgress?.Level||0;
             console.log(this.xp)
             console.log(this.level)
 

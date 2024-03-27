@@ -1,4 +1,4 @@
 export interface TouristProgress {
-    xp: number;
-    level: number;
+    Xp: number;
+    Level: number;
 }
