@@ -6,6 +6,7 @@ import { StakeholderService } from "../stakeholder.service";
 import { Following } from "../model/following.model";
 import { FollowerCreate } from "../model/follower-create.model";
 import { UserFollowing } from "../model/user-following.model";
+import { UserForFollow } from "../model/user-for-follow.model";
 export interface ModalData {
     userId: number;
     username: string;
@@ -19,7 +20,7 @@ export class FollowerSearchDialogComponent implements OnInit {
     userId: number;
     faSearch = faSearch;
     users: UserFollow[] = [];
-    followings: Following[] = [];
+    followings: UserForFollow[] = [];
     searchUsername: string;
     username: string;
     constructor(
@@ -33,9 +34,9 @@ export class FollowerSearchDialogComponent implements OnInit {
         this.loadFollowings();
     }
     loadFollowings() {
-        this.service.getFollowings(this.userId).subscribe(result => {
-            this.followings = result.results;
-        });
+        /*this.service.getUserFollowings(this.userId.toString()).subscribe(result => {
+            this.followings = result;
+        });*/
     }
     follow(id: number) {
         var clicked = this.users.find(u => u.id == id);
@@ -63,7 +64,7 @@ export class FollowerSearchDialogComponent implements OnInit {
         this.service.getSearched(this.searchUsername).subscribe(result => {
             this.users = result.results;
             this.users.forEach(user => {
-                if (this.followings.some(f => user.id === f.following.id)) {
+                if (this.followings.some(f => user.id.toString() == f.id)) {
                     user.followingStatus = true;
                 } else {
                     user.followingStatus = false;
