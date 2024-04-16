@@ -25,6 +25,7 @@ import { Club } from "../marketplace/model/club.model";
 import { WishlistNotification } from "./model/wishlist-notification.model";
 import { Problem } from "../marketplace/model/problem.model";
 import { UserFollowing } from "./model/user-following.model";
+import { UserForFollow } from "./model/user-for-follow.model";
 
 @Injectable({
     providedIn: "root",
@@ -308,6 +309,12 @@ export class StakeholderService {
         return this.http.post<any>(
             environment.apiHost + "follower/create-following",
             following,
+        );
+    }
+
+    getUserFollowings(id: string): Observable<UserForFollow[]> {
+        return this.http.get<UserForFollow[]>(
+            environment.apiHost + "follower/user-followings/" + id,
         );
     }
 }

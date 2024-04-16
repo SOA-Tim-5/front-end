@@ -16,7 +16,7 @@
         <xp-user-row
             *ngFor="let f of followings"
             [user]="f"
-            [followId]="f.userId"
+            [followId]="+f.id"
             [followStatus]="f.followingStatus"
             (unfollowOrFollowEvent)="unfollowOrFollow($event)"
             [enableFollow]="true"

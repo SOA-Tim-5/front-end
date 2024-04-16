@@ -7,7 +7,6 @@ import { MessageDialogComponent } from "../message-dialog/message-dialog/message
 import { faL } from "@fortawesome/free-solid-svg-icons";
 import { StakeholderService } from "../stakeholder.service";
 import { FollowerCreate } from "../model/follower-create.model";
-import { UserFollowing } from "../model/user-following.model";
 import { UserForFollow } from "../model/user-for-follow.model";
 export interface ModalData {
     followers: Follower[];
@@ -48,7 +47,7 @@ export class FollowDialogComponent implements OnInit {
         var clicked = this.followings.find(f => f.id == id.toString());
         /*if (clicked != undefined) {
             if (clicked.followingStatus) {
-                this.service.deleteFollowing(id).subscribe({
+                /*this.service.deleteFollowing(id).subscribe({
                     next: () => {
                         if (clicked != undefined) {
                             clicked.followingStatus = false;
