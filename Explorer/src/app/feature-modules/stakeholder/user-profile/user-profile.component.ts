@@ -33,8 +33,8 @@ export class UserProfileComponent implements OnInit {
     showFollowings: boolean = false;
     bioMarkdown: string;
     wallet: Wallet;
-    xp:number
-    level:number
+    xp: number;
+    level: number;
 
     constructor(
         private authService: AuthService,
@@ -65,13 +65,11 @@ export class UserProfileComponent implements OnInit {
             this.loadWallet();
         });
         this.authService.user$.subscribe(user => {
-            this.xp = user.touristProgress?.xp||0;
-            this.level = user.touristProgress?.level||0;
-            console.log(this.xp)
-            console.log(this.level)
-
+            this.xp = user.touristProgress?.xp || 0;
+            this.level = user.touristProgress?.level || 0;
+            console.log(this.xp);
+            console.log(this.level);
         });
-
     }
     loadFollowings() {
         this.service.getFollowings(this.user.id).subscribe(result => {
@@ -92,12 +90,12 @@ export class UserProfileComponent implements OnInit {
         });
     }
     loadWallet() {
-        if(this.user.role !== 'tourist'){
+        if (this.user.role !== "tourist") {
             return;
         }
         this.service.getTouristWallet().subscribe(result => {
             this.wallet = result;
-        })
+        });
     }
     openFollowersDialog(): void {
         const dialogRef = this.dialog.open(FollowDialogComponent, {
@@ -131,6 +129,7 @@ export class UserProfileComponent implements OnInit {
         const dialogRef = this.dialog.open(FollowerSearchDialogComponent, {
             data: {
                 userId: this.user.id,
+                username: this.user.username,
             },
         });
         dialogRef.afterClosed().subscribe(item => {
@@ -152,7 +151,7 @@ export class UserProfileComponent implements OnInit {
             },
         });
     }
-    openClubsDialog(){
+    openClubsDialog() {
         this.dialog.open(UserClubsDialogComponent, {
             data: {
                 userId: this.user.id,

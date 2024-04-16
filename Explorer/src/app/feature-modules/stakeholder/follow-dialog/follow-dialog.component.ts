@@ -7,9 +7,10 @@ import { MessageDialogComponent } from "../message-dialog/message-dialog/message
 import { faL } from "@fortawesome/free-solid-svg-icons";
 import { StakeholderService } from "../stakeholder.service";
 import { FollowerCreate } from "../model/follower-create.model";
+import { UserFollowing } from "../model/user-following.model";
 export interface ModalData {
     followers: Follower[];
-    followings: Following[];
+    followings: UserFollowing[];
     showFollowers: boolean;
     showFollowings: boolean;
     user: User;
@@ -23,7 +24,7 @@ export interface ModalData {
 export class FollowDialogComponent implements OnInit {
     userId: number;
     followers: Follower[] = [];
-    followings: Following[] = [];
+    followings: UserFollowing[] = [];
     showFollowers: boolean = false;
     showFollowings: boolean = false;
     f: FollowerCreate;

@@ -24,6 +24,7 @@ import { BundleRecord } from "./model/bundle-record.model";
 import { Club } from "../marketplace/model/club.model";
 import { WishlistNotification } from "./model/wishlist-notification.model";
 import { Problem } from "../marketplace/model/problem.model";
+import { UserFollowing } from "./model/user-following.model";
 
 @Injectable({
     providedIn: "root",
@@ -300,6 +301,13 @@ export class StakeholderService {
         //popraviti poziv
         return this.http.get<WishlistNotification[]>(
             environment.apiHost + "tourist/wishlist-notification",
+        );
+    }
+
+    createNewFollowing(following: UserFollowing): Observable<any> {
+        return this.http.post<any>(
+            environment.apiHost + "follower/create-following",
+            following,
         );
     }
 }

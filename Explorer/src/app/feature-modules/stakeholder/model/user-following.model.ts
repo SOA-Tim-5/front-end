@@ -1,8 +1,8 @@
 export interface UserFollowing {
     userId: string;
     username: string;
-    profilemage: string;
+    image: string;
     followingUserId: string;
     followingUsername: string;
-    followingProfileImage: string;
+    followingImage: string;
 }

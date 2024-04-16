@@ -5,8 +5,10 @@ import { UserFollow } from "../model/user-follow.model";
 import { StakeholderService } from "../stakeholder.service";
 import { Following } from "../model/following.model";
 import { FollowerCreate } from "../model/follower-create.model";
+import { UserFollowing } from "../model/user-following.model";
 export interface ModalData {
     userId: number;
+    username: string;
 }
 @Component({
     selector: "xp-follower-search-dialog",
@@ -19,6 +21,7 @@ export class FollowerSearchDialogComponent implements OnInit {
     users: UserFollow[] = [];
     followings: Following[] = [];
     searchUsername: string;
+    username: string;
     constructor(
         private service: StakeholderService,
         @Inject(MAT_DIALOG_DATA) public data: ModalData,
@@ -26,6 +29,7 @@ export class FollowerSearchDialogComponent implements OnInit {
 
     ngOnInit(): void {
         this.userId = this.data.userId;
+        this.username = this.data.username;
         this.loadFollowings();
     }
     loadFollowings() {
@@ -36,12 +40,17 @@ export class FollowerSearchDialogComponent implements OnInit {
     follow(id: number) {
         var clicked = this.users.find(u => u.id == id);
         if (clicked != undefined) {
-            const followCreate: FollowerCreate = {
-                userId: clicked.id,
-                followedById: this.userId,
+            const following: UserFollowing = {
+                userId: this.userId.toString(),
+                username: this.username,
+                image: "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg",
+                followingUserId: clicked.id.toString(),
+                followingUsername: clicked.username,
+                followingImage:
+                    "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg",
             };
-            this.service.addFollowing(followCreate).subscribe({
-                next: (result: FollowerCreate) => {
+            this.service.createNewFollowing(following).subscribe({
+                next: (result: any) => {
                     if (clicked != undefined) {
                         clicked.followingStatus = true;
                         this.loadFollowings();
