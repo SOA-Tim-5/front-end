@@ -24,6 +24,8 @@ export class FollowersRecommendationComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.userId=this.data.userId;
+        this.username=this.data.username;
         this.service
             .getFollowerRecommendations(this.userId.toString())
             .subscribe(result => {

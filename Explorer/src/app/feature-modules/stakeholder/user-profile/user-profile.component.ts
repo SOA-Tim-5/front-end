@@ -5,7 +5,7 @@ import { User } from "src/app/infrastructure/auth/model/user.model";
 import { Router } from "@angular/router";
 import { Follower } from "../model/follower.model";
 import { MatDialog } from "@angular/material/dialog";
-import { faL, faLightbulb } from "@fortawesome/free-solid-svg-icons";
+import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import { Following } from "../model/following.model";
 import { FollowDialogComponent } from "../follow-dialog/follow-dialog.component";
 import { StakeholderService } from "../stakeholder.service";
