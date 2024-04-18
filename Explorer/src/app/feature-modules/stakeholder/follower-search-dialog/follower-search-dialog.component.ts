@@ -44,11 +44,10 @@ export class FollowerSearchDialogComponent implements OnInit {
             const following: UserFollowing = {
                 userId: this.userId.toString(),
                 username: this.username,
-                image: "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg",
+                image: "https://img.freepik.com/premium-vector/head-man-profile-avatar-stylish-social-networks_676691-1354.jpg",
                 followingUserId: clicked.id.toString(),
                 followingUsername: clicked.username,
-                followingImage:
-                    "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg",
+                followingImage:"https://img.freepik.com/premium-vector/head-man-profile-avatar-stylish-social-networks_676691-1353.jpg",
             };
             this.service.createNewFollowing(following).subscribe({
                 next: (result: any) => {

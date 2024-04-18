@@ -26,7 +26,7 @@ export class UserProfileComponent implements OnInit {
     editing = false;
     user: User;
     person: Person;
-    followers: Follower[] = [];
+    followers: UserForFollow[] = [];
     followersCount: number;
     followings: UserForFollow[] = [];
     followingsCount: number;
@@ -82,13 +82,14 @@ export class UserProfileComponent implements OnInit {
         });
     }
     loadFollowers() {
-        this.service.getFollowers(this.user.id).subscribe(result => {
-            this.followers = result.results;
+        this.service.getUserFollowers(this.user.id.toString()).subscribe(result => {
+            this.followers = result;
             this.followersCount = this.followers.length;
             this.followers.forEach(item => {
                 item.followingStatus = true;
             });
         });
+        console.log(this.followers);
     }
     loadWallet() {
         if (this.user.role !== "tourist") {
@@ -108,6 +109,7 @@ export class UserProfileComponent implements OnInit {
                 user: this.user,
             },
         });
+        console.log(this.followers);
         dialogRef.afterClosed().subscribe(item => {
             this.loadFollowers();
         });

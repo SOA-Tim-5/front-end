@@ -8,8 +8,9 @@ import { faL } from "@fortawesome/free-solid-svg-icons";
 import { StakeholderService } from "../stakeholder.service";
 import { FollowerCreate } from "../model/follower-create.model";
 import { UserForFollow } from "../model/user-for-follow.model";
+import { UserFollowing } from "../model/user-following.model";
 export interface ModalData {
-    followers: Follower[];
+    followers: UserForFollow[];
     followings: UserForFollow[];
     showFollowers: boolean;
     showFollowings: boolean;
@@ -23,7 +24,7 @@ export interface ModalData {
 })
 export class FollowDialogComponent implements OnInit {
     userId: number;
-    followers: Follower[] = [];
+    followers: UserForFollow[] = [];
     followings: UserForFollow[] = [];
     showFollowers: boolean = false;
     showFollowings: boolean = false;
@@ -40,6 +41,9 @@ export class FollowDialogComponent implements OnInit {
         this.showFollowers = this.data.showFollowers;
         this.showFollowings = this.data.showFollowings;
         this.userId = this.data.user.id;
+        console.log(this.followers);
+        console.log(this.followings);
+        
     }
 
     unfollowOrFollow(id: number): void {
@@ -75,8 +79,8 @@ export class FollowDialogComponent implements OnInit {
         });
     }
     removeOrFollow(id: number): void {
-        var clicked = this.followers.find(f => f.id == id);
-        if (clicked != undefined) {
+        var clicked = this.followers.find(f => f.id == id.toString());
+        /*if (clicked != undefined) {
             if (clicked.followingStatus) {
                 this.service.deleteFollowing(id).subscribe({
                     next: () => {
@@ -88,7 +92,7 @@ export class FollowDialogComponent implements OnInit {
             } else {
                 this.addFollower(id, clicked);
             }
-        }
+        }*/
     }
     addFollower(id: number, follwer: Follower): void {
         const followCreate: FollowerCreate = {

@@ -314,7 +314,13 @@ export class StakeholderService {
 
     getUserFollowings(id: string): Observable<UserForFollow[]> {
         return this.http.get<UserForFollow[]>(
-            environment.apiHost + "follower/user-followings/" + id,
+            environment.apiHost + "follower/followings/" + id,
+        );
+    }
+
+    getUserFollowers(id: string): Observable<UserForFollow[]> {
+        return this.http.get<UserForFollow[]>(
+            environment.apiHost + "follower/followers/" + id,
         );
     }
 }

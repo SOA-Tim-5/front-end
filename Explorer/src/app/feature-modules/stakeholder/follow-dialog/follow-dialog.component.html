@@ -2,16 +2,15 @@
     <div class="title">
         <h1>{{ showFollowers ? "Followers" : "Following" }}</h1>
     </div>
-    <!--div *ngIf="showFollowers" class="user-container">
+    <div *ngIf="showFollowers" class="user-container">
         <xp-user-row
             *ngFor="let f of followers"
-            [user]="f.followedBy"
-            [person]="f.followedByPerson"
-            [followId]="f.id"
+            [user]="f"
+            [followId]="+f.id"
             [followStatus]="f.followingStatus"
             followDirection="following"
         />
-    </div-->
+    </div>
     <div *ngIf="showFollowings" class="user-container">
         <xp-user-row
             *ngFor="let f of followings"
