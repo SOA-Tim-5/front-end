@@ -1,7 +1,15 @@
 .dialog {
-    background-color: rgb(var(--clr-neutral-300));
-    height: 100%;
-    width: 100%;
+    min-width: 35rem;
+    min-height: 40rem;
+    background-color: rgb(var(--clr-background-secondary));
+    color: rgb(var(--clr-text));
+    max-height: 45rem;
+    overflow: auto;
+    border-radius: 1rem;
+}
+h1 {
+    text-align: center;
+    margin-top: 1rem;
 }
 
 .search-button {
@@ -17,6 +25,7 @@ table {
     border-collapse: collapse;
     font-family: sans-serif;
     min-width: 450px;
+    text-align: center;
 }
 
 th,

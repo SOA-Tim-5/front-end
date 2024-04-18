@@ -47,7 +47,8 @@ export class FollowerSearchDialogComponent implements OnInit {
                 image: "https://img.freepik.com/premium-vector/head-man-profile-avatar-stylish-social-networks_676691-1354.jpg",
                 followingUserId: clicked.id.toString(),
                 followingUsername: clicked.username,
-                followingImage:"https://img.freepik.com/premium-vector/head-man-profile-avatar-stylish-social-networks_676691-1353.jpg",
+                followingImage:
+                    "https://img.freepik.com/premium-vector/head-man-profile-avatar-stylish-social-networks_676691-1353.jpg",
             };
             this.service.createNewFollowing(following).subscribe({
                 next: (result: any) => {

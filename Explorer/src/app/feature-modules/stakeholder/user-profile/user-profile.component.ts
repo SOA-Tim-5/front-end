@@ -16,6 +16,7 @@ import { marked } from "marked";
 import { Wallet } from "../model/wallet.model";
 import { UserClubsDialogComponent } from "../user-clubs-dialog/user-clubs-dialog.component";
 import { UserForFollow } from "../model/user-for-follow.model";
+import { FollowersRecommendationComponent } from "../followers-recommendation/followers-recommendation.component";
 
 @Component({
     selector: "xp-user-profile",
@@ -166,5 +167,16 @@ export class UserProfileComponent implements OnInit {
             },
         });
     }
-    openFollowersRecommendationDialog() {}
+    openFollowersRecommendationDialog() {
+        const dialogRef = this.dialog.open(FollowersRecommendationComponent, {
+            data: {
+                userId: this.user.id,
+                username: this.user.username,
+            },
+        });
+        dialogRef.afterClosed().subscribe(item => {
+            this.loadFollowings();
+            this.loadFollowers();
+        });
+    }
 }

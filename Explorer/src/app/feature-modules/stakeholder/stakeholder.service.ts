@@ -323,4 +323,10 @@ export class StakeholderService {
             environment.apiHost + "follower/followers/" + id,
         );
     }
+
+    getFollowerRecommendations(id: string): Observable<UserForFollow[]> {
+        return this.http.get<UserForFollow[]>(
+            environment.apiHost + "follower/recommendations/" + id,
+        );
+    }
 }
