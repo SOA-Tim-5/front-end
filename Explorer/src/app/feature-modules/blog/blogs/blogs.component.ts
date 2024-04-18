@@ -79,9 +79,9 @@ export class BlogsComponent implements OnInit {
 
     getBlogs(): void {
         if(this.clubId == -1){
-            this.service.getBlogs().subscribe({
-                next: (result: PagedResults<Blog>) => {
-                    this.blogs = result.results;
+            this.service.getFollowingBlogs().subscribe({
+                next: result  => {
+                    this.blogs = result;
                     this.removePrivates();
                 },
                 error: () => {},
