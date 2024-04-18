@@ -5,7 +5,7 @@ import { User } from "src/app/infrastructure/auth/model/user.model";
 import { Router } from "@angular/router";
 import { Follower } from "../model/follower.model";
 import { MatDialog } from "@angular/material/dialog";
-import { faL } from "@fortawesome/free-solid-svg-icons";
+import { faL, faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import { Following } from "../model/following.model";
 import { FollowDialogComponent } from "../follow-dialog/follow-dialog.component";
 import { StakeholderService } from "../stakeholder.service";
@@ -36,6 +36,7 @@ export class UserProfileComponent implements OnInit {
     wallet: Wallet;
     xp: number;
     level: number;
+    faLightbulb = faLightbulb;
 
     constructor(
         private authService: AuthService,
@@ -73,22 +74,26 @@ export class UserProfileComponent implements OnInit {
         });
     }
     loadFollowings() {
-        this.service.getUserFollowings(this.user.id.toString()).subscribe(result => {
-            this.followings = result;
-            this.followingsCount = this.followings.length;
-            this.followings.forEach(item => {
-                item.followingStatus = true;
+        this.service
+            .getUserFollowings(this.user.id.toString())
+            .subscribe(result => {
+                this.followings = result;
+                this.followingsCount = this.followings.length;
+                this.followings.forEach(item => {
+                    item.followingStatus = true;
+                });
             });
-        });
     }
     loadFollowers() {
-        this.service.getUserFollowers(this.user.id.toString()).subscribe(result => {
-            this.followers = result;
-            this.followersCount = this.followers.length;
-            this.followers.forEach(item => {
-                item.followingStatus = true;
+        this.service
+            .getUserFollowers(this.user.id.toString())
+            .subscribe(result => {
+                this.followers = result;
+                this.followersCount = this.followers.length;
+                this.followers.forEach(item => {
+                    item.followingStatus = true;
+                });
             });
-        });
         console.log(this.followers);
     }
     loadWallet() {
@@ -161,4 +166,5 @@ export class UserProfileComponent implements OnInit {
             },
         });
     }
+    openFollowersRecommendationDialog() {}
 }

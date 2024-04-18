@@ -1,0 +1,39 @@
+.dialog {
+    background-color: rgb(var(--clr-neutral-300));
+    height: 100%;
+    width: 100%;
+}
+
+.search-button {
+    border-radius: 2rem;
+    margin-left: auto;
+    height: 100%;
+    max-height: 100%;
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+table {
+    border-collapse: collapse;
+    font-family: sans-serif;
+    min-width: 450px;
+}
+
+th,
+td {
+    padding: 12px 15px;
+    text-align: center;
+    font-family: var(--fnt-body);
+}
+
+tbody tr {
+    border-bottom: 1px solid rgb(var(--clr-accent-300));
+}
+
+tbody tr:last-of-type {
+    border-bottom: 2px solid rgb(var(--clr-accent-300));
+}
+
+tbody tr.active-row {
+    font-weight: bold;
+}

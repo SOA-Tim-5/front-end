@@ -79,16 +79,20 @@
                             >
                                 +
                             </div>
-                            
+                            <fa-icon
+                                class="icon"
+                                [icon]="faLightbulb"
+                                (click)="openFollowersRecommendationDialog()"
+                            />
                         </div>
                         <div>
-                            xp 
+                            xp
                             <span class="current-xp">
-                             {{user.touristProgress?.Xp}}
+                                {{ user.touristProgress?.Xp }}
                             </span>
-                           |  level
+                            | level
                             <span class="current-xp">
-                                {{user.touristProgress?.Level}}
+                                {{ user.touristProgress?.Level }}
                             </span>
                         </div>
                         <!--<div class="row wallet" *ngIf="user.role == 'tourist'">
@@ -104,7 +108,12 @@
                         <div class="btn edit-btn" (click)="toggleEditing()">
                             Edit
                         </div>
-                        <div *ngIf="user.role == 'tourist'" class="btn edit-btn" style="margin-top: 10px;" (click)="openClubsDialog()">
+                        <div
+                            *ngIf="user.role == 'tourist'"
+                            class="btn edit-btn"
+                            style="margin-top: 10px"
+                            (click)="openClubsDialog()"
+                        >
                             Clubs
                         </div>
                     </div>
