@@ -24,6 +24,10 @@ export class BlogService {
     getBlogs(): Observable<PagedResults<Blog>> {
         return this.http.get<PagedResults<Blog>>(environment.apiHost + "blog");
     }
+
+    getFollowingBlogs(): Observable<Blog[]> {
+        return this.http.get<Blog[]>(environment.apiHost + "blog/from-following");
+    }
     getClubBlogs(clubId: number): Observable<PagedResults<Blog>> {
         return this.http.get<PagedResults<Blog>>(environment.apiHost + "blog/getClubBlogs?page=0&pageSize=0&clubId="+clubId);
     }

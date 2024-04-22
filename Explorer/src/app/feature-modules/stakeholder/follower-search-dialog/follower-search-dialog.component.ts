@@ -5,8 +5,11 @@ import { UserFollow } from "../model/user-follow.model";
 import { StakeholderService } from "../stakeholder.service";
 import { Following } from "../model/following.model";
 import { FollowerCreate } from "../model/follower-create.model";
+import { UserFollowing } from "../model/user-following.model";
+import { UserForFollow } from "../model/user-for-follow.model";
 export interface ModalData {
     userId: number;
+    username: string;
 }
 @Component({
     selector: "xp-follower-search-dialog",
@@ -17,8 +20,9 @@ export class FollowerSearchDialogComponent implements OnInit {
     userId: number;
     faSearch = faSearch;
     users: UserFollow[] = [];
-    followings: Following[] = [];
+    followings: UserForFollow[] = [];
     searchUsername: string;
+    username: string;
     constructor(
         private service: StakeholderService,
         @Inject(MAT_DIALOG_DATA) public data: ModalData,
@@ -26,22 +30,28 @@ export class FollowerSearchDialogComponent implements OnInit {
 
     ngOnInit(): void {
         this.userId = this.data.userId;
+        this.username = this.data.username;
         this.loadFollowings();
     }
     loadFollowings() {
-        this.service.getFollowings(this.userId).subscribe(result => {
-            this.followings = result.results;
-        });
+        /*this.service.getUserFollowings(this.userId.toString()).subscribe(result => {
+            this.followings = result;
+        });*/
     }
     follow(id: number) {
         var clicked = this.users.find(u => u.id == id);
         if (clicked != undefined) {
-            const followCreate: FollowerCreate = {
-                userId: clicked.id,
-                followedById: this.userId,
+            const following: UserFollowing = {
+                userId: this.userId.toString(),
+                username: this.username,
+                image: "https://img.freepik.com/premium-vector/head-man-profile-avatar-stylish-social-networks_676691-1354.jpg",
+                followingUserId: clicked.id.toString(),
+                followingUsername: clicked.username,
+                followingImage:
+                    "https://img.freepik.com/premium-vector/head-man-profile-avatar-stylish-social-networks_676691-1353.jpg",
             };
-            this.service.addFollowing(followCreate).subscribe({
-                next: (result: FollowerCreate) => {
+            this.service.createNewFollowing(following).subscribe({
+                next: (result: any) => {
                     if (clicked != undefined) {
                         clicked.followingStatus = true;
                         this.loadFollowings();
@@ -54,7 +64,7 @@ export class FollowerSearchDialogComponent implements OnInit {
         this.service.getSearched(this.searchUsername).subscribe(result => {
             this.users = result.results;
             this.users.forEach(user => {
-                if (this.followings.some(f => user.id === f.following.id)) {
+                if (this.followings.some(f => user.id.toString() == f.id)) {
                     user.followingStatus = true;
                 } else {
                     user.followingStatus = false;

@@ -5,7 +5,7 @@ import { User } from "src/app/infrastructure/auth/model/user.model";
 import { Router } from "@angular/router";
 import { Follower } from "../model/follower.model";
 import { MatDialog } from "@angular/material/dialog";
-import { faL } from "@fortawesome/free-solid-svg-icons";
+import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import { Following } from "../model/following.model";
 import { FollowDialogComponent } from "../follow-dialog/follow-dialog.component";
 import { StakeholderService } from "../stakeholder.service";
@@ -15,6 +15,8 @@ import * as DOMPurify from "dompurify";
 import { marked } from "marked";
 import { Wallet } from "../model/wallet.model";
 import { UserClubsDialogComponent } from "../user-clubs-dialog/user-clubs-dialog.component";
+import { UserForFollow } from "../model/user-for-follow.model";
+import { FollowersRecommendationComponent } from "../followers-recommendation/followers-recommendation.component";
 
 @Component({
     selector: "xp-user-profile",
@@ -25,16 +27,17 @@ export class UserProfileComponent implements OnInit {
     editing = false;
     user: User;
     person: Person;
-    followers: Follower[] = [];
+    followers: UserForFollow[] = [];
     followersCount: number;
-    followings: Following[] = [];
+    followings: UserForFollow[] = [];
     followingsCount: number;
     showFollowers: boolean = false;
     showFollowings: boolean = false;
     bioMarkdown: string;
     wallet: Wallet;
-    xp:number
-    level:number
+    xp: number;
+    level: number;
+    faLightbulb = faLightbulb;
 
     constructor(
         private authService: AuthService,
@@ -65,39 +68,42 @@ export class UserProfileComponent implements OnInit {
             this.loadWallet();
         });
         this.authService.user$.subscribe(user => {
-            this.xp = user.touristProgress?.Xp||0;
-            this.level = user.touristProgress?.Level||0;
-            console.log(this.xp)
-            console.log(this.level)
-
+            this.xp = user.touristProgress?.Xp || 0;
+            this.level = user.touristProgress?.Level || 0;
+            console.log(this.xp);
+            console.log(this.level);
         });
-
     }
     loadFollowings() {
-        this.service.getFollowings(this.user.id).subscribe(result => {
-            this.followings = result.results;
-            this.followingsCount = this.followings.length;
-            this.followings.forEach(item => {
-                item.followingStatus = true;
+        this.service
+            .getUserFollowings(this.user.id.toString())
+            .subscribe(result => {
+                this.followings = result;
+                this.followingsCount = this.followings.length;
+                this.followings.forEach(item => {
+                    item.followingStatus = true;
+                });
             });
-        });
     }
     loadFollowers() {
-        this.service.getFollowers(this.user.id).subscribe(result => {
-            this.followers = result.results;
-            this.followersCount = this.followers.length;
-            this.followers.forEach(item => {
-                item.followingStatus = true;
+        this.service
+            .getUserFollowers(this.user.id.toString())
+            .subscribe(result => {
+                this.followers = result;
+                this.followersCount = this.followers.length;
+                this.followers.forEach(item => {
+                    item.followingStatus = true;
+                });
             });
-        });
+        console.log(this.followers);
     }
     loadWallet() {
-        if(this.user.role !== 'tourist'){
+        if (this.user.role !== "tourist") {
             return;
         }
         this.service.getTouristWallet().subscribe(result => {
             this.wallet = result;
-        })
+        });
     }
     openFollowersDialog(): void {
         const dialogRef = this.dialog.open(FollowDialogComponent, {
@@ -109,6 +115,7 @@ export class UserProfileComponent implements OnInit {
                 user: this.user,
             },
         });
+        console.log(this.followers);
         dialogRef.afterClosed().subscribe(item => {
             this.loadFollowers();
         });
@@ -131,6 +138,7 @@ export class UserProfileComponent implements OnInit {
         const dialogRef = this.dialog.open(FollowerSearchDialogComponent, {
             data: {
                 userId: this.user.id,
+                username: this.user.username,
             },
         });
         dialogRef.afterClosed().subscribe(item => {
@@ -152,11 +160,23 @@ export class UserProfileComponent implements OnInit {
             },
         });
     }
-    openClubsDialog(){
+    openClubsDialog() {
         this.dialog.open(UserClubsDialogComponent, {
             data: {
                 userId: this.user.id,
             },
+        });
+    }
+    openFollowersRecommendationDialog() {
+        const dialogRef = this.dialog.open(FollowersRecommendationComponent, {
+            data: {
+                userId: this.user.id,
+                username: this.user.username,
+            },
+        });
+        dialogRef.afterClosed().subscribe(item => {
+            this.loadFollowings();
+            this.loadFollowers();
         });
     }
 }

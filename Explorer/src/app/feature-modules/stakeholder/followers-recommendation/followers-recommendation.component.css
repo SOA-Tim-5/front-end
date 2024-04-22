@@ -1,0 +1,48 @@
+.dialog {
+    min-width: 35rem;
+    min-height: 40rem;
+    background-color: rgb(var(--clr-background-secondary));
+    color: rgb(var(--clr-text));
+    max-height: 45rem;
+    overflow: auto;
+    border-radius: 1rem;
+}
+h1 {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.search-button {
+    border-radius: 2rem;
+    margin-left: auto;
+    height: 100%;
+    max-height: 100%;
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+table {
+    border-collapse: collapse;
+    font-family: sans-serif;
+    min-width: 450px;
+    text-align: center;
+}
+
+th,
+td {
+    padding: 12px 15px;
+    text-align: center;
+    font-family: var(--fnt-body);
+}
+
+tbody tr {
+    border-bottom: 1px solid rgb(var(--clr-accent-300));
+}
+
+tbody tr:last-of-type {
+    border-bottom: 2px solid rgb(var(--clr-accent-300));
+}
+
+tbody tr.active-row {
+    font-weight: bold;
+}

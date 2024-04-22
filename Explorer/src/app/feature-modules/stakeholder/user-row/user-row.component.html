@@ -2,12 +2,12 @@
     <div class="user-info">
         <div
             class="user-avatar"
-            [style.background-image]="'url(' + user.profilePicture + ')'"
+            [style.background-image]="'url(' + user.image + ')'"
         ></div>
         <div class="column">
-            <div class="fullname">
+            <!--<div class="fullname">
                 {{ person.name + " " + person.surname }}
-            </div>
+            </div>-->
             <div class="username">
                 {{ "@" + user.username }}
             </div>
@@ -23,13 +23,13 @@
 
             {{ followStatus ? "Following" : "Follow" }}
         </div>
-        <div
+        <!--<div
             *ngIf="followStatus"
             (click)="openMessageDialog(user.id)"
             class="btn message"
         >
             <fa-icon [icon]="faEnvelope" />
             Message
-        </div>
+        </div>-->
     </div>
 </div>
