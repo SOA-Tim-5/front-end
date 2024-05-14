@@ -13,6 +13,7 @@ import { ListEncounterResponseDto } from "./model/ListEncounterResponseDto.model
 import { AuthService } from "src/app/infrastructure/auth/auth.service";
 import { use } from "marked";
 import { EncoounterInstanceId } from "./model/EncounterInstanceId.model";
+import { Inrange } from "./model/Inrange.model";
 
 @Injectable({
     providedIn: "root",
@@ -103,10 +104,10 @@ export class EncounterService {
     checkIfUserInCompletionRange(
         userPositionWithRange: UserPositionWithRange,
         encounterId: number,
-    ): Observable<boolean> {
-        return this.http.post<boolean>(
+    ): Observable<Inrange> {
+        return this.http.post<Inrange>(
             environment.apiHost +
-                `tourist/hidden-location-encounter/${encounterId}/check-range`,
+                `tourist/hidden-location-encounter/check-range`,
             userPositionWithRange,
         );
     }
@@ -122,11 +123,21 @@ export class EncounterService {
     completeHiddenLocationEncounter(
         userPositionWithRange: UserPositionWithRange,
         encounterId: number,
-    ): Observable<Encounter> {
-        return this.http.post<Encounter>(
+    ): Observable<Inrange> {
+        var userId=0;
+        this.authService.user$.subscribe(res => {
+            userId = res.id;
+        });
+        const touristPoistion:TouristPosition={
+            TouristId:userId,
+            Longitude:userPositionWithRange.longitude,
+            Latitude:userPositionWithRange.latitude,
+            EncounterId:encounterId,
+        }
+        return this.http.post<Inrange>(
             environment.apiHost +
-                `tourist/hidden-location-encounter/${encounterId}/complete`,
-            userPositionWithRange,
+                `tourist/hidden-location-encounter/complete`,
+            touristPoistion,
         );
     }
 

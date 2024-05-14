@@ -47,7 +47,7 @@
     </div>
     <div
         class="btn"
-        *ngIf="encounter && encounter.Type == 1 && encounterInstance?.UserId != 0 && encounterInstance?.Status == 0"
+        *ngIf="encounter && encounter.Type == 1 && encounterInstance?.UserId != 0 && encounterInstance?.Status != 0"
         (click)="activateEncounter()"
     >
         Resume

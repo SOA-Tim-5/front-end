@@ -88,7 +88,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
     }
 
     activateEncounter() {
-       // if(this.encounterInstance?.userId == 0){
+       if(this.encounterInstance?.UserId == 0){
             this.service
             .activateEncounter(this.userPosition, this.encounter!.Id)
             .subscribe({
@@ -112,7 +112,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                         this.notifier.notify("error", xpError.getErrorMessage(err));
                     },
                 });
-         /*   }else if(this.encounterInstance?.status == 0){
+            }else if(this.encounterInstance?.Status == 0){
                 this.notifier.notify(
                     "info",
                     "Already activated encounter!",
@@ -127,7 +127,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                     "info",
                     "Already completed encounter!",
                     );
-            }*/
+            }
             }
             
             handleHiddenLocationCompletion() {
@@ -146,7 +146,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                                 )
                         .subscribe({
                             next: result => {
-                                this.hiddenEncounterCheck = result;
+                                this.hiddenEncounterCheck = result.In;
                                 if (this.hiddenEncounterCheck == false) {
                                     clearInterval(interval);
                                     return;
@@ -227,42 +227,6 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                     },
                 });
 
-/*
-                    this.service
-                        .completeSocialEncounter(this.userPosition, this.encounter!.Id)
-                        .subscribe({
-                            next: (result) => {
-                                if(!result)
-                                {
-                                    this.notifier.notify(
-                                        "success",
-                                        "Not enough people or server error" +
-                                            EncounterType[this.encounter!.Type] +
-                                            " encounter!",
-                                    );
-                                    return;
-                                }
-                                this.notifier.notify(
-                                    "success",
-                                    "Successfully completed " +
-                                        EncounterType[this.encounter!.Type] +
-                                        " encounter!",
-                                );
-                                this.completeEncounterOnMap();
-                                this.authService.updateXp();
-                                this.getEncounterInstance(this.encounter!.Id);
-                                this.matDialogRef = this.dialog.open(
-                                    EncounterCompletedPopupComponent,
-                                );
-                            },
-                            error: err => {
-                                // console.log(err);
-                                this.notifier.notify(
-                                    "error",
-                                    xpError.getErrorMessage(err),
-                                );
-                            },
-            });*/
         }else {
             this.service
             .completeSocialEncounter(this.userPosition, this.encounter!.Id)
