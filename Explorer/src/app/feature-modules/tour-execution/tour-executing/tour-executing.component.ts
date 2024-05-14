@@ -125,7 +125,7 @@ export class TourExecutingComponent implements OnInit {
             },
         });
     }
-
+/*
     activateKeyPointEncounter(
         keyPointId: number,
         touristPosition: TouristPosition,
@@ -137,12 +137,12 @@ export class TourExecutingComponent implements OnInit {
                     this.encounterPoint = result;
                 },
             });
-    }
+    }*/
 
     checkKeyPointCompletion() {
         if (this.session.status !== TourExecutionSessionStatus.Started) return;
 
-        this.activateKeyPointEncounter(-1, this.touristPosition);
+        //this.activateKeyPointEncounter(-1, this.touristPosition);
         this.service
             .checkKeyPointCompletion(
                 this.session.tourId,

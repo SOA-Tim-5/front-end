@@ -1,7 +1,7 @@
-export interface EncounterInstance {
-    userId: number;
-    status: EncounterInstanceStatus;
-    completionTime: Date;
+export interface EncounterInstanceResponseDto {
+    UserId: number;
+    Status: number;
+    CompletionTime: Date;
 }
 
 export enum EncounterInstanceStatus {

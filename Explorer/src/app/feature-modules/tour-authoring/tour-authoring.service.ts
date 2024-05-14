@@ -13,6 +13,7 @@ import { PublicKeyPoint } from "./model/public-key-point.model";
 import { Person } from "../stakeholder/model/person.model";
 import { Bundle } from "./model/bundle.model";
 import { BundleCreation } from "./model/bundle-creation.model";
+import { AuthService } from "src/app/infrastructure/auth/auth.service";
 
 @Injectable({
     providedIn: "root",
