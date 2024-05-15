@@ -157,8 +157,8 @@ export class TourComponent implements OnInit {
     onPublishClicked(tour: Tour): void {
         if (tour.Id) {
             this.tourAuthoringService.getKeyPoints(tour.Id).subscribe({
-                next: (result: KeyPoint[]) => {
-                    this.keyPoints = result;
+                next: (result) => {
+                    this.keyPoints = result.List;
 
                     if (
                         this.keyPoints.length > 1 &&

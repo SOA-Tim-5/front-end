@@ -122,7 +122,7 @@ export class KeyPointModalComponent implements OnInit {
         this.service.uploadImage(this.tourImageFile!).subscribe({
             next: (imagePath: string) => {
                 const keyPoint: KeyPoint = {
-                    TourId: 1715704667140079,
+                    TourId: this.tour.Id?.toString() || "",
                     Name: this.keyPointForm.value.Name || "",
                     Description: this.keyPointForm.value.Description || "",
                     Longitude: this.keyPointForm.value.Longitude || 0,
@@ -130,15 +130,15 @@ export class KeyPointModalComponent implements OnInit {
                     LocationAddress: this.keyPointForm.value.Address || "",
                     ImagePath: imagePath,
                     Order: 0,
-                    HaveSecret:
-                        this.keyPointForm.value.SecretDescription?.length != 0,
+                    //HaveSecret:
+                    //    this.keyPointForm.value.SecretDescription?.length != 0,
                     // Secret:
                     //     {
                     //         images: [""],
                     //         description:
                     //             this.keyPointForm.value.SecretDescription || "",
                     //     } || null,
-                    HasEncounter: this.hasEncounter,
+                    //HasEncounter: this.hasEncounter,
                     IsEncounterRequired: this.isEncounterRequired,
                 };
                 // Get Key Points location address
@@ -214,7 +214,7 @@ export class KeyPointModalComponent implements OnInit {
         }
         let keyPoint: KeyPoint = {
             Id: this.keyPoint!.Id,
-            TourId: this.tour.Id!,
+            TourId: this.tour.Id!.toString(),
             Name: this.keyPointForm.value.Name || "",
             Description: this.keyPointForm.value.Description || "",
             Longitude: this.keyPointForm.value.Longitude || 0,
@@ -222,7 +222,7 @@ export class KeyPointModalComponent implements OnInit {
             LocationAddress: this.keyPointForm.value.Address || "",
             ImagePath: this.keyPointForm.value.ImagePath || "",
             Order: this.keyPoint!.Order,
-            HaveSecret: this.keyPointForm.value.SecretDescription?.length != 0,
+            //HaveSecret: this.keyPointForm.value.SecretDescription?.length != 0,
             // Secret:
             //     this.keyPointForm.value.SecretDescription?.length != 0
             //         ? {
@@ -231,7 +231,7 @@ export class KeyPointModalComponent implements OnInit {
             //                   this.keyPointForm.value.SecretDescription || "",
             //           } || null
             //         : null,
-            HasEncounter: this.hasEncounter,
+            //HasEncounter: this.hasEncounter,
             IsEncounterRequired: this.isEncounterRequired,
         };
 

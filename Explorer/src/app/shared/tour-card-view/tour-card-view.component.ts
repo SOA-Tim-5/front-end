@@ -246,8 +246,8 @@ export class TourCardViewComponent implements OnChanges {
     onPublishClicked(tour: Tour): void {
         if (tour.Id) {
             this.tourAuthoringService.getKeyPoints(tour.Id).subscribe({
-                next: (result: KeyPoint[]) => {
-                    const keyPoints = result;
+                next: (result) => {
+                    const keyPoints = result.List;
 
                     if (
                         keyPoints.length > 1 &&

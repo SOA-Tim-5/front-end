@@ -101,7 +101,7 @@ export class KeyPointFormComponent implements OnChanges {
                 this.service.uploadImage(this.tourImageFile!).subscribe({
                     next: (imagePath: string) => {
                         const keyPoint: KeyPoint = {
-                            TourId: +params.get("id")!,
+                            TourId: (+params.get("id")!).toString(),
                             Name: this.keyPointForm.value.Name || "",
                             Description:
                                 this.keyPointForm.value.Description || "",
@@ -111,8 +111,8 @@ export class KeyPointFormComponent implements OnChanges {
                                 this.keyPointForm.value.Address || "",
                             ImagePath: imagePath,
                             Order: 0,
-                            HaveSecret:
-                                this.keyPointForm.value.HaveSecret || false,
+                            //HaveSecret:
+                            //    this.keyPointForm.value.HaveSecret || false,
                             // Secret:
                             //     {
                             //         images: [""],
@@ -120,7 +120,7 @@ export class KeyPointFormComponent implements OnChanges {
                             //             this.keyPointForm.value
                             //                 .SecretDescription || "",
                             //     } || null,
-                            HasEncounter: this.hasEncounter,
+                            //HasEncounter: this.hasEncounter,
                             IsEncounterRequired: this.isEncounterRequired,
                         };
                         // Get Key Points location address
@@ -194,7 +194,7 @@ export class KeyPointFormComponent implements OnChanges {
             next: (params: ParamMap) => {
                 let keyPoint: KeyPoint = {
                     Id: this.keyPoint!.Id,
-                    TourId: +params.get("id")!,
+                    TourId: (+params.get("id")!).toString(),
                     Name: this.keyPointForm.value.Name || "",
                     Description: this.keyPointForm.value.Description || "",
                     Longitude: this.keyPointForm.value.Longitude || 0,
@@ -202,14 +202,14 @@ export class KeyPointFormComponent implements OnChanges {
                     LocationAddress: this.keyPointForm.value.Address || "",
                     ImagePath: this.keyPointForm.value.ImagePath || "",
                     Order: 0,
-                    HaveSecret: this.keyPointForm.value.HaveSecret || false,
+                    //HaveSecret: this.keyPointForm.value.HaveSecret || false,
                     // Secret:
                     //     {
                     //         images: [""],
                     //         description:
                     //             this.keyPointForm.value.SecretDescription || "",
                     //     } || null,
-                    HasEncounter: this.hasEncounter,
+                    //HasEncounter: this.hasEncounter,
                     IsEncounterRequired: this.isEncounterRequired,
                 };
 

@@ -107,8 +107,8 @@ export class KeyPointsComponent implements OnInit {
 
     getKeyPoints(): void {
         this.service.getKeyPoints(this.tour?.Id!).subscribe({
-            next: (result: KeyPoint[]) => {
-                this.keyPoints = result.sort((x, y) => {
+            next: (result) => {
+                this.keyPoints = result.List.sort((x, y) => {
                     return x.Order < y.Order ? -1 : 1;
                 });
                 this.tour!.KeyPoints = this.tour!.KeyPoints?.sort((x, y) => {

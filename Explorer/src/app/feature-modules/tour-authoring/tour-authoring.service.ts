@@ -16,6 +16,8 @@ import { BundleCreation } from "./model/bundle-creation.model";
 import { AuthService } from "src/app/infrastructure/auth/auth.service";
 import { TourListResponse } from "./model/tourListResponse.model";
 import { FacilitesListResponse } from "./model/facilityListResponse.model";
+import { KeyPointList } from "./model/key-point-list.model";
+import { use } from "marked";
 
 
 @Injectable({
@@ -55,8 +57,8 @@ export class TourAuthoringService {
         );
     }
 
-    getKeyPoints(tourId: number): Observable<KeyPoint[]> {
-        return this.http.get<KeyPoint[]>(
+    getKeyPoints(tourId: number): Observable<KeyPointList> {
+        return this.http.get<KeyPointList>(
             environment.apiHost +
                 "market-place/tours/" +
                 tourId +
@@ -77,9 +79,8 @@ export class TourAuthoringService {
     addKeyPoint(keyPoint: KeyPoint): Observable<KeyPoint> {
         return this.http.post<KeyPoint>(
             environment.apiHost +
-                "tour-authoring/tours/" +
-                keyPoint.TourId +
-                "/key-points",
+                "tourAuthoring/tours/keyPoints/" +
+                keyPoint.TourId,
             keyPoint,
         );
     }
@@ -119,11 +120,16 @@ export class TourAuthoringService {
                 userId=res.id
         });
         return this.http.get<FacilitesListResponse>(
-            "https://localhost:44333/api/facility/authorsFacilities/"+userId,
+            "https://localhost:44333/api/facility/authorsFacilities/" + userId,
         );
     }
 
     addFacility(facility: Facilities): Observable<Facilities> {
+        var userId = 0;
+        this.authService.user$.subscribe(res =>{
+                userId=res.id
+        });
+        facility.AuthorId = userId;
         return this.http.post<Facilities>(
             environment.apiHost + "facility",
             facility,

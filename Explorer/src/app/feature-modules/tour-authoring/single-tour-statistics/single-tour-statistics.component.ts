@@ -47,8 +47,8 @@ export class SingleTourStatisticsComponent implements OnInit{
     });
 
     this.service.getKeyPoints(Number(param)).subscribe({
-      next: (result: KeyPoint[]) =>{
-        this.keyPoints = result;
+      next: (result) =>{
+        this.keyPoints = result.List;
 
         this.service.getKeyPointVisitPercentage(Number(param)).subscribe({
           next: (result: number[]) =>{

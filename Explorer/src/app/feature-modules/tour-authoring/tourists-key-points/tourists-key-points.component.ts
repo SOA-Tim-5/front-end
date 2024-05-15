@@ -113,8 +113,8 @@ export class TouristsKeyPointsComponent implements OnInit{
 
                 setTimeout(() => {
                     this.service.getKeyPoints(tourId).subscribe({
-                        next: (result: KeyPoint[]) => {
-                            this.keyPoints = result;
+                        next: (result) => {
+                            this.keyPoints = result.List;
                             
                             if(result){
                                 this.getRecommendedTours();
