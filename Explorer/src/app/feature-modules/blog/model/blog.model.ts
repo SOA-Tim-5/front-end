@@ -5,7 +5,7 @@ import { Vote } from "./vote.model";
 export interface Blog {
     id: number;
     title: string;
-    description: string;
+    Description: string;
     date: string;
     status: number;
     comments: Comment[];

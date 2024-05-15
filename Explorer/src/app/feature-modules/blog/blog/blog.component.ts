@@ -42,7 +42,7 @@ export class BlogComponent implements OnInit {
         this.authService.user$.subscribe(user => {
             this.user = user;
         });
-
+        console.log("Blog compo"+this.blog)
         const param = this.route.snapshot.paramMap.get("blogId");
         if (param) {
             this.blogId = Number(param);
@@ -57,7 +57,7 @@ export class BlogComponent implements OnInit {
             next: (result: Blog) => {
                 this.blog = result;
                 this.blogMarkdown = DOMPurify.sanitize(
-                    md.parse(this.blog.description),
+                    md.parse(this.blog.Description),
                 );
                 this.vote = this.getVote();
             },

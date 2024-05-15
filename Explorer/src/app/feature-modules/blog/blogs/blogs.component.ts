@@ -10,6 +10,7 @@ import { UpdateBlog } from "../model/blog-update.model";
 import { Following } from "../../stakeholder/model/following.model";
 import { StakeholderService } from "../../stakeholder/stakeholder.service";
 import { trigger, transition, style, animate } from "@angular/animations";
+import { Blog2 } from "../model/blog2.model";
 
 @Component({
     selector: "xp-blogs",
@@ -28,7 +29,7 @@ import { trigger, transition, style, animate } from "@angular/animations";
     ],
 })
 export class BlogsComponent implements OnInit {
-    blogs: Blog[] = [];
+    blogs: Blog2[] = [];
     user: User | undefined;
     followings: Following[] = [];
     selectedStatus: number = 5;
@@ -66,9 +67,9 @@ export class BlogsComponent implements OnInit {
     removePrivates(): void {
         this.blogs = this.blogs.filter(
             b =>
-                b.visibilityPolicy == 0 ||
-                b.authorId == this.user?.id ||
-                this.checkIfFollowing(b.authorId),
+                b.VisibilityPolicy == 0 ||
+                b.AuthorId == this.user?.id ||
+                this.checkIfFollowing(b.AuthorId),
         );
     }
 
@@ -81,19 +82,27 @@ export class BlogsComponent implements OnInit {
         if(this.clubId == -1){
             this.service.getFollowingBlogs().subscribe({
                 next: result  => {
-                    this.blogs = result.BlogResponseDto;
+                    this.blogs = result.Response;
+                    this.blogs.forEach(blog =>
+                        {
+                            this.authService.user$.subscribe(res => {
+                                blog.Author = res;
+                            })
+                        }
+                    );
                     this.removePrivates();
                 },
                 error: () => {},
             });
         }
         else{
+            /*
             this.service.getClubBlogs(this.clubId).subscribe({
                 next: (result: PagedResults<Blog>) => {
                     this.blogs = result.results;
                 },
                 error: () => {},
-            });
+            });*/
         }
     }
 

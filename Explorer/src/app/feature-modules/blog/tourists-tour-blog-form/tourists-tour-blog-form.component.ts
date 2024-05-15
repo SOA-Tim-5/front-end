@@ -122,7 +122,7 @@ export class TouristsTourBlogFormComponent {
                 this.blog = result;
                 this.blogForm.patchValue({
                     title: result.title,
-                    description: result.description,
+                    description: result.Description,
                 });
             },
         });

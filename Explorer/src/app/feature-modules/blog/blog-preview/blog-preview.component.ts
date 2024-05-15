@@ -14,6 +14,7 @@ import { marked } from "marked";
 import * as DOMPurify from "dompurify";
 import { Router } from "@angular/router";
 import { BlogService } from "../blog.service";
+import { Blog2 } from "../model/blog2.model";
 
 @Component({
     selector: "xp-blog-preview",
@@ -23,7 +24,7 @@ import { BlogService } from "../blog.service";
 export class BlogPreviewComponent implements OnInit {
     constructor(private router: Router, private service: BlogService) {}
 
-    @Input() blog: Blog;
+    @Input() blog: Blog2;
     @Input() vote: Vote | undefined;
     @Input() user: User | undefined;
     @Output() upvote: EventEmitter<number> = new EventEmitter();
@@ -46,28 +47,29 @@ export class BlogPreviewComponent implements OnInit {
 
     ngOnInit(): void {
         const md = marked.setOptions({});
+        console.log("Blog preview"+this.blog)
         this.setTag();
-        this.blogMarkdown = DOMPurify.sanitize(md.parse(this.blog.description));
+        this.blogMarkdown = DOMPurify.sanitize(md.parse(this.blog.Description));
         if (this.router.url === "/my-blogs") this.visibleDelete = true;
         else this.visibleDelete = false;
     }
 
     onUpVote(e: Event) {
         e.stopPropagation();
-        if (!this.user || this.blog.status == 2) {
+        if (!this.user || this.blog.Status == 2) {
             return;
         }
-        this.upvote.emit(this.blog.id);
+        this.upvote.emit(this.blog.Id);
         this.handleVoteChange(VoteType.UPVOTE);
         this.setBlogStatus();
     }
 
     onDownVote(e: Event) {
         e.stopPropagation();
-        if (!this.user || this.blog.status == 2) {
+        if (!this.user || this.blog.Status == 2) {
             return;
         }
-        this.downvote.emit(this.blog.id);
+        this.downvote.emit(this.blog.Id);
         this.handleVoteChange(VoteType.DOWNVOTE);
         this.setBlogStatus();
     }
@@ -80,55 +82,57 @@ export class BlogPreviewComponent implements OnInit {
         if (!this.vote) {
             this.vote = {
                 userId: this.user!.id,
-                blogId: this.blog.id,
+                blogId: this.blog.Id,
                 voteType: voteType,
             };
 
-            if (this.vote.voteType == VoteType.UPVOTE) this.blog.voteCount++;
-            else this.blog.voteCount--;
+            if (this.vote.voteType == VoteType.UPVOTE) this.blog.VoteCount++;
+            else this.blog.VoteCount--;
             return;
         }
 
         if (this.vote.voteType == voteType) {
-            if (voteType == VoteType.UPVOTE) this.blog.voteCount--;
-            else this.blog.voteCount++;
+            if (voteType == VoteType.UPVOTE) this.blog.VoteCount--;
+            else this.blog.VoteCount++;
             this.vote.voteType = undefined;
         } else {
-            if (voteType == VoteType.UPVOTE) this.blog.voteCount++;
-            else this.blog.voteCount--;
+            if (voteType == VoteType.UPVOTE) this.blog.VoteCount++;
+            else this.blog.VoteCount--;
 
-            if (this.vote.voteType == VoteType.UPVOTE) this.blog.voteCount--;
+            if (this.vote.voteType == VoteType.UPVOTE) this.blog.VoteCount--;
             else if (this.vote.voteType == VoteType.DOWNVOTE)
-                this.blog.voteCount++;
+                this.blog.VoteCount++;
             this.vote.voteType = voteType;
         }
     }
 
     setBlogStatus() {
-        if (this.blog.voteCount < -2) {
-            this.blog.status = 2;
-        } else if (this.blog.voteCount >= 3 && this.blog.comments.length >= 3) {
-            this.blog.status = 4;
-        } else if (this.blog.voteCount >= 2 && this.blog.comments.length >= 2) {
-            this.blog.status = 3;
+        if (this.blog.VoteCount < -2) {
+            this.blog.Status = 2;
+        } else if (this.blog.VoteCount >= 3 && this.blog.Comments.length >= 3) {
+            this.blog.Status = 4;
+        } else if (this.blog.VoteCount >= 2 && this.blog.Comments.length >= 2) {
+            this.blog.Status = 3;
         } else {
-            this.blog.status = 1;
+            this.blog.Status = 1;
         }
         this.setTag();
     }
 
     publishBlog(e: Event) {
+        /*
         e.stopPropagation();
-        this.publish.emit(this.blog);
+        this.publish.emit(this.blog);*/
     }
 
     deleteBlog(e: Event) {
+        /*
         e.stopPropagation();
-        this.delete.emit(this.blog.id);
+        this.delete.emit(this.blog.id);*/
     }
 
     setTag() {
-        switch (this.blog.status) {
+        switch (this.blog.Status) {
             case 0:
                 this.statusTag = "✏️ Draft";
                 break;

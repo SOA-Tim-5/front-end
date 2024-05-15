@@ -16,15 +16,12 @@
     <xp-blog-preview
         *ngFor="let blog of blogs"
         [blog]="blog"
-        [vote]="getVote(blog)"
         [user]="user"
-        [routerLink]="['/blog/' + blog.id]"
-        (upvote)="upVoteBlog($event)"
-        (downvote)="downVoteBlog($event)"
+        [routerLink]="['/blog/' + blog.Id]"
         [@fadeIn]
         [style.display]="
-            (selectedStatus == 5 && blog.status != 0) ||
-            blog.status == selectedStatus
+            (selectedStatus == 5 && blog.Status != 0) ||
+            blog.Status == selectedStatus
                 ? 'block'
                 : 'none'
         "

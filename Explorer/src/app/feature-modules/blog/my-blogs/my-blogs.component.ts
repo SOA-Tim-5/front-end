@@ -68,7 +68,7 @@ export class MyBlogsComponent implements OnInit {
         const updateBlog: UpdateBlog = {
             id: blog.id,
             title: blog.title,
-            description: blog.description,
+            description: blog.Description,
             date: new Date().toISOString(),
             status: 1,
             authorId: 0,

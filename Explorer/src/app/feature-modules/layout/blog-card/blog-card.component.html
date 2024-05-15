@@ -5,14 +5,14 @@
         <div [routerLink]="blog.status == 0 ? '/blog-form/' + blog.id : '/blog/ '+ blog.id">
             {{
                 blog.showMore
-                    ? blog.description
-                    : blog.description.length > 280
-                    ? blog.description.slice(0, 280) + " ..."
-                    : blog.description
+                    ? blog.Description
+                    : blog.Description.length > 280
+                    ? blog.Description.slice(0, 280) + " ..."
+                    : blog.Description
             }}
         </div>
         <button
-            *ngIf="blog.description.length > 280"
+            *ngIf="blog.Description.length > 280"
             class="show-more-button"
             (click)="toggleShowMore(blog)"
         >
