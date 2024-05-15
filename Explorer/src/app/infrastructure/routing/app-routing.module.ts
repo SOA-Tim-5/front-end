@@ -236,7 +236,7 @@ const routes: Routes = [
     {
         path: "active-encounters",
         component: ActiveEncounterViewComponent,
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
     },
     {
         path: "tourists-tour",

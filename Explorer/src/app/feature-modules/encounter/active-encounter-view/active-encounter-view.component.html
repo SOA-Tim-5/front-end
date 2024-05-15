@@ -25,13 +25,13 @@
         <div
             class="btn"
             (click)="activateEncounter()"
-            *ngIf="encounter && encounter.Type == 0 && encounterInstance?.userId == 0"
+            *ngIf="encounter && encounter.Type == 0 && encounterInstance?.Status == 0 && encounterInstance?.UserId==0"
         >
             Activate
         </div>
         <div
             class="btn"
-            *ngIf="encounter && encounter.Type == 0 && encounterInstance?.userId != 0 && encounterInstance?.status == 0"
+            *ngIf="encounter && encounter.Type == 0 && encounterInstance?.UserId != 0 && encounterInstance?.Status == 0"
             (click)="activateEncounter()"
         >
             Resume
@@ -40,13 +40,14 @@
         <div
         class="btn"
         (click)="activateEncounter()"
-        *ngIf="encounter && encounter.Type == 1 && encounterInstance?.userId == 0"
+        *ngIf="encounter && encounter.Type == 1 && encounterInstance?.Status == 0 && encounterInstance?.UserId==0"
+
     >
         Activate
     </div>
     <div
         class="btn"
-        *ngIf="encounter && encounter.Type == 1 && encounterInstance?.userId != 0 && encounterInstance?.status == 0"
+        *ngIf="encounter && encounter.Type == 1 && encounterInstance?.UserId != 0 && encounterInstance?.Status != 0"
         (click)="activateEncounter()"
     >
         Resume
@@ -55,14 +56,14 @@
     <div
     class="btn"
     (click)="activateEncounter()"
-    *ngIf="encounter && encounter.Type == 2 && encounterInstance?.userId == 0"
+    *ngIf="encounter && encounter.Type == 2 && encounterInstance?.Status==0 && encounterInstance?.UserId==0"
     >
         Activate
     </div>
     <div
         class="btn"
         (click)="completeEncounter()"
-        *ngIf="encounter && encounter.Type != 1 && encounterInstance?.userId != 0 && encounterInstance?.status == 0"
+        *ngIf="encounter && encounter.Type != 1 && encounterInstance?.UserId != 0 && encounterInstance?.Status==0"
     >
         Complete
     </div>

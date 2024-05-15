@@ -101,9 +101,13 @@ export class AuthService {
         };
         this.user$.next(user);
         if (user.role === "tourist") {
+            var userId=0;
+            this.user$.subscribe(res => {
+                userId = res.id;
+            });
             this.http
                 .get<TouristProgress>(
-                    environment.apiHost + "tourist/encounter/progress",
+                    environment.apiHost + "tourist/encounter/progress/{userId}",
                 )
                 .subscribe({
                     next: progress => {

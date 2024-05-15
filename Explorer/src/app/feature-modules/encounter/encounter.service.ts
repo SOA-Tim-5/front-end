@@ -5,9 +5,15 @@ import { PagedResults } from "src/app/shared/model/paged-results.model";
 import { environment } from "src/env/environment";
 import { Encounter } from "./model/encounter.model";
 import { KeyPointEncounter } from "./model/key-point-encounter.model";
-import { TouristPosition } from "../tour-execution/model/tourist-position.model";
+//import { TouristPosition } from "../tour-execution/model/tourist-position.model";
+import { TouristPosition } from "./model/TouristPosition.model";
 import { UserPositionWithRange } from "./model/user-position-with-range.model";
-import { EncounterInstance } from "./model/encounter-instance.model";
+import { EncounterInstanceResponseDto } from "./model/encounter-instance.model";
+import { ListEncounterResponseDto } from "./model/ListEncounterResponseDto.model";
+import { AuthService } from "src/app/infrastructure/auth/auth.service";
+import { use } from "marked";
+import { EncoounterInstanceId } from "./model/EncounterInstanceId.model";
+import { Inrange } from "./model/Inrange.model";
 
 @Injectable({
     providedIn: "root",
@@ -31,7 +37,7 @@ export class EncounterService {
         );
     }
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private authService: AuthService) {}
 
     getActiveEncounters(): Observable<PagedResults<Encounter>> {
         return this.http.get<PagedResults<Encounter>>(
@@ -56,16 +62,20 @@ export class EncounterService {
         );
     }
 
-    getEncounterInstance(encounterId: number): Observable<EncounterInstance> {
-        return this.http.get<EncounterInstance>(
-            environment.apiHost + `tourist/encounter/${encounterId}/instance`,
+    getEncounterInstance(encounterId: number): Observable<EncounterInstanceResponseDto> {
+        var userId=0;
+        this.authService.user$.subscribe(res => {
+            userId = res.id;
+        });
+        return this.http.get<EncounterInstanceResponseDto>(
+            environment.apiHost + `tourist/encounter/${encounterId}/${userId}/instance`,
         );
     }
 
     getEncountersInRangeOf(
         userPositionWithRange: UserPositionWithRange,
-    ): Observable<Encounter[]> {
-        return this.http.post<Encounter[]>(
+    ): Observable<ListEncounterResponseDto> {
+        return this.http.post<ListEncounterResponseDto>(
             environment.apiHost + "tourist/encounter/in-range-of",
             userPositionWithRange,
         );
@@ -75,19 +85,29 @@ export class EncounterService {
         userPositionWithRange: UserPositionWithRange,
         encounterId: number,
     ): Observable<PagedResults<Encounter>> {
+        var userId=0;
+        this.authService.user$.subscribe(res => {
+            userId = res.id;
+        });
+        const touristPoistion:TouristPosition={
+            TouristId:userId,
+            Longitude:userPositionWithRange.longitude,
+            Latitude:userPositionWithRange.latitude,
+            EncounterId:encounterId,
+        }
         return this.http.post<PagedResults<Encounter>>(
-            environment.apiHost + `tourist/encounter/${encounterId}/activate`,
-            userPositionWithRange,
+            environment.apiHost + `tourist/encounter/activate`,
+            touristPoistion
         );
     }
 
     checkIfUserInCompletionRange(
         userPositionWithRange: UserPositionWithRange,
         encounterId: number,
-    ): Observable<boolean> {
-        return this.http.post<boolean>(
+    ): Observable<Inrange> {
+        return this.http.post<Inrange>(
             environment.apiHost +
-                `tourist/hidden-location-encounter/${encounterId}/check-range`,
+                `tourist/hidden-location-encounter/check-range`,
             userPositionWithRange,
         );
     }
@@ -103,11 +123,21 @@ export class EncounterService {
     completeHiddenLocationEncounter(
         userPositionWithRange: UserPositionWithRange,
         encounterId: number,
-    ): Observable<Encounter> {
-        return this.http.post<Encounter>(
+    ): Observable<Inrange> {
+        var userId=0;
+        this.authService.user$.subscribe(res => {
+            userId = res.id;
+        });
+        const touristPoistion:TouristPosition={
+            TouristId:userId,
+            Longitude:userPositionWithRange.longitude,
+            Latitude:userPositionWithRange.latitude,
+            EncounterId:encounterId,
+        }
+        return this.http.post<Inrange>(
             environment.apiHost +
-                `tourist/hidden-location-encounter/${encounterId}/complete`,
-            userPositionWithRange,
+                `tourist/hidden-location-encounter/complete`,
+            touristPoistion,
         );
     }
 
@@ -115,9 +145,17 @@ export class EncounterService {
         userPositionWithRange: UserPositionWithRange,
         encounterId: number,
     ): Observable<Encounter> {
+        var userId=0;
+        this.authService.user$.subscribe(res => {
+            userId = res.id;
+        });
+        const encounterIndtanceId:EncoounterInstanceId={
+            Id:userId,
+            EncounterId:encounterId,
+        }
         return this.http.post<Encounter>(
-            environment.apiHost + `tourist/encounter/${encounterId}/complete/misc`,
-            userPositionWithRange,
+            environment.apiHost + `tourist/encounter/complete/misc`,
+            encounterIndtanceId,
         );
     }
 
@@ -125,9 +163,19 @@ export class EncounterService {
         userPositionWithRange: UserPositionWithRange,
         encounterId: number,
     ): Observable<Encounter> {
+        var userId=0;
+        this.authService.user$.subscribe(res => {
+            userId = res.id;
+        });
+        const touristPoistion:TouristPosition={
+            TouristId:userId,
+            Longitude:userPositionWithRange.longitude,
+            Latitude:userPositionWithRange.latitude,
+            EncounterId:encounterId,
+        }
         return this.http.post<Encounter>(
-            environment.apiHost + `tourist/encounter/${encounterId}/complete/social`,
-            userPositionWithRange,
+            environment.apiHost + `tourist/encounter/complete/social`,
+            touristPoistion,
         );
     }
 

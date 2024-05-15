@@ -7,11 +7,13 @@ import { faLocationCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { PositionSimulatorComponent } from "src/app/shared/position-simulator/position-simulator.component";
 import { AuthService } from "src/app/infrastructure/auth/auth.service";
-import { EncounterInstance } from "../model/encounter-instance.model";
+import { EncounterInstanceResponseDto } from "../model/encounter-instance.model";
 import { NotifierService } from "angular-notifier";
 import { xpError } from "src/app/shared/model/error.model";
 import { environment } from "src/env/environment";
 import { EncounterCompletedPopupComponent } from "../encounter-completed-popup/encounter-completed-popup.component";
+import { ListEncounterResponseDto } from "../model/ListEncounterResponseDto.model";
+import { TourAuthoringService } from "../../tour-authoring/tour-authoring.service";
 
 @Component({
     selector: "xp-active-encounter-view",
@@ -21,10 +23,12 @@ import { EncounterCompletedPopupComponent } from "../encounter-completed-popup/e
 export class ActiveEncounterViewComponent implements AfterViewInit {
     points: any;
     encounters: Encounter[];
-    filteredEncounters: Encounter[];
+    
+    filteredEncounters:Encounter[]
+    allEncounter: ListEncounterResponseDto;
     encounter?: Encounter;
-    encounterInstance?: EncounterInstance;
-    loadEncounterInstance?: EncounterInstance;
+    encounterInstance?: EncounterInstanceResponseDto;
+    loadEncounterInstance?: EncounterInstanceResponseDto;
     dialogRef: MatDialogRef<PositionSimulatorComponent, any> | undefined;
     matDialogRef:
         | MatDialogRef<EncounterCompletedPopupComponent, any>
@@ -39,7 +43,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
     faLocation = faLocationCrosshairs;
 
     userPosition: UserPositionWithRange = {
-        range: 70000,
+        range: 7000000,
         longitude: 19,
         latitude: 45,
     };
@@ -49,6 +53,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
         private authService: AuthService,
         notifierService: NotifierService,
         public dialog: MatDialog,
+        private authoringService:TourAuthoringService
     ) {
         this.notifier = notifierService;
     }
@@ -73,13 +78,17 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
     }
 
     getEncounterInstance(encounterId: number) {
+
+
         this.service
             .getEncounterInstance(encounterId)
-            .subscribe(result => (this.encounterInstance = result));
+            .subscribe(result => {this.encounterInstance = result;
+            });
+
     }
 
     activateEncounter() {
-        if(this.encounterInstance?.userId == 0){
+       if(this.encounterInstance?.UserId == 0){
             this.service
             .activateEncounter(this.userPosition, this.encounter!.Id)
             .subscribe({
@@ -103,7 +112,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                         this.notifier.notify("error", xpError.getErrorMessage(err));
                     },
                 });
-            }else if(this.encounterInstance?.status == 0){
+            }else if(this.encounterInstance?.Status == 0){
                 this.notifier.notify(
                     "info",
                     "Already activated encounter!",
@@ -137,7 +146,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                                 )
                         .subscribe({
                             next: result => {
-                                this.hiddenEncounterCheck = result;
+                                this.hiddenEncounterCheck = result.In;
                                 if (this.hiddenEncounterCheck == false) {
                                     clearInterval(interval);
                                     return;
@@ -147,7 +156,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                                     if (
                                         this.hiddenEncounterCheck &&
                                         currentEncounterId == this.encounter?.Id &&
-                                        this.encounterInstance?.status == 0
+                                        this.encounterInstance?.Status == 0
                                     ) {
                                         console.log("Test passed, completing...");
                                         this.completeEncounter();
@@ -188,6 +197,9 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                     },
                 });
         } else if(this.encounter!.Type === 2){
+            console.log("TTTTTT")
+            console.log(this.encounter)
+
             console.log(this.encounter!.Id)
             this.service
                 .completeEncounter(this.userPosition, this.encounter!.Id)
@@ -214,44 +226,43 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                         );
                     },
                 });
-        }else{
-            console.log(this.encounter!.Id)
 
-                    this.service
-                        .completeSocialEncounter(this.userPosition, this.encounter!.Id)
-                        .subscribe({
-                            next: (result) => {
-                                if(!result)
-                                {
-                                    this.notifier.notify(
-                                        "success",
-                                        "Not enough people or server error" +
-                                            EncounterType[this.encounter!.Type] +
-                                            " encounter!",
-                                    );
-                                    return;
-                                }
-                                this.notifier.notify(
-                                    "success",
-                                    "Successfully completed " +
-                                        EncounterType[this.encounter!.Type] +
-                                        " encounter!",
-                                );
-                                this.completeEncounterOnMap();
-                                this.authService.updateXp();
-                                this.getEncounterInstance(this.encounter!.Id);
-                                this.matDialogRef = this.dialog.open(
-                                    EncounterCompletedPopupComponent,
-                                );
-                            },
-                            error: err => {
-                                // console.log(err);
-                                this.notifier.notify(
-                                    "error",
-                                    xpError.getErrorMessage(err),
-                                );
-                            },
-            });
+        }else {
+            this.service
+            .completeSocialEncounter(this.userPosition, this.encounter!.Id)
+            .subscribe({
+                next: (result) => {
+                    if(!result)
+                    {
+                        this.notifier.notify(
+                            "success",
+                            "Not enough people or server error" +
+                                EncounterType[this.encounter!.Type] +
+                                " encounter!",
+                        );
+                        return;
+                    }
+                    this.notifier.notify(
+                        "success",
+                        "Successfully completed " +
+                            EncounterType[this.encounter!.Type] +
+                            " encounter!",
+                    );
+                    this.completeEncounterOnMap();
+                    this.authService.updateXp();
+                    this.getEncounterInstance(this.encounter!.Id);
+                    this.matDialogRef = this.dialog.open(
+                        EncounterCompletedPopupComponent,
+                    );
+                },
+                error: err => {
+                    // console.log(err);
+                    this.notifier.notify(
+                        "error",
+                        xpError.getErrorMessage(err),
+                    );
+                },
+});
         }
     }
 
@@ -287,7 +298,8 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
         userPosition: UserPositionWithRange,
     ) {
         this.service.getEncountersInRangeOf(userPosition).subscribe(result => {
-            this.filteredEncounters = result;
+            this.allEncounter = result;
+            this.filteredEncounters=this.allEncounter.encounters;
             this.filteredEncounters.forEach((enc, i) => {
                 this.filteredEncounters[i].Picture = enc.Picture.startsWith(
                     "http",
@@ -308,7 +320,7 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
                         this.getEncounterInstance(enc.Id);
                         if (this.encounter.Type === 1) {
                             if (this.encounterInstance) {
-                                if (this.encounterInstance.status == 0) {
+                                if (this.encounterInstance.Status == 0) {
                                     this.hiddenEncounterCheck = true;
                                     this.handleHiddenLocationCompletion();
                                 }
@@ -357,19 +369,19 @@ export class ActiveEncounterViewComponent implements AfterViewInit {
             this.loadEncounterInstance = result;
             this.encounter = this.filteredEncounters.at(this.encounterNumber);
             this.encounterInstance = this.loadEncounterInstance;
-            if (this.loadEncounterInstance?.userId !=0 && this.loadEncounterInstance?.status === 0) {
+            if (this.loadEncounterInstance?.UserId !=0 && this.loadEncounterInstance?.Status === 0) {
                 this.mapComponent.setEncounterActiveMarker(
                     this.encounter?.Latitude || 0,
                     this.encounter?.Longitude || 0,
                 );
             }
-            if (this.loadEncounterInstance?.userId !=0 && this.loadEncounterInstance?.status === 1) {
+            if (this.loadEncounterInstance?.UserId !=0 && this.loadEncounterInstance?.Status === 1) {
                 this.mapComponent.setEncounterCompletedMarker(
                     this.encounter?.Latitude || 0,
                     this.encounter?.Longitude || 0,
                 );
             }
-            if (this.loadEncounterInstance?.userId == 0) {
+            if (this.loadEncounterInstance?.UserId == 0) {
                 this.mapComponent.setEncounterMarker(
                     this.encounter?.Latitude || 0,
                     this.encounter?.Longitude || 0,
