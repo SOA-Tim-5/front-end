@@ -57,8 +57,8 @@ export class EditBundleFormComponent implements OnInit {
 
     getToursForAuthor(): void {
         this.service.getTours().subscribe({
-            next: (result: Tour[]) => {
-                this.tours = result;
+            next: (result) => {
+                this.tours = result.tourResponses;
                 this.tours.forEach(t => {});
             },
         });

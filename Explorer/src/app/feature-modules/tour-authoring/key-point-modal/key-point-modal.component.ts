@@ -122,7 +122,7 @@ export class KeyPointModalComponent implements OnInit {
         this.service.uploadImage(this.tourImageFile!).subscribe({
             next: (imagePath: string) => {
                 const keyPoint: KeyPoint = {
-                    TourId: this.tour.Id!,
+                    TourId: 1715704667140079,
                     Name: this.keyPointForm.value.Name || "",
                     Description: this.keyPointForm.value.Description || "",
                     Longitude: this.keyPointForm.value.Longitude || 0,
@@ -132,12 +132,12 @@ export class KeyPointModalComponent implements OnInit {
                     Order: 0,
                     HaveSecret:
                         this.keyPointForm.value.SecretDescription?.length != 0,
-                    Secret:
-                        {
-                            images: [""],
-                            description:
-                                this.keyPointForm.value.SecretDescription || "",
-                        } || null,
+                    // Secret:
+                    //     {
+                    //         images: [""],
+                    //         description:
+                    //             this.keyPointForm.value.SecretDescription || "",
+                    //     } || null,
                     HasEncounter: this.hasEncounter,
                     IsEncounterRequired: this.isEncounterRequired,
                 };
@@ -223,14 +223,14 @@ export class KeyPointModalComponent implements OnInit {
             ImagePath: this.keyPointForm.value.ImagePath || "",
             Order: this.keyPoint!.Order,
             HaveSecret: this.keyPointForm.value.SecretDescription?.length != 0,
-            Secret:
-                this.keyPointForm.value.SecretDescription?.length != 0
-                    ? {
-                          images: [""],
-                          description:
-                              this.keyPointForm.value.SecretDescription || "",
-                      } || null
-                    : null,
+            // Secret:
+            //     this.keyPointForm.value.SecretDescription?.length != 0
+            //         ? {
+            //               images: [""],
+            //               description:
+            //                   this.keyPointForm.value.SecretDescription || "",
+            //           } || null
+            //         : null,
             HasEncounter: this.hasEncounter,
             IsEncounterRequired: this.isEncounterRequired,
         };

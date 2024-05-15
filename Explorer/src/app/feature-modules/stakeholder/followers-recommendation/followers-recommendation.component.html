@@ -6,11 +6,11 @@
         <table>
             <tbody>
                 <tr *ngFor="let u of users">
-                    <td>{{ u.username }}</td>
+                    <td>{{ u.Username }}</td>
                     <td>
                         <button
-                            *ngIf="!u.followingStatus"
-                            (click)="follow(u.id)"
+                            *ngIf="!u.FollowingStatus"
+                            (click)="follow(u.Id)"
                             color="primary"
                             mat-raised-button
                         >

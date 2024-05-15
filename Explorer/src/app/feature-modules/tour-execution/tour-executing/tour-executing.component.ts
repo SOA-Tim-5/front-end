@@ -155,7 +155,7 @@ export class TourExecutingComponent implements OnInit {
                         this.session.nextKeyPointId != -1 &&
                         this.session.nextKeyPointId != session.nextKeyPointId
                     ) {
-                        this.showSecret(this.session.nextKeyPointId);
+                        //this.showSecret(this.session.nextKeyPointId);
                     }
                     this.session = session;
                     if (
@@ -187,21 +187,21 @@ export class TourExecutingComponent implements OnInit {
         });
     }
 
-    showSecret(keyPointId: number) {
-        this.tour.KeyPoints?.forEach(keyPoint => {
-            if (keyPoint.Id == keyPointId) {
-                if (keyPoint.Secret?.description != "") {
-                    this.dialogRef.open(SecretPopupComponent, {
-                        width: "auto",
-                        height: "auto",
-                        data: {
-                            dataKey: keyPoint.Secret?.description,
-                        },
-                    });
-                }
-            }
-        });
-    }
+    // showSecret(keyPointId: number) {
+    //     this.tour.KeyPoints?.forEach(keyPoint => {
+    //         if (keyPoint.Id == keyPointId) {
+    //             if (keyPoint.Secret?.description != "") {
+    //                 this.dialogRef.open(SecretPopupComponent, {
+    //                     width: "auto",
+    //                     height: "auto",
+    //                     data: {
+    //                         dataKey: keyPoint.Secret?.description,
+    //                     },
+    //                 });
+    //             }
+    //         }
+    //     });
+    // }
 
     getTour() {
         if (!this.session.isCampaign) {

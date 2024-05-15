@@ -8,12 +8,14 @@ import { Comment, CreateComment } from "./model/comment.model";
 import { Vote } from "./model/vote.model";
 import { CreateBlog } from "./model/blog-create.model";
 import { UpdateBlog } from "./model/blog-update.model";
+import { AuthService } from "src/app/infrastructure/auth/auth.service";
+import { BlogListResponse } from "./model/blog-list-response.model";
 
 @Injectable({
     providedIn: "root",
 })
 export class BlogService {
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private authService: AuthService) {}
 
     getVotedBlogs(userId: number): Observable<PagedResults<Vote>> {
         return this.http.get<PagedResults<Vote>>(
@@ -25,8 +27,12 @@ export class BlogService {
         return this.http.get<PagedResults<Blog>>(environment.apiHost + "blog");
     }
 
-    getFollowingBlogs(): Observable<Blog[]> {
-        return this.http.get<Blog[]>(environment.apiHost + "blog/from-following");
+    getFollowingBlogs(): Observable<BlogListResponse> {
+        var userId = 0;
+        this.authService.user$.subscribe(res => {
+            userId = res.id;
+        });
+        return this.http.get<BlogListResponse>(environment.apiHost + "blog/from-following/"+userId);
     }
     getClubBlogs(clubId: number): Observable<PagedResults<Blog>> {
         return this.http.get<PagedResults<Blog>>(environment.apiHost + "blog/getClubBlogs?page=0&pageSize=0&clubId="+clubId);

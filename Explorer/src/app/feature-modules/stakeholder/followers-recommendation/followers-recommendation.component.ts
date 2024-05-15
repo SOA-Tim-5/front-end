@@ -29,32 +29,32 @@ export class FollowersRecommendationComponent implements OnInit {
         this.service
             .getFollowerRecommendations(this.userId.toString())
             .subscribe(result => {
-                this.users = result;
+                this.users = result.ResponseList;
             });
     }
 
     follow(id: string) {
-        var clicked = this.users.find(u => u.id == id);
+        var clicked = this.users.find(u => u.Id == id);
         if (clicked != undefined) {
             const following: UserFollowing = {
-                userId: this.userId.toString(),
-                username: this.username,
-                image: "https://img.freepik.com/premium-vector/head-man-profile-avatar-stylish-social-networks_676691-1354.jpg",
-                followingUserId: clicked.id.toString(),
-                followingUsername: clicked.username,
-                followingImage:
+                UserId: this.userId.toString(),
+                Username: this.username,
+                Image: "https://img.freepik.com/premium-vector/head-man-profile-avatar-stylish-social-networks_676691-1354.jpg",
+                FollowingUserId: clicked.Id.toString(),
+                FollowingUsername: clicked.Username,
+                FollowingImage:
                     "https://img.freepik.com/premium-vector/head-man-profile-avatar-stylish-social-networks_676691-1353.jpg",
             };
             this.service.createNewFollowing(following).subscribe({
                 next: (result: any) => {
                     if (clicked != undefined) {
-                        clicked.followingStatus = true;
+                        clicked.FollowingStatus = true;
                         // this.loadFollowings();
                     }
                     this.service
                         .getFollowerRecommendations(this.userId.toString())
                         .subscribe(result => {
-                            this.users = result;
+                            this.users = result.ResponseList;
                         });
                 },
             });

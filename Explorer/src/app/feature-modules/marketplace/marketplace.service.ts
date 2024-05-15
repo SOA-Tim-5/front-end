@@ -32,6 +32,7 @@ import { Blog } from "../blog/model/blog.model";
 import { Subscription } from "./model/subscription.model";
 import { Person } from "../stakeholder/model/person.model";
 import { Wishlist } from "./model/wishlist.model";
+import { AuthService } from "src/app/infrastructure/auth/auth.service";
 
 @Injectable({
     providedIn: "root",
@@ -49,8 +50,9 @@ export class MarketplaceService {
     constructor(private http: HttpClient) {}
 
     getTourPreference(): Observable<TourPreference> {
+        
         return this.http.get<TourPreference>(
-            environment.apiHost + "tourist/preferences",
+            environment.apiHost + "tourist/preferences/-169",
         );
     }
 

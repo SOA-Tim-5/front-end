@@ -11,7 +11,7 @@ export interface KeyPoint {
     ImagePath: string;
     Order: number;
     HaveSecret: boolean;
-    Secret: KeyPointSecret | null;
+    //Secret: KeyPointSecret | null;
     HasEncounter: boolean;
     IsEncounterRequired: boolean;
 }

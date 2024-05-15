@@ -13,16 +13,23 @@ import { PublicKeyPoint } from "./model/public-key-point.model";
 import { Person } from "../stakeholder/model/person.model";
 import { Bundle } from "./model/bundle.model";
 import { BundleCreation } from "./model/bundle-creation.model";
+import { AuthService } from "src/app/infrastructure/auth/auth.service";
+import { TourListResponse } from "./model/tourListResponse.model";
+import { FacilitesListResponse } from "./model/facilityListResponse.model";
 
 @Injectable({
     providedIn: "root",
 })
 export class TourAuthoringService {
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private authService: AuthService) {}
 
-    getTours(): Observable<Tour[]> {
-        return this.http.get<Tour[]>(
-            "http://localhost:44333/api/tour/authors",
+    getTours(): Observable<TourListResponse> {
+        var userId = 0;
+        this.authService.user$.subscribe(res =>{
+                userId=res.id
+        });
+        return this.http.get<TourListResponse>(
+            "https://localhost:44333/api/tour/authors/" + userId
         );
     }
 
@@ -96,14 +103,22 @@ export class TourAuthoringService {
     }
 
     getFacilities(): Observable<PagedResults<Facilities>> {
+        var userId = 0;
+        this.authService.user$.subscribe(res =>{
+                userId=res.id
+        });
         return this.http.get<PagedResults<Facilities>>(
-            environment.apiHost + "facility",
+            environment.apiHost + "facility/"+userId,
         );
     }
 
-    getAuthorsFacilities(): Observable<Facilities[]> {
-        return this.http.get<Facilities[]>(
-            environment.apiHost + "facility/authorsFacilities",
+    getAuthorsFacilities(): Observable<FacilitesListResponse> {
+        var userId = 0;
+        this.authService.user$.subscribe(res =>{
+                userId=res.id
+        });
+        return this.http.get<FacilitesListResponse>(
+            "https://localhost:44333/api/facility/authorsFacilities/"+userId,
         );
     }
 

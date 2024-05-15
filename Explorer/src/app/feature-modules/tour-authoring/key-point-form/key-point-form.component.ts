@@ -74,9 +74,7 @@ export class KeyPointFormComponent implements OnChanges {
         Address: new FormControl<string>("", [Validators.required]),
         ImagePath: new FormControl<string>("", [Validators.required]),
         IsPublicChecked: new FormControl<boolean>(false),
-        HaveSecret: new FormControl<boolean>(false),
-        SecretDescription: new FormControl<string>(""),
-        SecretImages: new FormControl<string>(""),
+        HaveSecret: new FormControl<boolean>(false)
     });
 
     onSelectImage(event: Event) {
@@ -95,6 +93,7 @@ export class KeyPointFormComponent implements OnChanges {
     }
 
     addKeyPoint(): void {
+        console.log(this.isValidForm())
         if (this.isValidForm()) return;
 
         this.route.paramMap.subscribe({
@@ -114,13 +113,13 @@ export class KeyPointFormComponent implements OnChanges {
                             Order: 0,
                             HaveSecret:
                                 this.keyPointForm.value.HaveSecret || false,
-                            Secret:
-                                {
-                                    images: [""],
-                                    description:
-                                        this.keyPointForm.value
-                                            .SecretDescription || "",
-                                } || null,
+                            // Secret:
+                            //     {
+                            //         images: [""],
+                            //         description:
+                            //             this.keyPointForm.value
+                            //                 .SecretDescription || "",
+                            //     } || null,
                             HasEncounter: this.hasEncounter,
                             IsEncounterRequired: this.isEncounterRequired,
                         };
@@ -188,6 +187,7 @@ export class KeyPointFormComponent implements OnChanges {
     }
 
     updateKeyPoint(): void {
+        console.log(this.isValidForm())
         if (this.isValidForm()) return;
 
         this.route.paramMap.subscribe({
@@ -203,12 +203,12 @@ export class KeyPointFormComponent implements OnChanges {
                     ImagePath: this.keyPointForm.value.ImagePath || "",
                     Order: 0,
                     HaveSecret: this.keyPointForm.value.HaveSecret || false,
-                    Secret:
-                        {
-                            images: [""],
-                            description:
-                                this.keyPointForm.value.SecretDescription || "",
-                        } || null,
+                    // Secret:
+                    //     {
+                    //         images: [""],
+                    //         description:
+                    //             this.keyPointForm.value.SecretDescription || "",
+                    //     } || null,
                     HasEncounter: this.hasEncounter,
                     IsEncounterRequired: this.isEncounterRequired,
                 };

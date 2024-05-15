@@ -1,5 +1,5 @@
 export interface UserFollow {
-    id: number;
-    username: string;
-    followingStatus: boolean;
+    Id: number;
+    Username: string;
+    FollowingStatus: boolean;
 }

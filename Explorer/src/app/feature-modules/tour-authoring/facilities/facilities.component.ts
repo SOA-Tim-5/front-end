@@ -42,15 +42,16 @@ export class FacilitiesComponent implements OnInit {
 
     getFacilities(): void {
         this.service.getAuthorsFacilities().subscribe({
-            next: (result: Facilities[]) => {
-                this.facilities = result;
+            next: (result) => {
+                console.log(result)
+                this.facilities = result.facilityResponses;
                 console.log(this.facilities)
-                for (let f of this.facilities) {
-                    this.mapComponent.setMarkersForAllFacilities(
-                        f.Latitude,
-                        f.Longitude,
-                    );
-                }
+                // for (let f of this.facilities) {
+                //     this.mapComponent.setMarkersForAllFacilities(
+                //         f.Latitude,
+                //         f.Longitude,
+                //     );
+                // }
             },
             error: () => {},
         });

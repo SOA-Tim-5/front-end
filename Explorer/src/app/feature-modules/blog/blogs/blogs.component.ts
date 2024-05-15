@@ -81,7 +81,7 @@ export class BlogsComponent implements OnInit {
         if(this.clubId == -1){
             this.service.getFollowingBlogs().subscribe({
                 next: result  => {
-                    this.blogs = result;
+                    this.blogs = result.BlogResponseDto;
                     this.removePrivates();
                 },
                 error: () => {},

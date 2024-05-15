@@ -76,6 +76,7 @@ export class KeyPointsComponent implements OnInit {
             this.service.getTour(Number(param)).subscribe({
                 next: result => {
                     this.tour = result;
+
                     this.getKeyPoints();
                     this.enableButtons();
                 },

@@ -45,7 +45,6 @@
     <div class="key-point-cards-container">
         <xp-key-point-card
             [isAddNew]="true"
-            *ngIf="tour?.Status == 2 || tour?.Status == 0"
             (click)="openNewKeyPointDialog()"
         />
         <xp-key-point-card

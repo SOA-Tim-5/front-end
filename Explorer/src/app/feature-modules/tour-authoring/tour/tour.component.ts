@@ -185,8 +185,8 @@ export class TourComponent implements OnInit {
 
     getTours(): void {
         this.tourAuthoringService.getTours().subscribe({
-            next: (result: Tour[]) => {
-                this.tours = result;
+            next: (result) => {
+                this.tours = result.tourResponses;
                 console.log(this.tours);
                 this.totalCount = this.tours.length;
             },

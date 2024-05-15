@@ -26,6 +26,10 @@ import { WishlistNotification } from "./model/wishlist-notification.model";
 import { Problem } from "../marketplace/model/problem.model";
 import { UserFollowing } from "./model/user-following.model";
 import { UserForFollow } from "./model/user-for-follow.model";
+import { FollowingsList } from "./model/FollowingsList.model";
+import { AuthService } from "src/app/infrastructure/auth/auth.service";
+import { use } from "marked";
+import { UserResponseList } from "./model/user-response-list.model";
 
 @Injectable({
     providedIn: "root",
@@ -70,7 +74,7 @@ export class StakeholderService {
                 "/problem-answer",
         );
     }
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private authService: AuthService) {}
 
     getPeople(): Observable<PagedResults<Person>> {
         return this.http.get<PagedResults<Person>>(
@@ -87,9 +91,13 @@ export class StakeholderService {
             environment.apiHost + "follower/followings/" + id,
         );
     }
-    getSearched(searchUsername: string): Observable<PagedResults<UserFollow>> {
-        return this.http.get<PagedResults<UserFollow>>(
-            environment.apiHost + "follower/search/" + searchUsername,
+    getSearched(searchUsername: string): Observable<UserResponseList> {
+        var userId=0;
+        this.authService.user$.subscribe(res => {
+            userId = res.id;
+        });
+        return this.http.get<UserResponseList>(
+            environment.apiHost + "follower/search/" + searchUsername + '/' + userId,
         );
     }
     deleteFollowing(id: number): Observable<Following> {
@@ -312,20 +320,20 @@ export class StakeholderService {
         );
     }
 
-    getUserFollowings(id: string): Observable<UserForFollow[]> {
-        return this.http.get<UserForFollow[]>(
+    getUserFollowings(id: string): Observable<FollowingsList> {
+        return this.http.get<FollowingsList>(
             environment.apiHost + "follower/followings/" + id,
         );
     }
 
-    getUserFollowers(id: string): Observable<UserForFollow[]> {
-        return this.http.get<UserForFollow[]>(
+    getUserFollowers(id: string): Observable<FollowingsList> {
+        return this.http.get<FollowingsList>(
             environment.apiHost + "follower/followers/" + id,
         );
     }
 
-    getFollowerRecommendations(id: string): Observable<UserForFollow[]> {
-        return this.http.get<UserForFollow[]>(
+    getFollowerRecommendations(id: string): Observable<FollowingsList> {
+        return this.http.get<FollowingsList>(
             environment.apiHost + "follower/recommendations/" + id,
         );
     }

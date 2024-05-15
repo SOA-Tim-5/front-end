@@ -39,21 +39,21 @@ export class FollowerSearchDialogComponent implements OnInit {
         });*/
     }
     follow(id: number) {
-        var clicked = this.users.find(u => u.id == id);
+        var clicked = this.users.find(u => u.Id == id);
         if (clicked != undefined) {
             const following: UserFollowing = {
-                userId: this.userId.toString(),
-                username: this.username,
-                image: "https://img.freepik.com/premium-vector/head-man-profile-avatar-stylish-social-networks_676691-1354.jpg",
-                followingUserId: clicked.id.toString(),
-                followingUsername: clicked.username,
-                followingImage:
+                UserId: this.userId.toString(),
+                Username: this.username,
+                Image: "https://img.freepik.com/premium-vector/head-man-profile-avatar-stylish-social-networks_676691-1354.jpg",
+                FollowingUserId: clicked.Id.toString(),
+                FollowingUsername: clicked.Username,
+                FollowingImage:
                     "https://img.freepik.com/premium-vector/head-man-profile-avatar-stylish-social-networks_676691-1353.jpg",
             };
             this.service.createNewFollowing(following).subscribe({
                 next: (result: any) => {
                     if (clicked != undefined) {
-                        clicked.followingStatus = true;
+                        clicked.FollowingStatus = true;
                         this.loadFollowings();
                     }
                 },
@@ -62,12 +62,12 @@ export class FollowerSearchDialogComponent implements OnInit {
     }
     search() {
         this.service.getSearched(this.searchUsername).subscribe(result => {
-            this.users = result.results;
+            this.users = result.ResponseList;
             this.users.forEach(user => {
-                if (this.followings.some(f => user.id.toString() == f.id)) {
-                    user.followingStatus = true;
+                if (this.followings.some(f => user.Id.toString() == f.Id)) {
+                    user.FollowingStatus = true;
                 } else {
-                    user.followingStatus = false;
+                    user.FollowingStatus = false;
                 }
             });
         });

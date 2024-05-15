@@ -78,10 +78,10 @@ export class UserProfileComponent implements OnInit {
         this.service
             .getUserFollowings(this.user.id.toString())
             .subscribe(result => {
-                this.followings = result;
+                this.followings = result.ResponseList;
                 this.followingsCount = this.followings.length;
                 this.followings.forEach(item => {
-                    item.followingStatus = true;
+                    item.FollowingStatus = true;
                 });
             });
     }
@@ -89,10 +89,10 @@ export class UserProfileComponent implements OnInit {
         this.service
             .getUserFollowers(this.user.id.toString())
             .subscribe(result => {
-                this.followers = result;
+                this.followers = result.ResponseList;
                 this.followersCount = this.followers.length;
                 this.followers.forEach(item => {
-                    item.followingStatus = true;
+                    item.FollowingStatus = true;
                 });
             });
         console.log(this.followers);
