@@ -39,21 +39,21 @@ export class FollowerSearchDialogComponent implements OnInit {
         });*/
     }
     follow(id: number) {
-        var clicked = this.users.find(u => u.Id == id);
+        var clicked = this.users.find(u => u.id == id);
         if (clicked != undefined) {
             const following: UserFollowing = {
                 UserId: this.userId.toString(),
                 Username: this.username,
                 Image: "https://img.freepik.com/premium-vector/head-man-profile-avatar-stylish-social-networks_676691-1354.jpg",
-                FollowingUserId: clicked.Id.toString(),
-                FollowingUsername: clicked.Username,
+                FollowingUserId: clicked.id.toString(),
+                FollowingUsername: clicked.username,
                 FollowingImage:
                     "https://img.freepik.com/premium-vector/head-man-profile-avatar-stylish-social-networks_676691-1353.jpg",
             };
             this.service.createNewFollowing(following).subscribe({
                 next: (result: any) => {
                     if (clicked != undefined) {
-                        clicked.FollowingStatus = true;
+                        clicked.followingStatus = true;
                         this.loadFollowings();
                     }
                 },
@@ -64,10 +64,10 @@ export class FollowerSearchDialogComponent implements OnInit {
         this.service.getSearched(this.searchUsername).subscribe(result => {
             this.users = result.ResponseList;
             this.users.forEach(user => {
-                if (this.followings.some(f => user.Id.toString() == f.Id)) {
-                    user.FollowingStatus = true;
+                if (this.followings.some(f => user.id.toString() == f.Id)) {
+                    user.followingStatus = true;
                 } else {
-                    user.FollowingStatus = false;
+                    user.followingStatus = false;
                 }
             });
         });
